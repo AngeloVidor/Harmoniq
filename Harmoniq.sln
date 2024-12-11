@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harmoniq.Domain", "Harmoniq.Domain\Harmoniq.Domain.csproj", "{A3E69E82-092C-422B-B670-F87E80DCF6F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harmoniq.DAL", "Harmoniq.DAL\Harmoniq.DAL.csproj", "{F28A54AD-C8BC-40CA-A557-312200A50B09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harmoniq.BLL", "Harmoniq.BLL\Harmoniq.BLL.csproj", "{B9A12A4C-F1FF-46AE-A550-DACAD5F2DA58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harmoniq.API", "Harmoniq.API\Harmoniq.API.csproj", "{3F9B8A29-5A6B-42CA-B684-1742C89EF0C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3E69E82-092C-422B-B670-F87E80DCF6F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3E69E82-092C-422B-B670-F87E80DCF6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3E69E82-092C-422B-B670-F87E80DCF6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3E69E82-092C-422B-B670-F87E80DCF6F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F28A54AD-C8BC-40CA-A557-312200A50B09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F28A54AD-C8BC-40CA-A557-312200A50B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F28A54AD-C8BC-40CA-A557-312200A50B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F28A54AD-C8BC-40CA-A557-312200A50B09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9A12A4C-F1FF-46AE-A550-DACAD5F2DA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9A12A4C-F1FF-46AE-A550-DACAD5F2DA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9A12A4C-F1FF-46AE-A550-DACAD5F2DA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9A12A4C-F1FF-46AE-A550-DACAD5F2DA58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F9B8A29-5A6B-42CA-B684-1742C89EF0C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F9B8A29-5A6B-42CA-B684-1742C89EF0C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F9B8A29-5A6B-42CA-B684-1742C89EF0C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F9B8A29-5A6B-42CA-B684-1742C89EF0C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

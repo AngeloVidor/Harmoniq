@@ -1,0 +1,6 @@
+@Harmoniq.API_HostAddress = http://localhost:5029
+
+GET {{Harmoniq.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
