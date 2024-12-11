@@ -1,0 +1,12 @@
+C:\Harmoniq\Harmoniq.Domain\bin\Debug\net8.0\Harmoniq.Domain.deps.json
+C:\Harmoniq\Harmoniq.Domain\bin\Debug\net8.0\Harmoniq.Domain.dll
+C:\Harmoniq\Harmoniq.Domain\bin\Debug\net8.0\Harmoniq.Domain.pdb
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\Harmoniq.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\Harmoniq.Domain.AssemblyInfoInputs.cache
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\Harmoniq.Domain.AssemblyInfo.cs
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\Harmoniq.Domain.csproj.CoreCompileInputs.cache
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\Harmoniq.Domain.sourcelink.json
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\Harmoniq.Domain.dll
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\refint\Harmoniq.Domain.dll
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\Harmoniq.Domain.pdb
+C:\Harmoniq\Harmoniq.Domain\obj\Debug\net8.0\ref\Harmoniq.Domain.dll
