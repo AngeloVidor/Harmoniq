@@ -30,18 +30,19 @@ namespace Harmoniq.BLL.Services.Tokens
         public async Task<string> GenerateTokenAsync(UserRegisterDto userRegisterDto)
         {
             var contentCreatorId = await _userAccountService.GetContentCreatorIdIfExists(userRegisterDto.Id);
-            if(contentCreatorId == null)
-            {
-                throw new InvalidOperationException("User is not a Content Creator");
-            }
 
-            var claims = new[]
+
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userRegisterDto.Id.ToString()),
                 new Claim(ClaimTypes.Name, userRegisterDto.Username.ToString()),
                 new Claim(ClaimTypes.Role, userRegisterDto.Roles.ToString()),
-                new Claim("ContentCreatorId", contentCreatorId.Value.ToString())
             };
+
+            if (contentCreatorId != null)
+            {
+                claims.Add(new Claim("ContentCreatorId", contentCreatorId.Value.ToString()));
+            }
 
             var secretKey = _configuration["Jwt:Key"];
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
