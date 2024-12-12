@@ -22,6 +22,63 @@ namespace Harmoniq.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.AlbumEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ContentCreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfTracks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentCreatorId");
+
+                    b.ToTable("Albums");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.AlbumSongsEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SongDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SongTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.ToTable("AlbumSongs");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentCreatorEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -84,6 +141,28 @@ namespace Harmoniq.DAL.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.AlbumEntity", b =>
+                {
+                    b.HasOne("Harmoniq.Domain.Entities.ContentCreatorEntity", "ContentCreator")
+                        .WithMany("Albums")
+                        .HasForeignKey("ContentCreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ContentCreator");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.AlbumSongsEntity", b =>
+                {
+                    b.HasOne("Harmoniq.Domain.Entities.AlbumEntity", "Album")
+                        .WithMany("AlbumSongs")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentCreatorEntity", b =>
                 {
                     b.HasOne("Harmoniq.Domain.Entities.UserEntity", "User")
@@ -93,6 +172,16 @@ namespace Harmoniq.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.AlbumEntity", b =>
+                {
+                    b.Navigation("AlbumSongs");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.ContentCreatorEntity", b =>
+                {
+                    b.Navigation("Albums");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.UserEntity", b =>

@@ -9,11 +9,13 @@ namespace Harmoniq.DAL.Context
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base (options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
         }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<ContentCreatorEntity> ContentCreators { get; set; }
+        public DbSet<AlbumEntity> Albums { get; set; }
+        public DbSet<AlbumSongsEntity> AlbumSongs { get; set; }
     }
 }

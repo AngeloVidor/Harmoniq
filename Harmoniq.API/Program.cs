@@ -1,15 +1,19 @@
 using System.Text;
 using Harmoniq.API.Middlewares;
+using Harmoniq.BLL.Interfaces.Albums;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
 using Harmoniq.BLL.Interfaces.Tokens;
 using Harmoniq.BLL.Interfaces.UserManagement;
 using Harmoniq.BLL.Mapping;
+using Harmoniq.BLL.Services.Albums;
 using Harmoniq.BLL.Services.ContentCreatorAccount;
 using Harmoniq.BLL.Services.Tokens;
 using Harmoniq.BLL.Services.UserManagement;
 using Harmoniq.DAL.Context;
+using Harmoniq.DAL.Interfaces;
 using Harmoniq.DAL.Interfaces.ContentCreatorAccount;
 using Harmoniq.DAL.Interfaces.UserManagement;
+using Harmoniq.DAL.Repositories.Albums;
 using Harmoniq.DAL.Repositories.ContentCreatorAccount;
 using Harmoniq.DAL.Repositories.UserManagement;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -68,6 +72,9 @@ builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 builder.Services.AddScoped<IBearerTokenManagement, BearerTokenManagement>();
 builder.Services.AddScoped<IContentCreatorProfileRepository, ContentCreatorProfileRepository>();
 builder.Services.AddScoped<IContentCreatorProfileService, ContentCreatorProfileService>();
+builder.Services.AddScoped<IAlbumCreatorRepository, AlbumCreatorRepository>();
+builder.Services.AddScoped<IAlbumCreatorService, AlbumCreatorService>();
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");

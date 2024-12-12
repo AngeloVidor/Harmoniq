@@ -47,5 +47,16 @@ namespace Harmoniq.BLL.Services.UserManagement
             }
             return _mapper.Map<UserRegisterDto>(userEntity);
         }
+
+
+        public async Task<int?> GetContentCreatorIdIfExists(int userId)
+        {
+            var user = await _userAccountRepository.GetUserAccountByIdAsync(userId);
+            if(user != null && user.Roles == AccountType.ContentCreator)
+            {
+                return user.Id;
+            }
+            return null;
+        }
     }
 }

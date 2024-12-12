@@ -15,8 +15,9 @@ namespace Harmoniq.Domain.Entities
         public string ContentCreatorDescription { get; set; }
         public string ContentCreatorCountry { get; set; } //provisionally
         public DateTime DateAdded { get; set; } = DateTime.UtcNow;
-
         public UserEntity User { get; set; }
         public int UserId { get; set; }
+
+        public ICollection<AlbumEntity> Albums {get; set;} = new List<AlbumEntity>();
     }
 }

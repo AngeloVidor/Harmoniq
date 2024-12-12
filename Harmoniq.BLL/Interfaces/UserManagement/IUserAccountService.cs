@@ -10,5 +10,6 @@ namespace Harmoniq.BLL.Interfaces.UserManagement
     {
         Task<UserRegisterDto> RegisterUserAccountAsync(UserRegisterDto userRegisterDto);
         Task<UserRegisterDto> ValidateUserAccountAsync(UserRegisterDto userRegisterDto);
+        Task<int?> GetContentCreatorIdIfExists(int userId);
     }
 }

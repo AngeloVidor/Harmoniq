@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Tokens;
+using Harmoniq.BLL.Interfaces.UserManagement;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,20 +18,29 @@ namespace Harmoniq.BLL.Services.Tokens
     {
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+        private readonly IUserAccountService _userAccountService;
 
-        public BearerTokenManagement(IConfiguration configuration, IMapper mapper)
+        public BearerTokenManagement(IConfiguration configuration, IMapper mapper, IUserAccountService userAccountService)
         {
             _configuration = configuration;
             _mapper = mapper;
+            _userAccountService = userAccountService;
         }
 
         public async Task<string> GenerateTokenAsync(UserRegisterDto userRegisterDto)
         {
+            var contentCreatorId = await _userAccountService.GetContentCreatorIdIfExists(userRegisterDto.Id);
+            if(contentCreatorId == null)
+            {
+                throw new InvalidOperationException("User is not a Content Creator");
+            }
+
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userRegisterDto.Id.ToString()),
                 new Claim(ClaimTypes.Name, userRegisterDto.Username.ToString()),
-                new Claim(ClaimTypes.Role, userRegisterDto.Roles.ToString())
+                new Claim(ClaimTypes.Role, userRegisterDto.Roles.ToString()),
+                new Claim("ContentCreatorId", contentCreatorId.Value.ToString())
             };
 
             var secretKey = _configuration["Jwt:Key"];

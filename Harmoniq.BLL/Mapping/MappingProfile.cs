@@ -20,6 +20,9 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<ContentCreatorEntity, ContentCreatorDto>();
             CreateMap<ContentCreatorDto, ContentCreatorEntity>();
 
+            CreateMap<AlbumEntity, AlbumDto>();
+            CreateMap<AlbumDto, AlbumEntity>();
+
 
         }
     }
