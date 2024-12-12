@@ -37,5 +37,15 @@ namespace Harmoniq.BLL.Services.UserManagement
             var addedUser = await _userAccountRepository.RegisterUserAccountAsync(userEntity);
             return _mapper.Map<UserRegisterDto>(addedUser);
         }
+
+        public async Task<UserRegisterDto> ValidateUserAccountAsync(UserRegisterDto userRegisterDto)
+        {
+            var userEntity = await _userAccountRepository.GetUserAccountByEmailAsync(userRegisterDto.Email);
+            if (userEntity == null || !BCrypt.Net.BCrypt.Verify(userRegisterDto.Password, userEntity.Password))
+            {
+                return null;
+            }
+            return _mapper.Map<UserRegisterDto>(userEntity);
+        }
     }
 }

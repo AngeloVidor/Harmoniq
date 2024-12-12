@@ -9,5 +9,6 @@ namespace Harmoniq.BLL.Interfaces.UserManagement
     public interface IUserAccountService
     {
         Task<UserRegisterDto> RegisterUserAccountAsync(UserRegisterDto userRegisterDto);
+        Task<UserRegisterDto> ValidateUserAccountAsync(UserRegisterDto userRegisterDto);
     }
 }
