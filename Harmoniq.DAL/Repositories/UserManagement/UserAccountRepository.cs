@@ -22,6 +22,11 @@ namespace Harmoniq.DAL.Repositories.UserManagement
             return await _dbContext.Users.Where(em => em.Email == email).FirstOrDefaultAsync();
         }
 
+        public async Task<UserEntity> GetUserAccountByIdAsync(int id)
+        {
+            return await _dbContext.Users.Where(i => i.Id == id).FirstOrDefaultAsync();
+        }
+
         public async Task<UserEntity> RegisterUserAccountAsync(UserEntity userEntity)
         {
             await _dbContext.Users.AddAsync(userEntity);

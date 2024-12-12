@@ -15,5 +15,7 @@ namespace Harmoniq.Domain.Entities
         public string Password { get; set; }
         public AccountType Roles { get; set; }
 
+        public ContentCreatorEntity ContentCreator { get; set; }
+
     }
 }

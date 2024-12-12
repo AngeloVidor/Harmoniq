@@ -14,5 +14,6 @@ namespace Harmoniq.DAL.Context
             
         }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<ContentCreatorEntity> ContentCreators { get; set; }
     }
 }

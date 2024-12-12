@@ -17,6 +17,10 @@ namespace Harmoniq.BLL.Mapping
 
             CreateMap<UserLoginDto, UserRegisterDto>();
 
+            CreateMap<ContentCreatorEntity, ContentCreatorDto>();
+            CreateMap<ContentCreatorDto, ContentCreatorEntity>();
+
+
         }
     }
 }

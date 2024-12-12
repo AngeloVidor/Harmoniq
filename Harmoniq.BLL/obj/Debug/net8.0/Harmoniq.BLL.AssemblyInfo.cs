@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Harmoniq.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9855b9839de91748f276f6f4e73690e2b12bcd7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94f5923aaf4e930c34e130af77a7ecce3f307a1a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Harmoniq.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Harmoniq.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
