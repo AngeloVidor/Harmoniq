@@ -49,6 +49,7 @@ namespace Harmoniq.BLL.Services.UserManagement
         }
 
 
+        //centralizar esse método em um serviço privado
         public async Task<int?> GetContentCreatorIdIfExists(int userId)
         {
             var user = await _userAccountRepository.GetUserAccountByIdAsync(userId);
