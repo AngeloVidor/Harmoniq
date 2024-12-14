@@ -86,6 +86,10 @@ builder.Services.AddScoped<IAlbumSongsService, AlbumSongsService>();
 
 
 builder.Services.AddScoped<IValidator<AlbumSongsDto>, AlbumSongsValidator>();
+builder.Services.AddScoped<IValidator<AlbumDto>, AlbumValidator>();
+builder.Services.AddScoped<IValidator<ContentCreatorDto>, ContentCreatorValidator>();
+
+
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
