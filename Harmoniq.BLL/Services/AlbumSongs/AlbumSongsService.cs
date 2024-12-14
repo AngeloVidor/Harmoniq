@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumSongs;
 using Harmoniq.DAL.Interfaces.AlbumSongs;
 using Harmoniq.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Harmoniq.BLL.Services.AlbumSongs
 {
@@ -14,18 +17,23 @@ namespace Harmoniq.BLL.Services.AlbumSongs
     {
         private readonly IAlbumSongsRepository _albumSongsRepository;
         private readonly IMapper _mapper;
-        public AlbumSongsService(IAlbumSongsRepository albumSongsRepository, IMapper mapper)
+        private readonly IValidator<AlbumSongsDto> _validator;
+        public AlbumSongsService(IAlbumSongsRepository albumSongsRepository, IMapper mapper, IValidator<AlbumSongsDto> validator)
         {
             _albumSongsRepository = albumSongsRepository;
             _mapper = mapper;
+            _validator = validator;
         }
 
         public async Task<AlbumSongsDto> AddSongsToAlbumAsync(AlbumSongsDto albumSongsDto)
         {
-            if (albumSongsDto == null)
+            var validator = await _validator.ValidateAsync(albumSongsDto);
+            if (!validator.IsValid)
             {
-                throw new ArgumentNullException("albumSongsDto cannot be null");
+                throw new FluentValidation.ValidationException(string.Join("; ", validator.Errors.Select(e => e.ErrorMessage)));
+
             }
+
             var albumExist = await _albumSongsRepository.AlbumExistsAsync(albumSongsDto.AlbumId);
             if (!albumExist)
             {

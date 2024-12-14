@@ -1,5 +1,7 @@
 using System.Text;
+using FluentValidation;
 using Harmoniq.API.Middlewares;
+using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Albums;
 using Harmoniq.BLL.Interfaces.AlbumSongs;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
@@ -11,6 +13,7 @@ using Harmoniq.BLL.Services.AlbumSongs;
 using Harmoniq.BLL.Services.ContentCreatorAccount;
 using Harmoniq.BLL.Services.Tokens;
 using Harmoniq.BLL.Services.UserManagement;
+using Harmoniq.BLL.Validators;
 using Harmoniq.DAL.Context;
 using Harmoniq.DAL.Interfaces;
 using Harmoniq.DAL.Interfaces.AlbumSongs;
@@ -81,6 +84,8 @@ builder.Services.AddScoped<IAlbumCreatorService, AlbumCreatorService>();
 builder.Services.AddScoped<IAlbumSongsRepository, AlbumSongsRepository>();
 builder.Services.AddScoped<IAlbumSongsService, AlbumSongsService>();
 
+
+builder.Services.AddScoped<IValidator<AlbumSongsDto>, AlbumSongsValidator>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 

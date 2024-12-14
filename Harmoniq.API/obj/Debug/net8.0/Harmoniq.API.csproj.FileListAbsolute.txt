@@ -177,3 +177,4 @@ C:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspa
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\AutoMapper.dll
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\BCrypt.Net-Next.dll
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\FluentValidation.dll
