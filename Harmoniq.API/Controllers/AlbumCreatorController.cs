@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Albums;
 using Microsoft.AspNetCore.Mvc;
@@ -48,9 +49,15 @@ namespace Harmoniq.API.Controllers
             }
             albumDto.ContentCreatorId = contentCreatorId;
 
-            var addedAlbum = await _albumCreatorService.AddAlbumAsync(albumDto);
-
-            return CreatedAtAction(nameof(AddAlbum), new { id = addedAlbum.Id }, addedAlbum);
+            try
+            {
+                var addedAlbum = await _albumCreatorService.AddAlbumAsync(albumDto);
+                return Ok(addedAlbum);
+            }
+            catch(ValidationException ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
         }
     }
 }

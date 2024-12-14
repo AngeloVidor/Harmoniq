@@ -10,6 +10,7 @@ using Harmoniq.BLL.Interfaces.AlbumSongs;
 using Harmoniq.DAL.Interfaces.AlbumSongs;
 using Harmoniq.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace Harmoniq.BLL.Services.AlbumSongs
 {
@@ -30,8 +31,7 @@ namespace Harmoniq.BLL.Services.AlbumSongs
             var validator = await _validator.ValidateAsync(albumSongsDto);
             if (!validator.IsValid)
             {
-                throw new FluentValidation.ValidationException(string.Join("; ", validator.Errors.Select(e => e.ErrorMessage)));
-
+                throw new ValidationException(string.Join("; ", validator.Errors.Select(e => e.ErrorMessage)));
             }
 
             var albumExist = await _albumSongsRepository.AlbumExistsAsync(albumSongsDto.AlbumId);

@@ -38,9 +38,9 @@ namespace Harmoniq.API.Controllers
                 var registeredUser = await _userAccountService.RegisterUserAccountAsync(userRegisterDto);
                 return Ok(registeredUser);
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(409, ex.Message);
             }
         }
 

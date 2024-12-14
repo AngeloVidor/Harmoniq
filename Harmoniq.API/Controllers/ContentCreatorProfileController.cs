@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
 using Microsoft.AspNetCore.Mvc;
@@ -44,9 +45,13 @@ namespace Harmoniq.API.Controllers
                 var contentCreator = await _contentCreatorProfile.AddContentCreatorProfile(contentCreatorDto);
                 return Ok(contentCreator);
             }
-            catch (Exception ex)
+            catch (ValidationException ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(400, ex.Message);
+            }
+            catch(UnauthorizedAccessException ex)
+            {
+                return StatusCode(403, ex.Message);
             }
         }
 

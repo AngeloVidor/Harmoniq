@@ -38,7 +38,7 @@ namespace Harmoniq.BLL.Services.ContentCreatorAccount
             if (user.Roles != AccountType.ContentCreator)
             {
                 throw new UnauthorizedAccessException("The user does not have permission to create a Content Creator profile.");
-            }
+            }   
 
             var contentCreator = _mapper.Map<ContentCreatorEntity>(contentCreatorDto);
             var addedContentCreator = await _contentCreatorProfile.AddContentCreatorProfile(contentCreator);

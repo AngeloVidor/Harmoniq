@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumSongs;
 using Microsoft.AspNetCore.Authorization;
@@ -54,9 +55,13 @@ namespace Harmoniq.API.Controllers
                 var addedAlbumSongs = await _albumSongsService.AddSongsToAlbumAsync(albumSongsDto);
                 return Ok(addedAlbumSongs);
             }
-            catch (Exception ex)
+            catch (ValidationException ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(400, ex.Message);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return StatusCode(404, ex.Message);
             }
         }
     }

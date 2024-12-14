@@ -29,7 +29,7 @@ namespace Harmoniq.BLL.Services.UserManagement
             var userEmail = await _userAccountRepository.GetUserAccountByEmailAsync(userRegisterDto.Email);
             if (userEmail != null)
             {
-                throw new Exception($"Email {userEmail} is already in use");
+                throw new InvalidOperationException($"Email {userEmail} is already in use");
             }
             userRegisterDto.Password = BCrypt.Net.BCrypt.HashPassword(userRegisterDto.Password);
 
