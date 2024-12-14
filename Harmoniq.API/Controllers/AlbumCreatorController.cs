@@ -10,11 +10,11 @@ namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class IAlbumCreatorController : ControllerBase
+    public class AlbumCreatorController : ControllerBase
     {
         private readonly IAlbumCreatorService _albumCreatorService;
 
-        public IAlbumCreatorController(IAlbumCreatorService albumCreatorService)
+        public AlbumCreatorController(IAlbumCreatorService albumCreatorService)
         {
             _albumCreatorService = albumCreatorService;
         }
@@ -44,7 +44,7 @@ namespace Harmoniq.API.Controllers
 
             if (!int.TryParse(contentCreatorIdString, out int contentCreatorId))
             {
-                return Unauthorized("ContentCreatorId inválido nas claims.");
+                return Unauthorized("Invalid ContentCreatorId in claims.");
             }
             albumDto.ContentCreatorId = contentCreatorId;
 

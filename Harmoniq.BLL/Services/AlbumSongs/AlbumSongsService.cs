@@ -26,6 +26,12 @@ namespace Harmoniq.BLL.Services.AlbumSongs
             {
                 throw new ArgumentNullException("albumSongsDto cannot be null");
             }
+            var albumExist = await _albumSongsRepository.AlbumExistsAsync(albumSongsDto.AlbumId);
+            if (!albumExist)
+            {
+                throw new KeyNotFoundException($"Album with Id: {albumSongsDto.AlbumId} not found");
+            }
+
             var albumSongEntity = _mapper.Map<AlbumSongsEntity>(albumSongsDto);
             var addedAlbumSongs = await _albumSongsRepository.AddSongsToAlbumAsync(albumSongEntity);
             return _mapper.Map<AlbumSongsDto>(addedAlbumSongs);

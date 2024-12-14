@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Harmoniq.DAL.Context;
 using Harmoniq.DAL.Interfaces.AlbumSongs;
 using Harmoniq.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Harmoniq.DAL.Repositories.AlbumSongs
 {
@@ -24,6 +25,16 @@ namespace Harmoniq.DAL.Repositories.AlbumSongs
             return albumSongsEntity;
         }
 
-        
+        public async Task<bool> AlbumExistsAsync(int albumId)
+        {
+            var album = await _dbContext.Albums.Where(a => a.Id == albumId).FirstOrDefaultAsync();
+            if (album == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
     }
 }
