@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumSongs;
+using Harmoniq.BLL.Interfaces.UserContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,22 +17,12 @@ namespace Harmoniq.API.Controllers
     public class AlbumSongsController : ControllerBase
     {
         private readonly IAlbumSongsService _albumSongsService;
+        private readonly IUserContextService _userContextService;
 
-        public AlbumSongsController(IAlbumSongsService albumSongsService)
+        public AlbumSongsController(IAlbumSongsService albumSongsService, IUserContextService userContextService)
         {
             _albumSongsService = albumSongsService;
-        }
-
-        private string GetContentCreatorIdFromClaims()
-        {
-            var contentCreatorIdClaim = User.Claims.FirstOrDefault(c => c.Type == "ContentCreatorId");
-
-            if (contentCreatorIdClaim == null)
-            {
-                throw new UnauthorizedAccessException("ContentCreatorId não encontrado nas claims do usuário.");
-            }
-
-            return contentCreatorIdClaim.Value;
+            _userContextService = userContextService;
         }
 
 
@@ -42,13 +33,8 @@ namespace Harmoniq.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var contentCreatorIdString = GetContentCreatorIdFromClaims();
-
-            if (!int.TryParse(contentCreatorIdString, out int contentCreatorId))
-            {
-                return Unauthorized("Invalid ContentCreatorId in claims.");
-            }
-            albumSongsDto.ContentCreatorId = contentCreatorId;
+            var contentCreator = _userContextService.GetUserIdFromContext();
+            albumSongsDto.ContentCreatorId = contentCreator;
 
             try
             {
@@ -59,7 +45,7 @@ namespace Harmoniq.API.Controllers
             {
                 return StatusCode(400, ex.Message);
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 return StatusCode(404, ex.Message);
             }

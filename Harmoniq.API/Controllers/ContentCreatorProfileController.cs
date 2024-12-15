@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
+using Harmoniq.BLL.Interfaces.UserContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,19 +17,12 @@ namespace Harmoniq.API.Controllers
     public class ContentCreatorProfileController : ControllerBase
     {
         private readonly IContentCreatorProfileService _contentCreatorProfile;
+        private readonly IUserContextService _userContextService;
 
-        public ContentCreatorProfileController(IContentCreatorProfileService contentCreatorProfile)
+        public ContentCreatorProfileController(IContentCreatorProfileService contentCreatorProfile, IUserContextService userContextService)
         {
             _contentCreatorProfile = contentCreatorProfile;
-        }
-
-        private int GetUserIdFromContext()
-        {
-            if (HttpContext.Items["userId"] is not string userId || !int.TryParse(userId, out var id))
-            {
-                throw new UnauthorizedAccessException("Invalid or missing user ID.");
-            }
-            return id;
+            _userContextService = userContextService;
         }
 
 
@@ -40,7 +34,7 @@ namespace Harmoniq.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            contentCreatorDto.UserId = GetUserIdFromContext();
+            contentCreatorDto.UserId = _userContextService.GetUserIdFromContext();
 
             try
             {

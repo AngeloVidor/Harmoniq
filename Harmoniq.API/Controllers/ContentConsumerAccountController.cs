@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.ContentConsumerAccount;
+using Harmoniq.BLL.Interfaces.UserContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +17,12 @@ namespace Harmoniq.API.Controllers
     public class ContentConsumerAccountController : ControllerBase
     {
         private readonly IContentConsumerAccountService _contentConsumerAccount;
+        private readonly IUserContextService _userContextService;
 
-        public ContentConsumerAccountController(IContentConsumerAccountService contentConsumerAccount)
+        public ContentConsumerAccountController(IContentConsumerAccountService contentConsumerAccount, IUserContextService userContextService)
         {
             _contentConsumerAccount = contentConsumerAccount;
+            _userContextService = userContextService;
         }
 
         [HttpPost("add-contentConsumer-account")]
@@ -30,7 +33,7 @@ namespace Harmoniq.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            consumerDto.UserId = GetUserIdFromContext();
+            consumerDto.UserId = _userContextService.GetUserIdFromContext();
 
             try
             {
@@ -47,14 +50,5 @@ namespace Harmoniq.API.Controllers
             }
         }
 
-
-        private int GetUserIdFromContext()
-        {
-            if (HttpContext.Items["userId"] is not string userId || !int.TryParse(userId, out var id))
-            {
-                throw new UnauthorizedAccessException("Invalid or missing user ID.");
-            }
-            return id;
-        }
     }
 }

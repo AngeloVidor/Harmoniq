@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Albums;
+using Harmoniq.BLL.Interfaces.UserContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,24 +17,13 @@ namespace Harmoniq.API.Controllers
     public class AlbumCreatorController : ControllerBase
     {
         private readonly IAlbumCreatorService _albumCreatorService;
+        private readonly IUserContextService _userContextService;
 
-        public AlbumCreatorController(IAlbumCreatorService albumCreatorService)
+        public AlbumCreatorController(IAlbumCreatorService albumCreatorService, IUserContextService userContextService)
         {
             _albumCreatorService = albumCreatorService;
+            _userContextService = userContextService;
         }
-
-        private string GetContentCreatorIdFromClaims()
-        {
-            var contentCreatorIdClaim = User.Claims.FirstOrDefault(c => c.Type == "ContentCreatorId");
-
-            if (contentCreatorIdClaim == null)
-            {
-                throw new UnauthorizedAccessException("ContentCreatorId não encontrado nas claims do usuário.");
-            }
-
-            return contentCreatorIdClaim.Value;
-        }
-
 
         [HttpPost("add-album")]
         public async Task<IActionResult> AddAlbum([FromBody] AlbumDto albumDto)
@@ -43,13 +33,8 @@ namespace Harmoniq.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var contentCreatorIdString = GetContentCreatorIdFromClaims();
-
-            if (!int.TryParse(contentCreatorIdString, out int contentCreatorId))
-            {
-                return Unauthorized("Invalid ContentCreatorId in claims.");
-            }
-            albumDto.ContentCreatorId = contentCreatorId;
+            var contentCreator = _userContextService.GetUserIdFromContext();
+            albumDto.ContentCreatorId = contentCreator;
 
             try
             {

@@ -36,7 +36,7 @@ namespace Harmoniq.BLL.Services.ContentConsumerAccount
             }
             var userDto = new UserDto { Id = contentConsumer.UserId };
             await _userRoleChecker.IsContentConsumer(userDto);
-            
+
             var contentConsumerEntity = _mapper.Map<ContentConsumerEntity>(contentConsumer);
             var addedContentConsumer = await _contentConsumerAccount.AddContentConsumerAccountAsync(contentConsumerEntity);
             return _mapper.Map<ContentConsumerDto>(addedContentConsumer);
