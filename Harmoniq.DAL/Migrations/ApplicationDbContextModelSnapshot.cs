@@ -82,6 +82,36 @@ namespace Harmoniq.DAL.Migrations
                     b.ToTable("AlbumSongs");
                 });
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.ContentConsumerEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Biography")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ContentConsumers");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentCreatorEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -164,6 +194,17 @@ namespace Harmoniq.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Album");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.ContentConsumerEntity", b =>
+                {
+                    b.HasOne("Harmoniq.Domain.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentCreatorEntity", b =>

@@ -4756,11 +4756,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj",
+      "projectUniqueName": "c:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj",
       "projectName": "Harmoniq.DAL",
-      "projectPath": "C:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj",
+      "projectPath": "c:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "C:\\Harmoniq\\Harmoniq.DAL\\obj\\",
+      "outputPath": "c:\\Harmoniq\\Harmoniq.DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4778,8 +4778,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
-              "projectPath": "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj"
+            "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
+              "projectPath": "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj"
             }
           }
         }

@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentCreator")]
     public class ContentCreatorProfileController : ControllerBase
     {
         private readonly IContentCreatorProfileService _contentCreatorProfile;
@@ -29,7 +31,7 @@ namespace Harmoniq.API.Controllers
             return id;
         }
 
-        
+
         [HttpPost("create-profile")]
         public async Task<IActionResult> CreateProfile([FromBody] ContentCreatorDto contentCreatorDto)
         {
@@ -49,7 +51,7 @@ namespace Harmoniq.API.Controllers
             {
                 return StatusCode(400, ex.Message);
             }
-            catch(UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException ex)
             {
                 return StatusCode(403, ex.Message);
             }

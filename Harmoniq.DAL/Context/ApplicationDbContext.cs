@@ -17,5 +17,6 @@ namespace Harmoniq.DAL.Context
         public DbSet<ContentCreatorEntity> ContentCreators { get; set; }
         public DbSet<AlbumEntity> Albums { get; set; }
         public DbSet<AlbumSongsEntity> AlbumSongs { get; set; }
+        public DbSet<ContentConsumerEntity> ContentConsumers { get; set; }
     }
 }

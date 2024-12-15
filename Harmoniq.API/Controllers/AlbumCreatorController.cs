@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Albums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentCreator")]
     public class AlbumCreatorController : ControllerBase
     {
         private readonly IAlbumCreatorService _albumCreatorService;
@@ -54,7 +56,7 @@ namespace Harmoniq.API.Controllers
                 var addedAlbum = await _albumCreatorService.AddAlbumAsync(albumDto);
                 return Ok(addedAlbum);
             }
-            catch(ValidationException ex)
+            catch (ValidationException ex)
             {
                 return StatusCode(400, ex.Message);
             }
