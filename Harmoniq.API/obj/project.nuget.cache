@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "k3xw6ZOSJEA=",
+  "dgSpecHash": "cxIK9NmwI6k=",
   "success": true,
-  "projectFilePath": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
+  "projectFilePath": "C:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\angel\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
