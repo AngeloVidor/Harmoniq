@@ -8,5 +8,6 @@ namespace Harmoniq.BLL.Interfaces.UserContext
     public interface IUserContextService
     {
         int GetUserIdFromContext();
+        int GetContentConsumerIdFromContext();
     }
 }

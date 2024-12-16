@@ -30,7 +30,7 @@ namespace Harmoniq.BLL.Services.Tokens
         public async Task<string> GenerateTokenAsync(UserRegisterDto userRegisterDto)
         {
             var contentCreatorId = await _userAccountService.GetContentCreatorIdIfExists(userRegisterDto.Id);
-
+            var contentConsumerId = await _userAccountService.GetContentConsumerIdByUserIdAsync(userRegisterDto.Id);
 
             var claims = new List<Claim>
             {
@@ -39,10 +39,16 @@ namespace Harmoniq.BLL.Services.Tokens
                 new Claim(ClaimTypes.Role, userRegisterDto.Roles.ToString()),
             };
 
+            if (contentConsumerId.HasValue)
+            {
+                claims.Add(new Claim("ContentConsumerId", contentConsumerId.Value.ToString()));
+            }
+
             if (contentCreatorId != null)
             {
                 claims.Add(new Claim("ContentCreatorId", contentCreatorId.Value.ToString()));
             }
+
 
             var secretKey = _configuration["Jwt:Key"];
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));

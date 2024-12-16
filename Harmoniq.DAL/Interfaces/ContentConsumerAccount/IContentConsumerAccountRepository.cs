@@ -9,5 +9,7 @@ namespace Harmoniq.DAL.Interfaces.ContentConsumerAccount
     public interface IContentConsumerAccountRepository
     {
         Task<ContentConsumerEntity> AddContentConsumerAccountAsync(ContentConsumerEntity contentConsumer);
+        Task<ContentConsumerEntity> GetContentConsumerByIdAsync(int contentConsumerId);
+
     }
 }

@@ -53,11 +53,16 @@ namespace Harmoniq.BLL.Services.UserManagement
         public async Task<int?> GetContentCreatorIdIfExists(int userId)
         {
             var user = await _userAccountRepository.GetUserAccountByIdAsync(userId);
-            if(user != null && user.Roles == AccountType.ContentCreator)
+            if (user != null && user.Roles == AccountType.ContentCreator)
             {
                 return user.Id;
             }
             return null;
+        }
+
+        public async Task<int?> GetContentConsumerIdByUserIdAsync(int userId)
+        {
+            return await _userAccountRepository.GetContentConsumerIdByUserIdAsync(userId);
         }
     }
 }

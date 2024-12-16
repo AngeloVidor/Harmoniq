@@ -9,6 +9,7 @@ namespace Harmoniq.DAL.Interfaces
     public interface IAlbumCreatorRepository
     {
         Task<AlbumEntity> AddAlbumAsync(AlbumEntity album);
+        Task<AlbumEntity> GetAlbumByIdAsync(int albumId);
 
     }
 }

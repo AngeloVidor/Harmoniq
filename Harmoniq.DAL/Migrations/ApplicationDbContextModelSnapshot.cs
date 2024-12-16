@@ -149,6 +149,37 @@ namespace Harmoniq.DAL.Migrations
                     b.ToTable("ContentCreators");
                 });
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.PurchasedAlbumEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AlbumTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ContentConsumerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.HasIndex("ContentConsumerId");
+
+                    b.ToTable("PurchasedAlbums");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.UserEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -221,9 +252,35 @@ namespace Harmoniq.DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.PurchasedAlbumEntity", b =>
+                {
+                    b.HasOne("Harmoniq.Domain.Entities.AlbumEntity", "Album")
+                        .WithMany("PurchasedAlbums")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Harmoniq.Domain.Entities.ContentConsumerEntity", "ContentConsumer")
+                        .WithMany("PurchasedAlbums")
+                        .HasForeignKey("ContentConsumerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+
+                    b.Navigation("ContentConsumer");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.AlbumEntity", b =>
                 {
                     b.Navigation("AlbumSongs");
+
+                    b.Navigation("PurchasedAlbums");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.ContentConsumerEntity", b =>
+                {
+                    b.Navigation("PurchasedAlbums");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentCreatorEntity", b =>

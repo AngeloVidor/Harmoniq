@@ -19,6 +19,7 @@ namespace Harmoniq.Domain.Entities
         public decimal Price { get; set; }
 
         public ICollection<AlbumSongsEntity> AlbumSongs { get; set; } = new List<AlbumSongsEntity>();
+        public ICollection<PurchasedAlbumEntity> PurchasedAlbums { get; set;} = new List<PurchasedAlbumEntity>();
 
     }
 }

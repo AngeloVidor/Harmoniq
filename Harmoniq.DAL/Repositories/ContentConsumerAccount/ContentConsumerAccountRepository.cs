@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Harmoniq.DAL.Context;
 using Harmoniq.DAL.Interfaces.ContentConsumerAccount;
 using Harmoniq.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Harmoniq.DAL.Repositories.ContentConsumerAccount
 {
@@ -22,6 +23,11 @@ namespace Harmoniq.DAL.Repositories.ContentConsumerAccount
             await _dbContext.ContentConsumers.AddAsync(contentConsumer);
             await _dbContext.SaveChangesAsync();
             return contentConsumer;
+        }
+
+        public async Task<ContentConsumerEntity> GetContentConsumerByIdAsync(int contentConsumerId)
+        {
+            return await _dbContext.ContentConsumers.Where(cc => cc.UserId == contentConsumerId).FirstOrDefaultAsync();
         }
     }
 }

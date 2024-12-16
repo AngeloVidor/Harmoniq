@@ -18,12 +18,14 @@ namespace Harmoniq.DAL.Context
         public DbSet<AlbumEntity> Albums { get; set; }
         public DbSet<AlbumSongsEntity> AlbumSongs { get; set; }
         public DbSet<ContentConsumerEntity> ContentConsumers { get; set; }
+        public DbSet<PurchasedAlbumEntity> PurchasedAlbums { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AlbumEntity>()
                 .Property(a => a.Price)
-                .HasColumnType("decimal(18,2)"); 
+                .HasColumnType("decimal(18,2)");
         }
 
     }

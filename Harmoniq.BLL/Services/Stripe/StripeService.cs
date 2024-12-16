@@ -51,8 +51,6 @@ namespace Harmoniq.BLL.Services.Stripe
             {
                 throw new InvalidOperationException("Erro ao criar produto na Stripe: " + ex.Message);
             }
-
-
         }
     }
 }

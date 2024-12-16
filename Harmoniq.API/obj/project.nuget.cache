@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hEer32tN+sU=",
+  "dgSpecHash": "5NtNqMcFhKs=",
   "success": true,
-  "projectFilePath": "C:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
+  "projectFilePath": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\angel\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
@@ -88,12 +88,5 @@
     "C:\\Users\\angel\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Harmoniq\\Harmoniq.API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

@@ -27,5 +27,19 @@ namespace Harmoniq.BLL.Services.UserContext
 
             return id;
         }
+
+
+        public int GetContentConsumerIdFromContext()
+        {
+            var contentConsumerIdClaim = _httpContextAccessor.HttpContext?.User?.Claims
+                .FirstOrDefault(c => c.Type == "ContentConsumerId");
+
+            if (contentConsumerIdClaim == null || !int.TryParse(contentConsumerIdClaim.Value, out var contentConsumerId))
+            {
+                throw new UnauthorizedAccessException("Invalid or missing ContentConsumerId.");
+            }
+
+            return contentConsumerId;
+        }
     }
 }

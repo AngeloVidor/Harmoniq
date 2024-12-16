@@ -25,7 +25,9 @@ namespace Harmoniq.DAL.Repositories.Albums
             return album;
         }
 
-       
-
+        public async Task<AlbumEntity> GetAlbumByIdAsync(int albumId)
+        {
+            return await _dbContext.Albums.Where(m => m.Id == albumId).FirstOrDefaultAsync();
+        }
     }
 }
