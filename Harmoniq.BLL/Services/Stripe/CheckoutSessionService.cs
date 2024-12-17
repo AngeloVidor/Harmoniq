@@ -31,26 +31,26 @@ namespace Harmoniq.BLL.Services.Stripe
                     PriceData = new SessionLineItemPriceDataOptions
                     {
                         Currency = "usd",
-                        UnitAmountDecimal = albumPrice * 100, 
+                        UnitAmountDecimal = albumPrice * 100,
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
-                            Name = albumName, 
+                            Name = albumName,
                         },
                     },
-                    Quantity = 1, 
+                    Quantity = 1,
                 }
             };
 
             var options = new SessionCreateOptions
             {
-                PaymentMethodTypes = new List<string> { "card" }, 
+                PaymentMethodTypes = new List<string> { "card" },
                 LineItems = lineItems,
-                Mode = "payment", 
-                SuccessUrl = $"{_stripeModel.SuccessUrl}?session_id={{CHECKOUT_SESSION_ID}}", 
-                CancelUrl = _stripeModel.CancelUrl, 
+                Mode = "payment",
+                SuccessUrl = "http://localhost:5029/api/buyalbum/success?session_id={CHECKOUT_SESSION_ID}",
+                CancelUrl = "http://localhost:5029/api/buyalbum/cancel",
                 Metadata = new Dictionary<string, string>
                 {
-                    { "albumId", albumId } 
+                    { "albumId", albumId }
                 }
             };
 

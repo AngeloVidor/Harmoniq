@@ -90,5 +90,27 @@ namespace Harmoniq.API.Controllers
             }
         }
 
+        [HttpGet("cancel")]
+        public IActionResult PaymentCancelled()
+        {
+            return Ok(new { Message = "Payment cancelled by the user." });
+        }
+
+
+
+
+        [HttpGet("success")]
+        public IActionResult PaymentSuccess(string session_id)
+        {
+            if (string.IsNullOrEmpty(session_id))
+            {
+                return BadRequest("Session ID is required.");
+            }
+
+            // Lógica adicional, como verificar a sessão na Stripe, pode ser adicionada aqui
+            return Ok(new { Message = "Payment successful!", SessionId = session_id });
+        }
+
+
     }
 }

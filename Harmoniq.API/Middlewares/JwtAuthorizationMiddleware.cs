@@ -20,9 +20,14 @@ namespace Harmoniq.API.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            List<string> PublicRoutes = new List<string>();
-            PublicRoutes.Add("/api/UserAccount/register");
-            PublicRoutes.Add("/api/UserAccount/login");
+            List<string> PublicRoutes = new List<string>
+            {
+                "/api/UserAccount/register",
+                "/api/UserAccount/login",
+                "/api/buyalbum/success",
+                "/api/buyalbum/cancel"
+            };
+
 
 
             if (PublicRoutes.Contains(context.Request.Path.Value, StringComparer.OrdinalIgnoreCase))
