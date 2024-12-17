@@ -34,6 +34,12 @@ namespace Harmoniq.BLL.Services.PurchasedAlbums
             var response = await _buyAlbumRepository.BuyAlbumAsync(purchasedAlbumEntity);
             return _mapper.Map<PurchasedAlbumDto>(response);
         }
+
+        public async Task<AlbumDto> GetAlbumAsync(int albumId)
+        {
+            var album = await _buyAlbumRepository.GetAlbumAsync(albumId);
+            return _mapper.Map<AlbumDto>(album);
+        }
     }
 
 }

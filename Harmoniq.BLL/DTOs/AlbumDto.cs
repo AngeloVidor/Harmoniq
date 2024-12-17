@@ -15,7 +15,6 @@ namespace Harmoniq.BLL.DTOs
         public string Description { get; set; }
         public int NumberOfTracks { get; set; }
         public int ReleaseYear { get; set; }
-        //public ContentCreatorEntity ContentCreator { get; set; }
         public int ContentCreatorId { get; set; }
         public decimal Price { get; set; }
 

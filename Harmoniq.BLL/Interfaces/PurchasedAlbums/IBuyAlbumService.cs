@@ -9,5 +9,6 @@ namespace Harmoniq.BLL.Interfaces.PurchasedAlbums
     public interface IBuyAlbumService
     {
         Task<PurchasedAlbumDto> BuyAlbumAsync(PurchasedAlbumDto albumDto);
+        Task<AlbumDto> GetAlbumAsync(int albumId);
     }
 }

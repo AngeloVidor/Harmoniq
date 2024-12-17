@@ -107,6 +107,7 @@ builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IBuyAlbumRepository, BuyAlbumRepository>();
 builder.Services.AddScoped<IBuyAlbumService, BuyAlbumService>();
+builder.Services.AddScoped<ICheckoutSessionService, CheckoutSessionService>();
 
 
 builder.Services.Configure<StripeModel>(builder.Configuration.GetSection("Stripe"));

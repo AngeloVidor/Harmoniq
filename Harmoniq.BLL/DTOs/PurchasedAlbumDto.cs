@@ -11,7 +11,7 @@ namespace Harmoniq.BLL.DTOs
     {
         [Key]
         public int Id { get; set; }
-        public int AlbumId { get; set; }
+        public string AlbumId { get; set; }
         public int ContentConsumerId { get; set; }
     }
 }
