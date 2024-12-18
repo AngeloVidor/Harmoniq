@@ -46,8 +46,8 @@ namespace Harmoniq.BLL.Services.Stripe
                 PaymentMethodTypes = new List<string> { "card" },
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "http://localhost:5029/api/buyalbum/success?session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = "http://localhost:5029/api/buyalbum/cancel",
+                SuccessUrl = "http://localhost:5029/api/checkoutsession/success?session_id={CHECKOUT_SESSION_ID}",
+                CancelUrl = "http://localhost:5029/api/checkoutsession/cancel",
                 Metadata = new Dictionary<string, string>
                 {
                     { "albumId", albumId }

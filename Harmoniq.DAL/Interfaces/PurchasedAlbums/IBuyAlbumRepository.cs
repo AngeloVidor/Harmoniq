@@ -9,7 +9,6 @@ namespace Harmoniq.DAL.Interfaces.PurchasedAlbums
     public interface IBuyAlbumRepository
     {
         Task<PurchasedAlbumEntity> BuyAlbumAsync(PurchasedAlbumEntity purchasedAlbum);
-        Task<AlbumEntity> GetAlbumAsync(int albumId);
 
     }
 }

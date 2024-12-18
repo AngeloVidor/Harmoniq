@@ -13,15 +13,13 @@ namespace Harmoniq.BLL.Services.Stripe
     public class StripeService : IStripeService
     {
         private readonly StripeModel _model;
-        private readonly CustomerService _costumerService;
         private readonly ProductService _productService;
         private readonly PriceService _priceService;
 
 
-        public StripeService(IOptions<StripeModel> model, ProductService productService, CustomerService costumerService, PriceService priceService)
+        public StripeService(IOptions<StripeModel> model, ProductService productService, PriceService priceService)
         {
             _productService = productService;
-            _costumerService = costumerService;
             StripeConfiguration.ApiKey = model.Value.SecretKey;
             _priceService = priceService;
         }
@@ -49,7 +47,7 @@ namespace Harmoniq.BLL.Services.Stripe
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException("Erro ao criar produto na Stripe: " + ex.Message);
+                throw new InvalidOperationException("Error creating product in Stripe: " + ex.Message);
             }
         }
     }

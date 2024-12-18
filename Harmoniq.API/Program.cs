@@ -2,6 +2,7 @@ using System.Text;
 using FluentValidation;
 using Harmoniq.API.Middlewares;
 using Harmoniq.BLL.DTOs;
+using Harmoniq.BLL.Interfaces.AlbumManagement;
 using Harmoniq.BLL.Interfaces.Albums;
 using Harmoniq.BLL.Interfaces.AlbumSongs;
 using Harmoniq.BLL.Interfaces.ContentConsumerAccount;
@@ -13,6 +14,7 @@ using Harmoniq.BLL.Interfaces.Tokens;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.UserManagement;
 using Harmoniq.BLL.Mapping;
+using Harmoniq.BLL.Services.AlbumManagement;
 using Harmoniq.BLL.Services.Albums;
 using Harmoniq.BLL.Services.AlbumSongs;
 using Harmoniq.BLL.Services.ContentConsumerAccount;
@@ -26,11 +28,13 @@ using Harmoniq.BLL.Services.UserManagement;
 using Harmoniq.BLL.Validators;
 using Harmoniq.DAL.Context;
 using Harmoniq.DAL.Interfaces;
+using Harmoniq.DAL.Interfaces.AlbumManagement;
 using Harmoniq.DAL.Interfaces.AlbumSongs;
 using Harmoniq.DAL.Interfaces.ContentConsumerAccount;
 using Harmoniq.DAL.Interfaces.ContentCreatorAccount;
 using Harmoniq.DAL.Interfaces.PurchasedAlbums;
 using Harmoniq.DAL.Interfaces.UserManagement;
+using Harmoniq.DAL.Repositories.AlbumManagement;
 using Harmoniq.DAL.Repositories.Albums;
 using Harmoniq.DAL.Repositories.AlbumSongs;
 using Harmoniq.DAL.Repositories.ContentConsumerAccount;
@@ -108,7 +112,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IBuyAlbumRepository, BuyAlbumRepository>();
 builder.Services.AddScoped<IBuyAlbumService, BuyAlbumService>();
 builder.Services.AddScoped<ICheckoutSessionService, CheckoutSessionService>();
-
+builder.Services.AddScoped<IAlbumManagementService, AlbumManagementService>();
+builder.Services.AddScoped<IAlbumManagementRepository, AlbumManagementRepository>();
 
 builder.Services.Configure<StripeModel>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddScoped<TokenService>();
@@ -117,12 +122,10 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<PriceService>();
 
 
-
 builder.Services.AddScoped<IValidator<AlbumSongsDto>, AlbumSongsValidator>();
 builder.Services.AddScoped<IValidator<AlbumDto>, AlbumValidator>();
 builder.Services.AddScoped<IValidator<ContentCreatorDto>, ContentCreatorValidator>();
 builder.Services.AddScoped<IValidator<ContentConsumerDto>, ContentConsumerValidator>();
-
 
 
 

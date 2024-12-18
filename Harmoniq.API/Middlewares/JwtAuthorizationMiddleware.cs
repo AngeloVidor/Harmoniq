@@ -24,8 +24,8 @@ namespace Harmoniq.API.Middlewares
             {
                 "/api/UserAccount/register",
                 "/api/UserAccount/login",
-                "/api/buyalbum/success",
-                "/api/buyalbum/cancel"
+                "/api/checkoutsession/success",
+                "/api/checkoutsession/cancel"
             };
 
 
