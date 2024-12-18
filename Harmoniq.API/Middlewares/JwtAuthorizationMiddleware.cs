@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Harmoniq.API.Middlewares
@@ -25,7 +26,8 @@ namespace Harmoniq.API.Middlewares
                 "/api/UserAccount/register",
                 "/api/UserAccount/login",
                 "/api/checkoutsession/success",
-                "/api/checkoutsession/cancel"
+                "/api/checkoutsession/cancel",
+                "/api/stripewebhook/hook"
             };
 
 

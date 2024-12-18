@@ -26,6 +26,10 @@ namespace Harmoniq.BLL.Services.PurchasedAlbums
 
         public async Task<PurchasedAlbumDto> BuyAlbumAsync(PurchasedAlbumDto albumDto)
         {
+            Console.WriteLine("Iniciando o processo de compra do álbum...");
+            Console.WriteLine($"AlbumID: {albumDto.AlbumId}");
+            Console.WriteLine($"ContentConsumerID: {albumDto.ContentConsumerId}");
+
             if (albumDto == null)
             {
                 throw new ArgumentNullException("albumDto cannot be null here");

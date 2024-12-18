@@ -36,6 +36,15 @@ namespace Harmoniq.BLL.Mapping
 
             CreateMap<CheckoutAlbumDto, AlbumDto>();
 
+            CreateMap<AlbumDto, PurchasedAlbumDto>()
+             .ForMember(dest => dest.AlbumId, opt => opt.MapFrom(src => src.Id.ToString()));
+
+            CreateMap<PurchasedAlbumDto, CheckoutAlbumDto>();
+            CreateMap<CheckoutAlbumDto, PurchasedAlbumDto>();
+
         }
+
+
+
     }
 }

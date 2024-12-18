@@ -7,7 +7,7 @@ namespace Harmoniq.BLL.Interfaces.Stripe
 {
     public interface ICheckoutSessionService
     {
-        Task<string> CreateCheckoutSession(string albumId, string albumName, decimal albumPrice);
+        Task<string> CreateCheckoutSession(string albumId, string albumName, decimal albumPrice, string contentConsumerId);
         
     }
 }

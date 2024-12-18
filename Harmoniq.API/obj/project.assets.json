@@ -4981,6 +4981,7 @@
       "Microsoft.AspNetCore.OpenApi >= 8.0.10",
       "Microsoft.EntityFrameworkCore >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.0",
+      "Stripe.net >= 47.1.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -4990,11 +4991,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
+      "projectUniqueName": "C:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
       "projectName": "Harmoniq.API",
-      "projectPath": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
+      "projectPath": "C:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "c:\\Harmoniq\\Harmoniq.API\\obj\\",
+      "outputPath": "C:\\Harmoniq\\Harmoniq.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5012,8 +5013,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "c:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj": {
-              "projectPath": "c:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj"
+            "C:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj": {
+              "projectPath": "C:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj"
             }
           }
         }
@@ -5046,6 +5047,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[9.0.0, )"
+          },
+          "Stripe.net": {
+            "target": "Package",
+            "version": "[47.1.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

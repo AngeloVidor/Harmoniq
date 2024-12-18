@@ -17,5 +17,10 @@ namespace Harmoniq.BLL.DTOs
         [ValidateNever]
         public string Title { get; set; }
 
+        [JsonIgnore]
+        [ValidateNever]
+        public int ContentConsumerId { get; set; }
+
+
     }
 }

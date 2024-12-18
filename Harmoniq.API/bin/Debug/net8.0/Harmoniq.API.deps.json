@@ -12,6 +12,7 @@
           "Microsoft.AspNetCore.OpenApi": "8.0.10",
           "Microsoft.EntityFrameworkCore": "9.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.0",
+          "Stripe.net": "47.1.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "runtime": {

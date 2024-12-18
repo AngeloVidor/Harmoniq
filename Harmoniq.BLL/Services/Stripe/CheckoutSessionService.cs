@@ -17,12 +17,14 @@ namespace Harmoniq.BLL.Services.Stripe
             StripeConfiguration.ApiKey = _stripeModel.SecretKey;
         }
 
-        public async Task<string> CreateCheckoutSession(string albumId, string albumName, decimal albumPrice)
+        public async Task<string> CreateCheckoutSession(string albumId, string albumName, decimal albumPrice, string contentConsumerId)
         {
             if (string.IsNullOrEmpty(albumId) || string.IsNullOrEmpty(albumName) || albumPrice <= 0)
             {
                 throw new ArgumentException("Invalid album details.");
             }
+
+            //Console.WriteLine($"ConsumerID in CheckoutService: {contentConsumerId}");
 
             var lineItems = new List<SessionLineItemOptions>
             {
@@ -50,7 +52,8 @@ namespace Harmoniq.BLL.Services.Stripe
                 CancelUrl = "http://localhost:5029/api/checkoutsession/cancel",
                 Metadata = new Dictionary<string, string>
                 {
-                    { "albumId", albumId }
+                    { "albumId", albumId },
+                    { "contentConsumerId", contentConsumerId }
                 }
             };
 
