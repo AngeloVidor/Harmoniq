@@ -1,5 +1,4 @@
 C:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\appsettings.Development.json
-C:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\appsettings.json
 C:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Harmoniq.API.exe
 C:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Harmoniq.API.deps.json
 C:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Harmoniq.API.runtimeconfig.json
@@ -171,3 +170,4 @@ c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Jw
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\FluentValidation.dll
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Newtonsoft.Json.dll
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Stripe.net.dll
+c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\appsettings.json

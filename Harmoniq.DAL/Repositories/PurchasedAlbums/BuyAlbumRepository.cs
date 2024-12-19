@@ -17,15 +17,13 @@ namespace Harmoniq.DAL.Repositories.PurchasedAlbums
         private readonly ApplicationDbContext _dbContext;
         private readonly IAlbumCreatorRepository _albumRepository;
         private readonly IContentConsumerAccountRepository _contentConsumerAccountRepository;
-        private readonly IUserAccountRepository _userAccountRepository;
 
 
-        public BuyAlbumRepository(ApplicationDbContext dbContext, IAlbumCreatorRepository albumRepository, IContentConsumerAccountRepository contentConsumerAccountRepository, IUserAccountRepository userAccountRepository)
+        public BuyAlbumRepository(ApplicationDbContext dbContext, IAlbumCreatorRepository albumRepository, IContentConsumerAccountRepository contentConsumerAccountRepository)
         {
             _dbContext = dbContext;
             _albumRepository = albumRepository;
             _contentConsumerAccountRepository = contentConsumerAccountRepository;
-            _userAccountRepository = userAccountRepository;
         }
 
         public async Task<PurchasedAlbumEntity> BuyAlbumAsync(PurchasedAlbumEntity purchasedAlbum)
@@ -46,12 +44,18 @@ namespace Harmoniq.DAL.Repositories.PurchasedAlbums
             }
 
             purchasedAlbum.AlbumTitle = album.Title;
-            purchasedAlbum.Username = consumer.Nickname; 
+            purchasedAlbum.Username = consumer.Nickname;
 
             await _dbContext.PurchasedAlbums.AddAsync(purchasedAlbum);
             await _dbContext.SaveChangesAsync();
 
             return purchasedAlbum;
+        }
+
+        public async Task<bool> IsAlbumPurchasedAsync(int albumId, int contentConsumerId)
+        {
+            return await _dbContext.PurchasedAlbums
+                .AnyAsync(pa => pa.AlbumId == albumId && pa.ContentConsumerId == contentConsumerId);
         }
     }
 }

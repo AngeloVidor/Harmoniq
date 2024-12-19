@@ -5,16 +5,19 @@ using Stripe;
 using Stripe.Checkout;
 using Microsoft.Extensions.Options;
 using Harmoniq.Domain.Entities;
+using Harmoniq.DAL.Interfaces.PurchasedAlbums;
 
 namespace Harmoniq.BLL.Services.Stripe
 {
     public class CheckoutSessionService : ICheckoutSessionService
     {
         private readonly StripeModel _stripeModel;
-        public CheckoutSessionService(IOptions<StripeModel> stripeModel)
+        private readonly IBuyAlbumRepository _buyAlbumRepository;
+        public CheckoutSessionService(IOptions<StripeModel> stripeModel, IBuyAlbumRepository buyAlbumRepository)
         {
             _stripeModel = stripeModel.Value;
             StripeConfiguration.ApiKey = _stripeModel.SecretKey;
+            _buyAlbumRepository = buyAlbumRepository;
         }
 
         public async Task<string> CreateCheckoutSession(string albumId, string albumName, decimal albumPrice, string contentConsumerId)
@@ -24,8 +27,14 @@ namespace Harmoniq.BLL.Services.Stripe
                 throw new ArgumentException("Invalid album details.");
             }
 
-            //Console.WriteLine($"ConsumerID in CheckoutService: {contentConsumerId}");
-
+            int albumIdInt = int.Parse(albumId);
+            int contentConsumerIdInt = int.Parse(contentConsumerId);
+            var isAlbumPurchased = await _buyAlbumRepository.IsAlbumPurchasedAsync(albumIdInt, contentConsumerIdInt);
+            if (isAlbumPurchased)
+            {
+                throw new InvalidOperationException("Album already purchased");
+            }
+            
             var lineItems = new List<SessionLineItemOptions>
             {
                 new SessionLineItemOptions

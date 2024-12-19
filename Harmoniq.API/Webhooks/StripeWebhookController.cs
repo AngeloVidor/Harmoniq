@@ -38,6 +38,7 @@ namespace Harmoniq.API.Webhooks
         [HttpPost("hook")]
         public async Task<IActionResult> HandleStripeWebhook()
         {
+            Console.WriteLine("Webook recieved");
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
 
             try
@@ -68,6 +69,7 @@ namespace Harmoniq.API.Webhooks
                         AlbumId = albumId.ToString(),
                         ContentConsumerId = contentConsumerId
                     };
+                    
 
                     await _buyAlbumService.BuyAlbumAsync(purchasedAlbum);
 
