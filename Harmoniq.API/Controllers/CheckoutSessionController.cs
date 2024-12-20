@@ -50,7 +50,11 @@ namespace Harmoniq.API.Controllers
             try
             {
                 var contentConsumerId = await _userAccountService.GetContentConsumerIdByUserIdAsync(userId);
-                
+                if(contentConsumerId == null)
+                {
+                    return NotFound("ContentConsumerID not found.");
+                }
+
                 var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
 
                 if (album == null)
