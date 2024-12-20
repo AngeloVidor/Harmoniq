@@ -8,7 +8,7 @@ namespace Harmoniq.BLL.Interfaces.AlbumManagement
 {
     public interface IAlbumManagementService
     {
-        Task<AlbumDto> GetAlbumAsync(int albumId);
+        Task<AlbumDto> GetAlbumByIdAsync(int albumId);
 
     }
 }

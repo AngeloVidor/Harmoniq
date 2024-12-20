@@ -17,14 +17,14 @@ namespace Harmoniq.BLL.Services.Albums
         private readonly IAlbumCreatorRepository _albumCreatorRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<AlbumDto> _validator;
-        private readonly IStripeService _stripeService;
+        private readonly ICreateStripeProductService _createStripeProduct;
 
-        public AlbumCreatorService(IAlbumCreatorRepository albumCreatorRepository, IMapper mapper, IValidator<AlbumDto> validator, IStripeService stripeService)
+        public AlbumCreatorService(IAlbumCreatorRepository albumCreatorRepository, IMapper mapper, IValidator<AlbumDto> validator, ICreateStripeProductService createStripeProduct)
         {
             _albumCreatorRepository = albumCreatorRepository;
             _mapper = mapper;
             _validator = validator;
-            _stripeService = stripeService;
+            _createStripeProduct = createStripeProduct;
         }
 
         public async Task<AlbumDto> AddAlbumAsync(AlbumDto album)
@@ -35,7 +35,7 @@ namespace Harmoniq.BLL.Services.Albums
                 throw new ValidationException(string.Join("; ", validator.Errors.Select(x => x.ErrorMessage)));
             }
 
-            await _stripeService.AddAlbumProductAsync(album);
+            await _createStripeProduct.AddAlbumProductAsync(album);
 
             var albumEntity = _mapper.Map<AlbumEntity>(album);
             var addedAlbum = await _albumCreatorRepository.AddAlbumAsync(albumEntity);

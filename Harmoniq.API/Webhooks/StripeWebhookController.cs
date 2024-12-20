@@ -23,16 +23,16 @@ namespace Harmoniq.API.Webhooks
     public class StripeWebhookController : ControllerBase
     {
         private readonly string _webhookSecret;
-        private readonly IBuyAlbumService _buyAlbumService;
         private readonly IAlbumManagementService _albumManagementService;
         private readonly IUserAccountService _userAccountService;
+        private readonly IAlbumCheckoutService _albumCheckout;
 
-        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IBuyAlbumService buyAlbumService, IAlbumManagementService albumManagementService, IUserAccountService userAccountService)
+        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IAlbumCheckoutService albumCheckout)
         {
             _webhookSecret = stripeOptions.Value.WebhookSecret;
-            _buyAlbumService = buyAlbumService;
             _albumManagementService = albumManagementService;
             _userAccountService = userAccountService;
+            _albumCheckout = albumCheckout;
         }
 
         [HttpPost("hook")]
@@ -57,7 +57,7 @@ namespace Harmoniq.API.Webhooks
                         return BadRequest("Invalid metadata in session.");
                     }
 
-                    var album = await _albumManagementService.GetAlbumAsync(albumId);
+                    var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
                     if (album == null)
                     {
                         Console.WriteLine($"Album not found: {albumId}");
@@ -69,9 +69,9 @@ namespace Harmoniq.API.Webhooks
                         AlbumId = albumId.ToString(),
                         ContentConsumerId = contentConsumerId
                     };
-                    
 
-                    await _buyAlbumService.BuyAlbumAsync(purchasedAlbum);
+
+                    await _albumCheckout.BuyAlbumAsync(purchasedAlbum);
 
                     Console.WriteLine($"Album purchase recorded: AlbumID {albumId}, ConsumerID {contentConsumerId}");
                 }

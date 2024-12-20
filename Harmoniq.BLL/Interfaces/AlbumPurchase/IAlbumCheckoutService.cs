@@ -6,7 +6,7 @@ using Harmoniq.BLL.DTOs;
 
 namespace Harmoniq.BLL.Interfaces.PurchasedAlbums
 {
-    public interface IBuyAlbumService
+    public interface IAlbumCheckoutService
     {
         Task<PurchasedAlbumDto> BuyAlbumAsync(PurchasedAlbumDto albumDto);
     }

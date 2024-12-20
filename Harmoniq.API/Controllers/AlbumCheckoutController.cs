@@ -14,17 +14,18 @@ namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BuyAlbumController : ControllerBase
+    public class AlbumCheckoutController : ControllerBase
     {
-        private readonly IBuyAlbumService _buyAlbumService;
+        private readonly IAlbumCheckoutService _albumCheckout;
         private readonly IUserContextService _userContextService;
 
 
-        public BuyAlbumController(IBuyAlbumService buyAlbumService, IUserContextService userContextService)
+        public AlbumCheckoutController(IAlbumCheckoutService albumCheckout, IUserContextService userContextService)
         {
-            _buyAlbumService = buyAlbumService;
+            _albumCheckout = albumCheckout;
             _userContextService = userContextService;
         }
+
 
         [HttpPost("buy-album")]
         public async Task<IActionResult> BuyAlbum([FromBody] PurchasedAlbumDto purchasedAlbum)
@@ -38,7 +39,7 @@ namespace Harmoniq.API.Controllers
 
             try
             {
-                var buyedAlbum = await _buyAlbumService.BuyAlbumAsync(purchasedAlbum);
+                var buyedAlbum = await _albumCheckout.BuyAlbumAsync(purchasedAlbum);
                 return Ok(buyedAlbum);
             }
             catch (Exception ex)

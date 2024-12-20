@@ -24,17 +24,5 @@ namespace Harmoniq.DAL.Repositories.AlbumSongs
             await _dbContext.SaveChangesAsync();
             return albumSongsEntity;
         }
-
-        public async Task<bool> AlbumExistsAsync(int albumId)
-        {
-            var album = await _dbContext.Albums.Where(a => a.Id == albumId).FirstOrDefaultAsync();
-            if (album == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
-
     }
 }

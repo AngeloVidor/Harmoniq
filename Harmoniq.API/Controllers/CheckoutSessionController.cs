@@ -51,7 +51,7 @@ namespace Harmoniq.API.Controllers
             {
                 var contentConsumerId = await _userAccountService.GetContentConsumerIdByUserIdAsync(userId);
                 
-                var album = await _albumManagementService.GetAlbumAsync(albumId);
+                var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
 
                 if (album == null)
                 {

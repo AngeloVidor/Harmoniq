@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Harmoniq.DAL.Repositories.PurchasedAlbums
 {
-    public class BuyAlbumRepository : IBuyAlbumRepository
+    public class AlbumCheckoutRepository : IAlbumCheckoutRepository
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IAlbumCreatorRepository _albumRepository;
         private readonly IContentConsumerAccountRepository _contentConsumerAccountRepository;
 
 
-        public BuyAlbumRepository(ApplicationDbContext dbContext, IAlbumCreatorRepository albumRepository, IContentConsumerAccountRepository contentConsumerAccountRepository)
+        public AlbumCheckoutRepository(ApplicationDbContext dbContext, IAlbumCreatorRepository albumRepository, IContentConsumerAccountRepository contentConsumerAccountRepository)
         {
             _dbContext = dbContext;
             _albumRepository = albumRepository;
@@ -50,12 +50,6 @@ namespace Harmoniq.DAL.Repositories.PurchasedAlbums
             await _dbContext.SaveChangesAsync();
 
             return purchasedAlbum;
-        }
-
-        public async Task<bool> IsAlbumPurchasedAsync(int albumId, int contentConsumerId)
-        {
-            return await _dbContext.PurchasedAlbums
-                .AnyAsync(pa => pa.AlbumId == albumId && pa.ContentConsumerId == contentConsumerId);
         }
     }
 }

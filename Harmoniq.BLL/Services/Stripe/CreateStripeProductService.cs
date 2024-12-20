@@ -10,14 +10,14 @@ using Stripe;
 
 namespace Harmoniq.BLL.Services.Stripe
 {
-    public class StripeService : IStripeService
+    public class CreateStripeProductService : ICreateStripeProductService
     {
         private readonly StripeModel _model;
         private readonly ProductService _productService;
         private readonly PriceService _priceService;
 
 
-        public StripeService(IOptions<StripeModel> model, ProductService productService, PriceService priceService)
+        public CreateStripeProductService(IOptions<StripeModel> model, ProductService productService, PriceService priceService)
         {
             _productService = productService;
             StripeConfiguration.ApiKey = model.Value.SecretKey;

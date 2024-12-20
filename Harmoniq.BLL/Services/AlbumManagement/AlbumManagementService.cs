@@ -21,9 +21,9 @@ namespace Harmoniq.BLL.Services.AlbumManagement
             _mapper = mapper;
         }
 
-        public async Task<AlbumDto> GetAlbumAsync(int albumId)
+        public async Task<AlbumDto> GetAlbumByIdAsync(int albumId)
         {
-            var album = await _albumManagement.GetAlbumAsync(albumId);
+            var album = await _albumManagement.GetAlbumByIdAsync(albumId);
             return _mapper.Map<AlbumDto>(album);
         }
     }

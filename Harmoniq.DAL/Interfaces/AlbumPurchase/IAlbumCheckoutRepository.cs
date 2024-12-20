@@ -6,10 +6,9 @@ using Harmoniq.Domain.Entities;
 
 namespace Harmoniq.DAL.Interfaces.PurchasedAlbums
 {
-    public interface IBuyAlbumRepository
+    public interface IAlbumCheckoutRepository
     {
         Task<PurchasedAlbumEntity> BuyAlbumAsync(PurchasedAlbumEntity purchasedAlbum);
-        Task<bool> IsAlbumPurchasedAsync(int albumId, int contentConsumerId);
 
     }
 }

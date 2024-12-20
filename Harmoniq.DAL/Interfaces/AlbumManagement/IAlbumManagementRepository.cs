@@ -8,7 +8,8 @@ namespace Harmoniq.DAL.Interfaces.AlbumManagement
 {
     public interface IAlbumManagementRepository
     {
-        Task<AlbumEntity> GetAlbumAsync(int albumId);
-
+        Task<AlbumEntity> GetAlbumByIdAsync(int albumId);
+        Task<bool> AlbumExistsAsync(int albumId); 
+        Task<bool> IsAlbumPurchasedAsync(int albumId, int contentConsumerId);
     }
 }

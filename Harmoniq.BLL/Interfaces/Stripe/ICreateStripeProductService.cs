@@ -6,7 +6,7 @@ using Harmoniq.BLL.DTOs;
 
 namespace Harmoniq.BLL.Interfaces.Stripe
 {
-    public interface IStripeService
+    public interface ICreateStripeProductService
     {
         Task<AlbumDto> AddAlbumProductAsync(AlbumDto album);
     }
