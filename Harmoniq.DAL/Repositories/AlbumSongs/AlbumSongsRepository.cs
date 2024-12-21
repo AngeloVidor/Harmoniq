@@ -20,7 +20,7 @@ namespace Harmoniq.DAL.Repositories.AlbumSongs
 
         public async Task<AlbumSongsEntity> AddSongsToAlbumAsync(AlbumSongsEntity albumSongsEntity)
         {
-            await _dbContext.AddAsync(albumSongsEntity);
+            await _dbContext.AlbumSongs.AddAsync(albumSongsEntity);
             await _dbContext.SaveChangesAsync();
             return albumSongsEntity;
         }

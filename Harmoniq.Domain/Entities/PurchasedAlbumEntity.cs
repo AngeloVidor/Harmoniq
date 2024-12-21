@@ -16,5 +16,6 @@ namespace Harmoniq.Domain.Entities
         public ContentConsumerEntity ContentConsumer { get; set; }
         public string Username { get; set; }
         public int ContentConsumerId { get; set; }
+
     }
 }

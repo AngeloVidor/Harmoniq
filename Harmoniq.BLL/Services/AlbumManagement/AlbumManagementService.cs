@@ -26,5 +26,21 @@ namespace Harmoniq.BLL.Services.AlbumManagement
             var album = await _albumManagement.GetAlbumByIdAsync(albumId);
             return _mapper.Map<AlbumDto>(album);
         }
+
+        public async Task<List<PurchasedAlbumDto>> GetPurchasedAlbumsByConsumerIdAsync(int contentConsumerId)
+        {
+            if (contentConsumerId <= 0)
+            {
+                throw new ArgumentException("Invalid content consumer id");
+            }
+            var albums = await _albumManagement.GetPurchasedAlbumsByConsumerIdAsync(contentConsumerId);
+            var purchasedAlbums = new List<PurchasedAlbumDto>();
+            foreach (var album in albums)
+            {
+                var purchasedAlbumDto = _mapper.Map<PurchasedAlbumDto>(album);
+                purchasedAlbums.Add(purchasedAlbumDto);
+            }
+            return purchasedAlbums;
+        }
     }
 }
