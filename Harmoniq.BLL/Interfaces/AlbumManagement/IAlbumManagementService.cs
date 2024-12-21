@@ -9,6 +9,6 @@ namespace Harmoniq.BLL.Interfaces.AlbumManagement
     public interface IAlbumManagementService
     {
         Task<AlbumDto> GetAlbumByIdAsync(int albumId);
-        Task<List<PurchasedAlbumDto>> GetPurchasedAlbumsByConsumerIdAsync(int contentConsumerId);
+        Task<List<UserOwnedAlbumsDto>> GetPurchasedAlbumsByConsumerIdAsync(int contentConsumerId);
     }
 }

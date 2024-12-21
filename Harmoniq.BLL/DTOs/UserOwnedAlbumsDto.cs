@@ -14,5 +14,8 @@ namespace Harmoniq.BLL.DTOs
         public int ContentConsumerId { get; set; }
         public string AlbumTitle { get; set; }
         public string ArtistName { get; set; }
+
+        public List<AlbumSongsDto> AlbumSongs { get; set; } = new List<AlbumSongsDto>();
+
     }
 }

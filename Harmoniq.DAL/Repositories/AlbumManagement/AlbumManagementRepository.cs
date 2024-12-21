@@ -44,5 +44,11 @@ namespace Harmoniq.DAL.Repositories.AlbumManagement
             return await _dbContext.PurchasedAlbums
                 .Where(pa => pa.ContentConsumerId == contentConsumerId).ToListAsync();
         }
+
+        public async Task<List<AlbumSongsEntity>> GetAlbumSongsByAlbumIdAsync(int albumId)
+        {
+            return await _dbContext.AlbumSongs.Where(a => a.AlbumId == albumId).ToListAsync();
+        }
+
     }
 }
