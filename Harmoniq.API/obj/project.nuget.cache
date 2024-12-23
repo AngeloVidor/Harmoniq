@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "IdgaF7qk/E8=",
+  "dgSpecHash": "8KBw2Ac/G/4=",
   "success": true,
   "projectFilePath": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\angel\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\awssdk.core\\4.0.0-preview.4\\awssdk.core.4.0.0-preview.4.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\awssdk.s3\\4.0.0-preview.4\\awssdk.s3.4.0.0-preview.4.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",

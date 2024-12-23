@@ -5,6 +5,7 @@ using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumManagement;
 using Harmoniq.BLL.Interfaces.Albums;
 using Harmoniq.BLL.Interfaces.AlbumSongs;
+using Harmoniq.BLL.Interfaces.AWS;
 using Harmoniq.BLL.Interfaces.ContentConsumerAccount;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
 using Harmoniq.BLL.Interfaces.PurchasedAlbums;
@@ -17,6 +18,7 @@ using Harmoniq.BLL.Mapping;
 using Harmoniq.BLL.Services.AlbumManagement;
 using Harmoniq.BLL.Services.Albums;
 using Harmoniq.BLL.Services.AlbumSongs;
+using Harmoniq.BLL.Services.AWS;
 using Harmoniq.BLL.Services.ContentConsumerAccount;
 using Harmoniq.BLL.Services.ContentCreatorAccount;
 using Harmoniq.BLL.Services.PurchasedAlbums;
@@ -114,6 +116,8 @@ builder.Services.AddScoped<IAlbumCheckoutService, AlbumCheckoutService>();
 builder.Services.AddScoped<ICheckoutSessionService, CheckoutSessionService>();
 builder.Services.AddScoped<IAlbumManagementService, AlbumManagementService>();
 builder.Services.AddScoped<IAlbumManagementRepository, AlbumManagementRepository>();
+builder.Services.AddScoped<ICloudImageService, CloudImageService>();
+
 
 builder.Services.Configure<StripeModel>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddScoped<TokenService>();

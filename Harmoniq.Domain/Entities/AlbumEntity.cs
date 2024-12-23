@@ -17,9 +17,11 @@ namespace Harmoniq.Domain.Entities
         public ContentCreatorEntity ContentCreator { get; set; }
         public int ContentCreatorId { get; set; }
         public decimal Price { get; set; }
+        public string ImageUrl { get; set; }
+
 
         public ICollection<AlbumSongsEntity> AlbumSongs { get; set; } = new List<AlbumSongsEntity>();
-        public ICollection<PurchasedAlbumEntity> PurchasedAlbums { get; set;} = new List<PurchasedAlbumEntity>();
+        public ICollection<PurchasedAlbumEntity> PurchasedAlbums { get; set; } = new List<PurchasedAlbumEntity>();
 
     }
 }

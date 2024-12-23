@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Harmoniq.BLL.DTOs
 {
@@ -17,6 +18,9 @@ namespace Harmoniq.BLL.DTOs
         public int ReleaseYear { get; set; }
         public int ContentCreatorId { get; set; }
         public decimal Price { get; set; }
+
+        public string ImageUrl { get; set; }
+        public IFormFile ImageFile { get; set; }
 
     }
 }

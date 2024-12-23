@@ -26,7 +26,7 @@ namespace Harmoniq.API.Controllers
         }
 
         [HttpPost("add-album")]
-        public async Task<IActionResult> AddAlbum([FromBody] AlbumDto albumDto)
+        public async Task<IActionResult> AddAlbum([FromForm] AlbumDto albumDto)
         {
             if (!ModelState.IsValid)
             {
