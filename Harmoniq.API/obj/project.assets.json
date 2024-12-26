@@ -5076,11 +5076,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Harmoniq\\harmoniq.api\\Harmoniq.API.csproj",
+      "projectUniqueName": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
       "projectName": "Harmoniq.API",
-      "projectPath": "c:\\Harmoniq\\harmoniq.api\\Harmoniq.API.csproj",
+      "projectPath": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "c:\\Harmoniq\\harmoniq.api\\obj\\",
+      "outputPath": "c:\\Harmoniq\\Harmoniq.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",

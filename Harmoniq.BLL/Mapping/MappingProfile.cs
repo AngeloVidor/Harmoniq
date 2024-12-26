@@ -30,6 +30,8 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<ContentConsumerDto, ContentConsumerEntity>();
 
             CreateMap<UserDto, UserEntity>();
+            CreateMap<UserEntity, UserDto>();
+
 
             CreateMap<PurchasedAlbumEntity, PurchasedAlbumDto>();
             CreateMap<PurchasedAlbumDto, PurchasedAlbumEntity>();

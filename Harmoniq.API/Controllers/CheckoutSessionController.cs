@@ -8,6 +8,7 @@ using Harmoniq.BLL.Interfaces.AlbumManagement;
 using Harmoniq.BLL.Interfaces.PurchasedAlbums;
 using Harmoniq.BLL.Interfaces.Stripe;
 using Harmoniq.BLL.Interfaces.UserManagement;
+using Harmoniq.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
@@ -45,6 +46,12 @@ namespace Harmoniq.API.Controllers
             if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
             {
                 return BadRequest("Invalid user ID.");
+            }
+
+            var user = await _userAccountService.GetUserByIdAsync(userId);
+            if(user.Roles != AccountType.ContentConsumer)
+            {
+                return Unauthorized("Only ContentConsumers can make album purchases.");
             }
 
             try
