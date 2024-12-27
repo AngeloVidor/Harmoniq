@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using Harmoniq.BLL.DTOs;
+using Harmoniq.BLL.Interfaces.AlbumManagement;
 using Harmoniq.BLL.Interfaces.Albums;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Microsoft.AspNetCore.Authorization;
@@ -18,11 +19,13 @@ namespace Harmoniq.API.Controllers
     {
         private readonly IAlbumCreatorService _albumCreatorService;
         private readonly IUserContextService _userContextService;
+        public readonly IAlbumManagementService _albumManagementService;
 
-        public AlbumCreatorController(IAlbumCreatorService albumCreatorService, IUserContextService userContextService)
+        public AlbumCreatorController(IAlbumCreatorService albumCreatorService, IUserContextService userContextService, IAlbumManagementService albumManagementService)
         {
             _albumCreatorService = albumCreatorService;
             _userContextService = userContextService;
+            _albumManagementService = albumManagementService;
         }
 
         [HttpPost("add-album")]
@@ -44,6 +47,20 @@ namespace Harmoniq.API.Controllers
             catch (ValidationException ex)
             {
                 return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpGet("get-albums")]
+        public async Task<IActionResult> GetAlbuns()
+        {
+            try
+            {
+                var albums = await _albumManagementService.GetAlbumsAsync();
+                return Ok(albums);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
             }
         }
     }

@@ -13,6 +13,7 @@ namespace Harmoniq.DAL.Interfaces.AlbumManagement
         Task<bool> IsAlbumPurchasedAsync(int albumId, int contentConsumerId);
         Task<List<PurchasedAlbumEntity>> GetPurchasedAlbumsByConsumerIdAsync(int contentConsumerId);
         Task<List<AlbumSongsEntity>> GetAlbumSongsByAlbumIdAsync(int albumId);
+        Task<List<AlbumEntity>> GetAlbumsAsync( );
 
     }
 }

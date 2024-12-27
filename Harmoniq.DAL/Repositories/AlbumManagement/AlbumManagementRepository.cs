@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.DAL.Context;
@@ -48,6 +49,11 @@ namespace Harmoniq.DAL.Repositories.AlbumManagement
         public async Task<List<AlbumSongsEntity>> GetAlbumSongsByAlbumIdAsync(int albumId)
         {
             return await _dbContext.AlbumSongs.Where(a => a.AlbumId == albumId).ToListAsync();
+        }
+
+        public async Task<List<AlbumEntity>> GetAlbumsAsync()
+        {
+            return await _dbContext.Albums.ToListAsync();
         }
 
     }

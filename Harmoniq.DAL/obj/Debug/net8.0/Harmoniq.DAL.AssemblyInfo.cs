@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Harmoniq.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a4dc0b29dfdc71615b4f0a4d09e56d0d890255d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1180113fbde9ab899550c3a911756d20c49cc8ea")]
 [assembly: System.Reflection.AssemblyProductAttribute("Harmoniq.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Harmoniq.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

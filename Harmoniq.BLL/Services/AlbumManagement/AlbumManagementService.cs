@@ -27,6 +27,12 @@ namespace Harmoniq.BLL.Services.AlbumManagement
             return _mapper.Map<AlbumDto>(album);
         }
 
+        public async Task<List<AlbumDto>> GetAlbumsAsync()
+        {
+            var albuns = await _albumManagement.GetAlbumsAsync();
+            return _mapper.Map<List<AlbumDto>>(albuns);
+        }
+
         public async Task<List<UserOwnedAlbumsDto>> GetPurchasedAlbumsByConsumerIdAsync(int contentConsumerId)
         {
             if (contentConsumerId <= 0)
