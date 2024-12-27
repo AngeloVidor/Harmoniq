@@ -24,6 +24,10 @@ namespace Harmoniq.BLL.Services.AlbumManagement
         public async Task<AlbumDto> GetAlbumByIdAsync(int albumId)
         {
             var album = await _albumManagement.GetAlbumByIdAsync(albumId);
+            if(album == null)
+            {
+                throw new KeyNotFoundException("AlbumId not found");
+            }
             return _mapper.Map<AlbumDto>(album);
         }
 

@@ -15,13 +15,13 @@ namespace Harmoniq.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "ContentCreator")]
-    public class AlbumCreatorController : ControllerBase
+    public class AlbumManagementController : ControllerBase
     {
         private readonly IAlbumCreatorService _albumCreatorService;
         private readonly IUserContextService _userContextService;
         public readonly IAlbumManagementService _albumManagementService;
 
-        public AlbumCreatorController(IAlbumCreatorService albumCreatorService, IUserContextService userContextService, IAlbumManagementService albumManagementService)
+        public AlbumManagementController(IAlbumCreatorService albumCreatorService, IUserContextService userContextService, IAlbumManagementService albumManagementService)
         {
             _albumCreatorService = albumCreatorService;
             _userContextService = userContextService;
@@ -57,6 +57,24 @@ namespace Harmoniq.API.Controllers
             {
                 var albums = await _albumManagementService.GetAlbumsAsync();
                 return Ok(albums);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("get-album-by-id")]
+        public async Task<IActionResult> GetAlbumsById(int albumId)
+        {
+            try
+            {
+                var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
+                return Ok(album);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return StatusCode(404, ex.Message);
             }
             catch (Exception ex)
             {
