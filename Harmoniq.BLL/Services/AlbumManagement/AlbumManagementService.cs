@@ -24,7 +24,7 @@ namespace Harmoniq.BLL.Services.AlbumManagement
         public async Task<AlbumDto> GetAlbumByIdAsync(int albumId)
         {
             var album = await _albumManagement.GetAlbumByIdAsync(albumId);
-            if(album == null)
+            if (album == null)
             {
                 throw new KeyNotFoundException("AlbumId not found");
             }
@@ -54,6 +54,20 @@ namespace Harmoniq.BLL.Services.AlbumManagement
                 userOwnedAlbums.Add(purchasedAlbumDto);
             }
             return userOwnedAlbums;
+        }
+
+        public async Task<AlbumDto> RemoveAlbumAsync(int albumId)
+        {
+            if (albumId <= 0)
+            {
+                throw new ArgumentException("Invalid album id");
+            }
+            var album = await _albumManagement.GetAlbumByIdAsync(albumId);
+            if (album == null)
+            {
+                throw new KeyNotFoundException("AlbumId not found");
+            }
+            return _mapper.Map<AlbumDto>(await _albumManagement.RemoveAlbumAsync(albumId));
         }
     }
 }

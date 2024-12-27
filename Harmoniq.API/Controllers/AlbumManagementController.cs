@@ -81,5 +81,24 @@ namespace Harmoniq.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpDelete("remove-album")]
+        public async Task<IActionResult> RemoveAlbum(int albumId)
+        {
+            try
+            {
+                var album = await _albumManagementService.RemoveAlbumAsync(albumId);
+                return Ok(album);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return StatusCode(404, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 }

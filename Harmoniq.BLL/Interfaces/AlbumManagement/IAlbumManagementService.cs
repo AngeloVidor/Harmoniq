@@ -12,5 +12,7 @@ namespace Harmoniq.BLL.Interfaces.AlbumManagement
         Task<List<UserOwnedAlbumsDto>> GetPurchasedAlbumsByConsumerIdAsync(int contentConsumerId);
         Task<List<AlbumDto>> GetAlbumsAsync();
 
+        Task<AlbumDto> RemoveAlbumAsync(int albumId);
+
     }
 }
