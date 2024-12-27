@@ -27,6 +27,10 @@ namespace Harmoniq.API.Controllers
                 var albums = await _displayAlbums.GetContentCreatorAlbumsAsync(contentCreatorId);
                 return Ok(albums);
             }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
