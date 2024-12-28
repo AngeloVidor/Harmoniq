@@ -18,6 +18,7 @@ namespace Harmoniq.Domain.Entities
         public int ContentCreatorId { get; set; }
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
+        public bool? IsDeleted { get; set; }
 
 
         public ICollection<AlbumSongsEntity> AlbumSongs { get; set; } = new List<AlbumSongsEntity>();

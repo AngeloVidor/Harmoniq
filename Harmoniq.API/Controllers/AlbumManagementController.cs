@@ -82,12 +82,13 @@ namespace Harmoniq.API.Controllers
             }
         }
 
-        [HttpDelete("remove-album")]
+        [HttpPost("remove-album")]
         public async Task<IActionResult> RemoveAlbum(int albumId)
         {
             try
             {
                 var album = await _albumManagementService.RemoveAlbumAsync(albumId);
+                album.IsDeleted = true;
                 return Ok(album);
             }
             catch (KeyNotFoundException ex)

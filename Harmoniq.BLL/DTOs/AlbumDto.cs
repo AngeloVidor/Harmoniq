@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Harmoniq.BLL.DTOs
 {
@@ -21,6 +23,11 @@ namespace Harmoniq.BLL.DTOs
 
         public string ImageUrl { get; set; }
         public IFormFile ImageFile { get; set; }
+
+        [NotMapped]
+        [ValidateNever]
+        public bool? IsDeleted { get; set; }
+
 
     }
 }
