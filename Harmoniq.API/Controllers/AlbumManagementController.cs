@@ -7,6 +7,7 @@ using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumManagement;
 using Harmoniq.BLL.Interfaces.Albums;
 using Harmoniq.BLL.Interfaces.UserContext;
+using Harmoniq.BLL.Interfaces.UserManagement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,12 +21,14 @@ namespace Harmoniq.API.Controllers
         private readonly IAlbumCreatorService _albumCreatorService;
         private readonly IUserContextService _userContextService;
         public readonly IAlbumManagementService _albumManagementService;
+        private readonly IUserAccountService _userAccountService;
 
-        public AlbumManagementController(IAlbumCreatorService albumCreatorService, IUserContextService userContextService, IAlbumManagementService albumManagementService)
+        public AlbumManagementController(IAlbumCreatorService albumCreatorService, IUserContextService userContextService, IAlbumManagementService albumManagementService, IUserAccountService userAccountService)
         {
             _albumCreatorService = albumCreatorService;
             _userContextService = userContextService;
             _albumManagementService = albumManagementService;
+            _userAccountService = userAccountService;
         }
 
         [HttpPost("add-album")]
@@ -37,7 +40,8 @@ namespace Harmoniq.API.Controllers
             }
 
             var contentCreator = _userContextService.GetUserIdFromContext();
-            albumDto.ContentCreatorId = contentCreator;
+            var contentCreatorId = await _userAccountService.GetContentCreatorIdByUserIdAsync(contentCreator);
+            albumDto.ContentCreatorId = contentCreatorId;
 
             try
             {

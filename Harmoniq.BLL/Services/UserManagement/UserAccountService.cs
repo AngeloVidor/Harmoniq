@@ -60,6 +60,8 @@ namespace Harmoniq.BLL.Services.UserManagement
             return null;
         }
 
+
+
         public async Task<int?> GetContentConsumerIdByUserIdAsync(int userId)
         {
             return await _userAccountRepository.GetContentConsumerIdByUserIdAsync(userId);
@@ -69,6 +71,12 @@ namespace Harmoniq.BLL.Services.UserManagement
         {
             var user = await _userAccountRepository.GetUserAccountByIdAsync(userId);
             return _mapper.Map<UserDto>(user);
+        }
+
+        public async Task<int> GetContentCreatorIdByUserIdAsync(int userId)
+        {
+            int contentCreator = await _userAccountRepository.GetContentCreatorIdByUserIdAsync(userId);
+            return contentCreator;
         }
     }
 }

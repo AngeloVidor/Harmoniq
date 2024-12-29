@@ -34,6 +34,17 @@ namespace Harmoniq.DAL.Repositories.UserManagement
             return userEntity;
         }
 
+        public async Task<int> GetContentCreatorIdByUserIdAsync(int userId)
+        {
+            var contentCreator = await _dbContext.ContentCreators
+                .Where(cc => cc.UserId == userId)
+                .FirstOrDefaultAsync();
+
+            return contentCreator.Id;
+
+        }
+
+
         public async Task<int?> GetContentConsumerIdByUserIdAsync(int userId)
         {
             var contentConsumer = await _dbContext.ContentConsumers

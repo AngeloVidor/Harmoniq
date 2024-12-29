@@ -28,7 +28,6 @@ namespace Harmoniq.BLL.Services.UserContext
             return id;
         }
 
-
         public int GetContentConsumerIdFromContext()
         {
             var contentConsumerIdClaim = _httpContextAccessor.HttpContext?.User?.Claims

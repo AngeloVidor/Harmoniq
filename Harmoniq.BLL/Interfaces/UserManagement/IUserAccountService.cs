@@ -13,5 +13,6 @@ namespace Harmoniq.BLL.Interfaces.UserManagement
         Task<int?> GetContentCreatorIdIfExists(int userId);
         Task<int?> GetContentConsumerIdByUserIdAsync(int userId);
         Task<UserDto> GetUserByIdAsync(int userId);
+        Task<int> GetContentCreatorIdByUserIdAsync(int userId);
     }
 }
