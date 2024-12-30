@@ -30,7 +30,7 @@ namespace Harmoniq.API.Controllers
 
 
         [HttpPost("add-song-to-album")]
-        public async Task<IActionResult> AddSongToAlbum([FromBody] AlbumSongsDto albumSongsDto)
+        public async Task<IActionResult> AddSongToAlbum([FromForm] AlbumSongsDto albumSongsDto)
         {
             if (!ModelState.IsValid)
             {

@@ -16,5 +16,8 @@ namespace Harmoniq.Domain.Entities
         public AlbumEntity Album { get; set; }
         public int AlbumId { get; set; }
         public int ContentCreatorId { get; set; }
+
+        public string TrackUrl { get; set; }
+
     }
 }

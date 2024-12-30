@@ -7,6 +7,7 @@ using AutoMapper;
 using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumSongs;
+using Harmoniq.BLL.Interfaces.AWS;
 using Harmoniq.DAL.Interfaces.AlbumManagement;
 using Harmoniq.DAL.Interfaces.AlbumSongs;
 using Harmoniq.Domain.Entities;
@@ -21,12 +22,14 @@ namespace Harmoniq.BLL.Services.AlbumSongs
         private readonly IMapper _mapper;
         private readonly IValidator<AlbumSongsDto> _validator;
         private readonly IAlbumManagementRepository _albumManagement;
-        public AlbumSongsService(IAlbumSongsRepository albumSongsRepository, IMapper mapper, IValidator<AlbumSongsDto> validator, IAlbumManagementRepository albumManagement)
+        private readonly ICloudTrackService _cloudTrackService;
+        public AlbumSongsService(IAlbumSongsRepository albumSongsRepository, IMapper mapper, IValidator<AlbumSongsDto> validator, IAlbumManagementRepository albumManagement, ICloudTrackService cloudTrackService)
         {
             _albumSongsRepository = albumSongsRepository;
             _mapper = mapper;
             _validator = validator;
             _albumManagement = albumManagement;
+            _cloudTrackService = cloudTrackService;
         }
 
         public async Task<AlbumSongsDto> AddSongsToAlbumAsync(AlbumSongsDto albumSongsDto)
@@ -42,6 +45,10 @@ namespace Harmoniq.BLL.Services.AlbumSongs
             {
                 throw new KeyNotFoundException($"Album with Id: {albumSongsDto.AlbumId} not found");
             }
+
+            var trackUrl = await _cloudTrackService.UploadAudioFileAsync(albumSongsDto.TrackFile);
+            albumSongsDto.TrackUrl = trackUrl;
+            
 
             var albumSongEntity = _mapper.Map<AlbumSongsEntity>(albumSongsDto);
             var addedAlbumSongs = await _albumSongsRepository.AddSongsToAlbumAsync(albumSongEntity);

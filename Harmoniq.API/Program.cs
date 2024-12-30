@@ -126,6 +126,7 @@ builder.Services.AddScoped<ICloudImageService, CloudImageService>();
 builder.Services.AddScoped<IDisplayAlbumsRepository, DisplayAlbumsRepository>();
 builder.Services.AddScoped<IDisplayAlbumsService, DisplayAlbumsService>();
 builder.Services.AddScoped<IDiscographyService, DiscographyService>();
+builder.Services.AddScoped<ICloudTrackService, CloudTrackService>();
 
 
 

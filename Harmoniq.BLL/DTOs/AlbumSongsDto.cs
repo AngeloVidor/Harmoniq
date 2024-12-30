@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Harmoniq.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Harmoniq.BLL.DTOs
@@ -18,9 +20,14 @@ namespace Harmoniq.BLL.DTOs
 
         public int AlbumId { get; set; }
 
+        public int ContentCreatorId { get; set; }
+
+        public IFormFile TrackFile { get; set; }
+
+        [NotMapped]
         [JsonIgnore]
         [ValidateNever]
-        public AlbumEntity Album { get; set; }
-        public int ContentCreatorId { get; set; }
+        public string TrackUrl { get; set; }
+
     }
 }
