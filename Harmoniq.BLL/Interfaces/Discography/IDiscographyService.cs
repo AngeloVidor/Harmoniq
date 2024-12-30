@@ -8,7 +8,7 @@ namespace Harmoniq.BLL.Interfaces.Discography
 {
     public interface IDiscographyService
     {
-        Task<AlbumDto> DownloadAlbumAsync(int albumId);
+        Task<AlbumDto> DownloadAlbumAsync(int albumId, int contentConsumerId);
 
     }
 }

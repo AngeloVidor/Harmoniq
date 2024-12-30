@@ -20,10 +20,16 @@ namespace Harmoniq.BLL.Services.Discography
             _mapper = mapper;
         }
 
-        public async Task<AlbumDto> DownloadAlbumAsync(int albumId)
+        public async Task<AlbumDto> DownloadAlbumAsync(int albumId, int contentConsumerId)
         {
+            var isPurchased = await _albumManagementRepository.IsAlbumPurchasedAsync(albumId, contentConsumerId);
+            if (!isPurchased)
+            {
+                throw new UnauthorizedAccessException("Album not purchased.");
+            }
+            
             var album = await _albumManagementRepository.GetAlbumByIdAsync(albumId);
-            if(album == null)
+            if (album == null)
             {
                 throw new KeyNotFoundException("Album not found.");
             }
