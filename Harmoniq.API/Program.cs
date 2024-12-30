@@ -8,6 +8,7 @@ using Harmoniq.BLL.Interfaces.AlbumSongs;
 using Harmoniq.BLL.Interfaces.AWS;
 using Harmoniq.BLL.Interfaces.ContentConsumerAccount;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
+using Harmoniq.BLL.Interfaces.Discography;
 using Harmoniq.BLL.Interfaces.DisplayAlbums;
 using Harmoniq.BLL.Interfaces.PurchasedAlbums;
 using Harmoniq.BLL.Interfaces.RoleChecker;
@@ -22,6 +23,7 @@ using Harmoniq.BLL.Services.AlbumSongs;
 using Harmoniq.BLL.Services.AWS;
 using Harmoniq.BLL.Services.ContentConsumerAccount;
 using Harmoniq.BLL.Services.ContentCreatorAccount;
+using Harmoniq.BLL.Services.Discography;
 using Harmoniq.BLL.Services.DisplayAlbums;
 using Harmoniq.BLL.Services.PurchasedAlbums;
 using Harmoniq.BLL.Services.RoleChecker;
@@ -123,6 +125,7 @@ builder.Services.AddScoped<IAlbumManagementRepository, AlbumManagementRepository
 builder.Services.AddScoped<ICloudImageService, CloudImageService>();
 builder.Services.AddScoped<IDisplayAlbumsRepository, DisplayAlbumsRepository>();
 builder.Services.AddScoped<IDisplayAlbumsService, DisplayAlbumsService>();
+builder.Services.AddScoped<IDiscographyService, DiscographyService>();
 
 
 
