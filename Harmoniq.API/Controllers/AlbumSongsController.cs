@@ -6,6 +6,7 @@ using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumSongs;
 using Harmoniq.BLL.Interfaces.UserContext;
+using Harmoniq.BLL.Interfaces.UserManagement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,11 +19,13 @@ namespace Harmoniq.API.Controllers
     {
         private readonly IAlbumSongsService _albumSongsService;
         private readonly IUserContextService _userContextService;
+        private readonly IUserAccountService _userAccountService;
 
-        public AlbumSongsController(IAlbumSongsService albumSongsService, IUserContextService userContextService)
+        public AlbumSongsController(IAlbumSongsService albumSongsService, IUserContextService userContextService, IUserAccountService userAccountService)
         {
             _albumSongsService = albumSongsService;
             _userContextService = userContextService;
+            _userAccountService = userAccountService;
         }
 
 
@@ -33,8 +36,9 @@ namespace Harmoniq.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var contentCreator = _userContextService.GetUserIdFromContext();
-            albumSongsDto.ContentCreatorId = contentCreator;
+            var userId = _userContextService.GetUserIdFromContext();
+            var contentCreatorId = await _userAccountService.GetContentCreatorIdByUserIdAsync(userId);
+            albumSongsDto.ContentCreatorId = contentCreatorId;
 
             try
             {
