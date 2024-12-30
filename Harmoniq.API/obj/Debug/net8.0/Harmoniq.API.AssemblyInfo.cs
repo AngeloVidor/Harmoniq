@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Harmoniq.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db89668cece677514520d5a6742e8a25c50e4806")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+315fa66e1877e152312b8cef5f70fe1c97123928")]
 [assembly: System.Reflection.AssemblyProductAttribute("Harmoniq.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Harmoniq.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -35,7 +35,9 @@ namespace Harmoniq.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            purchasedAlbum.ContentConsumerId = _userContextService.GetContentConsumerIdFromContext();
+            var userId = _userContextService.GetUserIdFromContext();
+            var contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+            purchasedAlbum.ContentConsumerId = contentConsumerId ?? 0;
 
             try
             {

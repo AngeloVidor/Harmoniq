@@ -19,13 +19,13 @@ namespace Harmoniq.API.Controllers
     {
         private readonly IAlbumSongsService _albumSongsService;
         private readonly IUserContextService _userContextService;
-        private readonly IUserAccountService _userAccountService;
 
-        public AlbumSongsController(IAlbumSongsService albumSongsService, IUserContextService userContextService, IUserAccountService userAccountService)
+        public AlbumSongsController
+        (IAlbumSongsService albumSongsService,
+        IUserContextService userContextService)
         {
             _albumSongsService = albumSongsService;
             _userContextService = userContextService;
-            _userAccountService = userAccountService;
         }
 
 
@@ -37,7 +37,7 @@ namespace Harmoniq.API.Controllers
                 return BadRequest(ModelState);
             }
             var userId = _userContextService.GetUserIdFromContext();
-            var contentCreatorId = await _userAccountService.GetContentCreatorIdByUserIdAsync(userId);
+            var contentCreatorId = await _userContextService.GetContentCreatorIdByUserIdAsync(userId);
             albumSongsDto.ContentCreatorId = contentCreatorId;
 
             try

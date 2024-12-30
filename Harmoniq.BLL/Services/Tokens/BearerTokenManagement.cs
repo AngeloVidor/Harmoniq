@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Tokens;
+using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.UserManagement;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,19 +19,21 @@ namespace Harmoniq.BLL.Services.Tokens
     {
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+        private readonly IUserContextService _userContextService;
         private readonly IUserAccountService _userAccountService;
 
-        public BearerTokenManagement(IConfiguration configuration, IMapper mapper, IUserAccountService userAccountService)
+        public BearerTokenManagement(IConfiguration configuration, IMapper mapper, IUserContextService userContextService, IUserAccountService userAccountService)
         {
             _configuration = configuration;
             _mapper = mapper;
+            _userContextService = userContextService;
             _userAccountService = userAccountService;
         }
 
         public async Task<string> GenerateTokenAsync(UserRegisterDto userRegisterDto)
         {
             var contentCreatorId = await _userAccountService.GetContentCreatorIdIfExists(userRegisterDto.Id);
-            var contentConsumerId = await _userAccountService.GetContentConsumerIdByUserIdAsync(userRegisterDto.Id);
+            var contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userRegisterDto.Id);
 
             var claims = new List<Claim>
             {

@@ -21,14 +21,17 @@ namespace Harmoniq.API.Controllers
         private readonly IAlbumCreatorService _albumCreatorService;
         private readonly IUserContextService _userContextService;
         public readonly IAlbumManagementService _albumManagementService;
-        private readonly IUserAccountService _userAccountService;
 
-        public AlbumManagementController(IAlbumCreatorService albumCreatorService, IUserContextService userContextService, IAlbumManagementService albumManagementService, IUserAccountService userAccountService)
+        public AlbumManagementController(
+        IAlbumCreatorService albumCreatorService,
+        IUserContextService userContextService,
+        IAlbumManagementService albumManagementService
+
+        )
         {
             _albumCreatorService = albumCreatorService;
             _userContextService = userContextService;
             _albumManagementService = albumManagementService;
-            _userAccountService = userAccountService;
         }
 
         [HttpPost("add-album")]
@@ -40,7 +43,7 @@ namespace Harmoniq.API.Controllers
             }
 
             var contentCreator = _userContextService.GetUserIdFromContext();
-            var contentCreatorId = await _userAccountService.GetContentCreatorIdByUserIdAsync(contentCreator);
+            var contentCreatorId = await _userContextService.GetContentCreatorIdByUserIdAsync(contentCreator);
             albumDto.ContentCreatorId = contentCreatorId;
 
             try

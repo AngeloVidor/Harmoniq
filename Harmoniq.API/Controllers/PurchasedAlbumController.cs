@@ -27,6 +27,7 @@ namespace Harmoniq.API.Controllers
         [HttpGet("GetPurchasedAlbumsByConsumerId/{consumerId}")]
         public async Task<IActionResult> GetPurchasedAlbumsByConsumerId(int consumerId)
         {
+            System.Console.WriteLine("Iniciando");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -34,8 +35,9 @@ namespace Harmoniq.API.Controllers
 
             try
             {
-                var contentConsumerId = _userContextService.GetContentConsumerIdFromContext();
-                consumerId = contentConsumerId;
+                int userId = _userContextService.GetUserIdFromContext();
+                var contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+                consumerId = contentConsumerId ?? 0;
 
                 var purchasedAlbums = await _albumManagementService.GetPurchasedAlbumsByConsumerIdAsync(consumerId);
                 return Ok(purchasedAlbums);

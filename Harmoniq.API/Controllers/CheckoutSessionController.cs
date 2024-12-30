@@ -7,6 +7,7 @@ using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumManagement;
 using Harmoniq.BLL.Interfaces.PurchasedAlbums;
 using Harmoniq.BLL.Interfaces.Stripe;
+using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.UserManagement;
 using Harmoniq.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -21,12 +22,14 @@ namespace Harmoniq.API.Controllers
         private readonly ICheckoutSessionService _checkoutSessionService;
         private readonly IAlbumManagementService _albumManagementService;
         private readonly IUserAccountService _userAccountService;
+        private readonly IUserContextService _userContextService;
 
-        public CheckoutSessionController(ICheckoutSessionService checkoutSessionService, IAlbumManagementService albumManagementService, IUserAccountService userAccountService)
+        public CheckoutSessionController(ICheckoutSessionService checkoutSessionService, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IUserContextService userContextService)
         {
             _checkoutSessionService = checkoutSessionService;
             _albumManagementService = albumManagementService;
             _userAccountService = userAccountService;
+            _userContextService = userContextService;
         }
 
         [HttpPost("create-checkout-session")]
@@ -56,7 +59,7 @@ namespace Harmoniq.API.Controllers
 
             try
             {
-                var contentConsumerId = await _userAccountService.GetContentConsumerIdByUserIdAsync(userId);
+                var contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
                 if(contentConsumerId == null)
                 {
                     return NotFound("ContentConsumerID not found.");

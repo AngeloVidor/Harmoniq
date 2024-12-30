@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.BLL.Interfaces.UserContext;
+using Harmoniq.DAL.Interfaces.UserManagement;
 using Microsoft.AspNetCore.Http;
 
 namespace Harmoniq.BLL.Services.UserContext
@@ -10,10 +11,12 @@ namespace Harmoniq.BLL.Services.UserContext
     public class UserContextService : IUserContextService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserAccountRepository _userAccountRepository;
 
-        public UserContextService(IHttpContextAccessor httpContextAccessor)
+        public UserContextService(IHttpContextAccessor httpContextAccessor, IUserAccountRepository userAccountRepository)
         {
             _httpContextAccessor = httpContextAccessor;
+            _userAccountRepository = userAccountRepository;
         }
 
         public int GetUserIdFromContext()
@@ -28,17 +31,16 @@ namespace Harmoniq.BLL.Services.UserContext
             return id;
         }
 
-        public int GetContentConsumerIdFromContext()
+
+        public async Task<int?> GetContentConsumerIdByUserIdAsync(int userId)
         {
-            var contentConsumerIdClaim = _httpContextAccessor.HttpContext?.User?.Claims
-                .FirstOrDefault(c => c.Type == "ContentConsumerId");
+            return await _userAccountRepository.GetContentConsumerIdByUserIdAsync(userId);
+        }
 
-            if (contentConsumerIdClaim == null || !int.TryParse(contentConsumerIdClaim.Value, out var contentConsumerId))
-            {
-                throw new UnauthorizedAccessException("Invalid or missing ContentConsumerId.");
-            }
-
-            return contentConsumerId;
+        public async Task<int> GetContentCreatorIdByUserIdAsync(int userId)
+        {
+            int contentCreator = await _userAccountRepository.GetContentCreatorIdByUserIdAsync(userId);
+            return contentCreator;
         }
     }
 }
