@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Harmoniq.DAL.Context;
 using Harmoniq.DAL.Interfaces.Favorites;
 using Harmoniq.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Harmoniq.DAL.Repositories.Favorites
 {
@@ -22,6 +23,11 @@ namespace Harmoniq.DAL.Repositories.Favorites
             await _dbContext.FavoriteAlbums.AddAsync(favorite);
             await _dbContext.SaveChangesAsync();
             return favorite;
+        }
+
+        public async Task<FavoritesAlbumsEntity> GetFavoriteAlbumAsync(int contentConsumerId, int albumId)
+        {
+            return await _dbContext.FavoriteAlbums.Where(f => f.ContentConsumerId == contentConsumerId && f.AlbumId == albumId).FirstOrDefaultAsync();
         }
     }
 }

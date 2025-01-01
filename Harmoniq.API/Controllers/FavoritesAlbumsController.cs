@@ -39,6 +39,10 @@ namespace Harmoniq.API.Controllers
                 var favoritedAlbum = await _favoritesAlbums.AddFavoriteAlbumAsync(favorite);
                 return Ok(favoritedAlbum);
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);

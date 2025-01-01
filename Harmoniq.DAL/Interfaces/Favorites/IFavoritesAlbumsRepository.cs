@@ -9,5 +9,6 @@ namespace Harmoniq.DAL.Interfaces.Favorites
     public interface IFavoritesAlbumsRepository
     {
         Task<FavoritesAlbumsEntity> AddFavoriteAlbumAsync(FavoritesAlbumsEntity favorite);
+        Task<FavoritesAlbumsEntity> GetFavoriteAlbumAsync(int contentConsumerId, int albumId);
     }
 }

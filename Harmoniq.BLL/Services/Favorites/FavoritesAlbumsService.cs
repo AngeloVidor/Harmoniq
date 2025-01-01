@@ -26,6 +26,12 @@ namespace Harmoniq.BLL.Services.Favorites
             {
                 throw new ArgumentNullException(nameof(favorite));
             }
+            var alreadyFavorited = await _favoritesAlbums.GetFavoriteAlbumAsync(favorite.ContentConsumerId, favorite.AlbumId);
+            if (alreadyFavorited != null)
+            {
+                throw new InvalidOperationException("Album already favorited");
+            }
+
             var favoriteEntity = _mapper.Map<FavoritesAlbumsEntity>(favorite);
             var favoritedAlbum = await _favoritesAlbums.AddFavoriteAlbumAsync(favoriteEntity);
             return _mapper.Map<FavoritesAlbumsDto>(favoritedAlbum);
