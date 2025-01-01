@@ -43,5 +43,26 @@ namespace Harmoniq.API.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("get-wishlist-by-content-consumer-id")]
+        public async Task<IActionResult> GetWishlistByContentConsumerId(int contentConsumerId)
+        {
+            var userId = _userContextService.GetUserIdFromContext();
+            contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
+
+            try
+            {
+                var userWishlist = await _wishlistService.GetWishlistByContentConsumerId(contentConsumerId);
+                return Ok(userWishlist);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
