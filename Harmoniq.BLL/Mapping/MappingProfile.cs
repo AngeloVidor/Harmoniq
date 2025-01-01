@@ -47,6 +47,9 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<PurchasedAlbumEntity, UserOwnedAlbumsDto>();
             CreateMap<UserOwnedAlbumsDto, PurchasedAlbumEntity>();
 
+            CreateMap<FavoritesAlbumsDto, FavoritesAlbumsEntity>();
+            CreateMap<FavoritesAlbumsEntity, FavoritesAlbumsDto>();
+
 
         }
 

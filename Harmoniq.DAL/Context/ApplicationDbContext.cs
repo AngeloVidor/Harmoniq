@@ -19,6 +19,8 @@ namespace Harmoniq.DAL.Context
         public DbSet<AlbumSongsEntity> AlbumSongs { get; set; }
         public DbSet<ContentConsumerEntity> ContentConsumers { get; set; }
         public DbSet<PurchasedAlbumEntity> PurchasedAlbums { get; set; }
+        public DbSet<FavoritesAlbumsEntity> FavoriteAlbums { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
