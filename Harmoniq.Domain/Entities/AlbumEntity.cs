@@ -21,6 +21,7 @@ namespace Harmoniq.Domain.Entities
         public bool? IsDeleted { get; set; }
 
 
+        public ICollection<WishlistEntity> Wishlist { get; set; } = new List<WishlistEntity>();
         public ICollection<AlbumSongsEntity> AlbumSongs { get; set; } = new List<AlbumSongsEntity>();
         public ICollection<PurchasedAlbumEntity> PurchasedAlbums { get; set; } = new List<PurchasedAlbumEntity>();
 

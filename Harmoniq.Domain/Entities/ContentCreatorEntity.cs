@@ -13,7 +13,7 @@ namespace Harmoniq.Domain.Entities
         public int Id { get; set; }
         public string ContentCreatorName { get; set; }
         public string ContentCreatorDescription { get; set; }
-        public string ContentCreatorCountry { get; set; } //provisionally
+        public string ContentCreatorCountry { get; set; } 
         public DateTime DateAdded { get; set; } = DateTime.UtcNow;
         public UserEntity User { get; set; }
         public int UserId { get; set; }
