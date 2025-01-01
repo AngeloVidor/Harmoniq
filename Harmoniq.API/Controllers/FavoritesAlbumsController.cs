@@ -48,5 +48,26 @@ namespace Harmoniq.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("favorite-albums")]
+        public async Task<IActionResult> GetFavoriteAlbumByContentConsumer(int contentConsumerId)
+        {
+            var userId = _userContext.GetUserIdFromContext();
+            contentConsumerId = await _userContext.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
+
+            try
+            {
+                var favoritedAlbums = await _favoritesAlbums.GetFavoriteAlbumByContentConsumer(contentConsumerId);
+                return Ok(favoritedAlbums);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

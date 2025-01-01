@@ -29,5 +29,10 @@ namespace Harmoniq.DAL.Repositories.Favorites
         {
             return await _dbContext.FavoriteAlbums.Where(f => f.ContentConsumerId == contentConsumerId && f.AlbumId == albumId).FirstOrDefaultAsync();
         }
+
+        public async Task<List<FavoritesAlbumsEntity>> GetFavoriteAlbumByContentConsumer(int contentConsumerId)
+        {
+            return await _dbContext.FavoriteAlbums.Where(f => f.ContentConsumerId == contentConsumerId).ToListAsync();
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace Harmoniq.DAL.Interfaces.Favorites
     {
         Task<FavoritesAlbumsEntity> AddFavoriteAlbumAsync(FavoritesAlbumsEntity favorite);
         Task<FavoritesAlbumsEntity> GetFavoriteAlbumAsync(int contentConsumerId, int albumId);
+        Task<List<FavoritesAlbumsEntity>> GetFavoriteAlbumByContentConsumer(int contentConsumerId);
+
     }
 }
