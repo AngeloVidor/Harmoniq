@@ -17,9 +17,10 @@ namespace Harmoniq.Domain.Entities
         public UserEntity User { get; set; }
         public int UserId { get; set; }
 
+        public ICollection<CartEntity> CartItems { get; set; } = new List<CartEntity>();
         public ICollection<FavoritesAlbumsEntity> FavoriteAlbums { get; set; } = new List<FavoritesAlbumsEntity>();
         public ICollection<PurchasedAlbumEntity> PurchasedAlbums { get; set; } = new List<PurchasedAlbumEntity>();
-        public ICollection<WishlistEntity> Wishlist { get; set; } = new List<WishlistEntity>(); 
+        public ICollection<WishlistEntity> Wishlist { get; set; } = new List<WishlistEntity>();
 
     }
 

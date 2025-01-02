@@ -96,6 +96,32 @@ namespace Harmoniq.DAL.Migrations
                     b.ToTable("AlbumSongs");
                 });
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
+                {
+                    b.Property<int>("CartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContentConsumerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCheckedOut")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CartId");
+
+                    b.HasIndex("AlbumId");
+
+                    b.HasIndex("ContentConsumerId");
+
+                    b.ToTable("ShoppingCart");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentConsumerEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -312,6 +338,25 @@ namespace Harmoniq.DAL.Migrations
                     b.Navigation("Album");
                 });
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
+                {
+                    b.HasOne("Harmoniq.Domain.Entities.AlbumEntity", "Album")
+                        .WithMany()
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Harmoniq.Domain.Entities.ContentConsumerEntity", "Consumer")
+                        .WithMany("CartItems")
+                        .HasForeignKey("ContentConsumerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+
+                    b.Navigation("Consumer");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentConsumerEntity", b =>
                 {
                     b.HasOne("Harmoniq.Domain.Entities.UserEntity", "User")
@@ -398,6 +443,8 @@ namespace Harmoniq.DAL.Migrations
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentConsumerEntity", b =>
                 {
+                    b.Navigation("CartItems");
+
                     b.Navigation("FavoriteAlbums");
 
                     b.Navigation("PurchasedAlbums");

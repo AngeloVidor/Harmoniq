@@ -57,6 +57,9 @@ namespace Harmoniq.BLL.Mapping
 
             CreateMap<WishlistEntity, GetWishlistDto>();
 
+            CreateMap<CartEntity, CartDto>();
+            CreateMap<CartDto, CartEntity>();
+
         }
 
 
