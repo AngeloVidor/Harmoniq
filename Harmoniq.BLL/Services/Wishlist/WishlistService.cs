@@ -32,14 +32,14 @@ namespace Harmoniq.BLL.Services.Wishlist
             return _mapper.Map<WishlistDto>(albumWatchlist);
         }
 
-        public async Task<List<WishlistDto>> GetWishlistByContentConsumerId(int contentConsumerId)
+        public async Task<List<GetWishlistDto>> GetWishlistByContentConsumerId(int contentConsumerId)
         {
             if (contentConsumerId <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(contentConsumerId));
             }
             var wishlist = await _wishlistRepository.GetWishlistByContentConsumerId(contentConsumerId);
-            return _mapper.Map<List<WishlistDto>>(wishlist);
+            return _mapper.Map<List<GetWishlistDto>>(wishlist);
         }
     }
 }

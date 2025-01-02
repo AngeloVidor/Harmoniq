@@ -9,6 +9,6 @@ namespace Harmoniq.BLL.Interfaces.Wishlist
     public interface IWishlistService
     {
         Task<WishlistDto> AddAlbumToWishlist(WishlistDto wishlist);
-        Task<List<WishlistDto>> GetWishlistByContentConsumerId(int contentConsumerId);
+        Task<List<GetWishlistDto>> GetWishlistByContentConsumerId(int contentConsumerId);
     }
 }

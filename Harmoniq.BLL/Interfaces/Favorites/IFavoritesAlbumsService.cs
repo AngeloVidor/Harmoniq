@@ -9,6 +9,6 @@ namespace Harmoniq.BLL.Interfaces.Favorites
     public interface IFavoritesAlbumsService
     {
         Task<FavoritesAlbumsDto> AddFavoriteAlbumAsync(FavoritesAlbumsDto favorite);
-        Task<List<FavoritesAlbumsDto>> GetFavoriteAlbumByContentConsumer(int contentConsumerId);
+        Task<List<GetFavoritesAlbumsDto>> GetFavoriteAlbumByContentConsumer(int contentConsumerId);
     }
 }

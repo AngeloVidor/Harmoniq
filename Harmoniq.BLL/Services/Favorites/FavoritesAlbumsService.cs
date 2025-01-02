@@ -37,14 +37,14 @@ namespace Harmoniq.BLL.Services.Favorites
             return _mapper.Map<FavoritesAlbumsDto>(favoritedAlbum);
         }
 
-        public async Task<List<FavoritesAlbumsDto>> GetFavoriteAlbumByContentConsumer(int contentConsumerId)
+        public async Task<List<GetFavoritesAlbumsDto>> GetFavoriteAlbumByContentConsumer(int contentConsumerId)
         {
             if (contentConsumerId <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(contentConsumerId));
             }
             var favoritedAlbums = await _favoritesAlbums.GetFavoriteAlbumByContentConsumer(contentConsumerId);
-            return _mapper.Map<List<FavoritesAlbumsDto>>(favoritedAlbums);
+            return _mapper.Map<List<GetFavoritesAlbumsDto>>(favoritedAlbums);
         }
     }
 }

@@ -54,5 +54,9 @@ namespace Harmoniq.DAL.Repositories.UserManagement
             return contentConsumer?.Id;
         }
 
+        public async Task<ContentConsumerEntity> GetContentConsumerByIdAsync(int contentConsumerId)
+        {
+            return await _dbContext.ContentConsumers.Where(cc => cc.Id == contentConsumerId).FirstOrDefaultAsync();
+        }
     }
 }

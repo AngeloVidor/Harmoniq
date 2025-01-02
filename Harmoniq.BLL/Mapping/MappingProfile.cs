@@ -53,6 +53,10 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<WishlistEntity, WishlistDto>();
             CreateMap<WishlistDto, WishlistEntity>();
 
+            CreateMap<FavoritesAlbumsEntity, GetFavoritesAlbumsDto>();
+
+            CreateMap<WishlistEntity, GetWishlistDto>();
+
         }
 
 

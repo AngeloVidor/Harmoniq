@@ -15,5 +15,8 @@ namespace Harmoniq.Domain.Entities
         public int ContentConsumerId { get; set; }
         public DateTime DateAdded { get; set; } = DateTime.UtcNow;
 
+        public string AlbumTitle { get; set; }
+        public string ConsumerUsername { get; set; }
+
     }
 }
