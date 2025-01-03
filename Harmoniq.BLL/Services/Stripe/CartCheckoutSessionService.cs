@@ -36,14 +36,6 @@ namespace Harmoniq.BLL.Services.Stripe
         }
         public async Task<string> CreateCartCheckoutSessionAsync(CartCheckoutDto cart)
         {
-            var albumsInCart = await _cartAlbumsRepository.GetCartAlbumsByCartIdAsync(cart.CartId);
-            if (albumsInCart == null || !albumsInCart.Any())
-            {
-                throw new ArgumentException("No albums found in the cart.");
-            }
-
-            cart.Albums = _mapper.Map<List<CartAlbumDto>>(albumsInCart);
-
             var lineItems = new List<SessionLineItemOptions>();
             foreach (var album in cart.Albums)
             {

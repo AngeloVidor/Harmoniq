@@ -40,6 +40,7 @@ namespace Harmoniq.API.Controllers
             var userId = _userContextService.GetUserIdFromContext();
             var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
             cart.CartId = await _cartAlbumsService.GetCartIdByContentConsumerIdAsync(consumerId);
+
             var albumsInCart = await _cartAlbumsService.GetCartAlbumsByCartIdAsync(cart.CartId);
             cart.Albums = albumsInCart.ToList();
 
@@ -59,7 +60,7 @@ namespace Harmoniq.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
