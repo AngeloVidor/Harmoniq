@@ -10,5 +10,6 @@ namespace Harmoniq.BLL.Interfaces.CartAlbums
     {
         Task<CartAlbumDto> AddAlbumToCartAsync(CartAlbumDto cartAlbumDto);
         Task<int> GetCartIdByContentConsumerIdAsync(int contentConsumerId);
+        Task<List<CartAlbumDto>> GetCartAlbumsByCartIdAsync(int cartId);
     }
 }

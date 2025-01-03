@@ -33,6 +33,12 @@ namespace Harmoniq.BLL.Services.CartAlbums
             return _mapper.Map<CartAlbumDto>(addedToCart);
         }
 
+        public async Task<List<CartAlbumDto>> GetCartAlbumsByCartIdAsync(int cartId)
+        {
+            var cartAlbums = await _cartAlbums.GetCartAlbumsByCartIdAsync(cartId);
+            return _mapper.Map<List<CartAlbumDto>>(cartAlbums);
+        }
+
         public async Task<int> GetCartIdByContentConsumerIdAsync(int contentConsumerId)
         {
             return await _cartAlbums.GetCartIdByContentConsumerIdAsync(contentConsumerId);

@@ -25,6 +25,11 @@ namespace Harmoniq.DAL.Repositories.CartAlbums
             return cartAlbumEntity;
         }
 
+        public async Task<List<CartAlbumEntity>> GetCartAlbumsByCartIdAsync(int cartId)
+        {
+            return await _dbContext.CartAlbums.Where(c => c.CartId == cartId).ToListAsync();
+        }
+
         public async Task<int> GetCartIdByContentConsumerIdAsync(int contentConsumerId)
         {
             var cart = await _dbContext.ShoppingCart.FirstOrDefaultAsync(c => c.ContentConsumerId == contentConsumerId);

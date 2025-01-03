@@ -23,20 +23,20 @@ namespace Harmoniq.DAL.Context
         public DbSet<WishlistEntity> Wishlist { get; set; }
         public DbSet<CartEntity> ShoppingCart { get; set; }
         public DbSet<CartAlbumEntity> CartAlbums { get; set; }
+        public DbSet<CartCheckoutEntity> CartCheckout { get; set; }
 
 
-
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AlbumEntity>()
                 .Property(a => a.Price)
                 .HasColumnType("decimal(18,2)");
 
-            /*modelBuilder.Entity<CartEntity>()
-                .Property(c => c.TotalPrice)
+            modelBuilder.Entity<CartCheckoutEntity>()
+                .Property(c => c.Price)
                 .HasColumnType("decimal(18,2)");
-            */
+            
         }
 
     }

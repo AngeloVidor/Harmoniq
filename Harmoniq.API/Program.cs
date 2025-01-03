@@ -46,6 +46,7 @@ using Harmoniq.DAL.Interfaces.AlbumManagement;
 using Harmoniq.DAL.Interfaces.AlbumSongs;
 using Harmoniq.DAL.Interfaces.Cart;
 using Harmoniq.DAL.Interfaces.CartAlbums;
+using Harmoniq.DAL.Interfaces.CartPurchase;
 using Harmoniq.DAL.Interfaces.ContentConsumerAccount;
 using Harmoniq.DAL.Interfaces.ContentCreatorAccount;
 using Harmoniq.DAL.Interfaces.DisplayAlbums;
@@ -58,6 +59,7 @@ using Harmoniq.DAL.Repositories.Albums;
 using Harmoniq.DAL.Repositories.AlbumSongs;
 using Harmoniq.DAL.Repositories.Cart;
 using Harmoniq.DAL.Repositories.CartAlbums;
+using Harmoniq.DAL.Repositories.CartPurchase;
 using Harmoniq.DAL.Repositories.ContentConsumerAccount;
 using Harmoniq.DAL.Repositories.ContentCreatorAccount;
 using Harmoniq.DAL.Repositories.DisplayAlbums;
@@ -151,6 +153,8 @@ builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<ICartAlbumsService, CartAlbumsService>();
 builder.Services.AddScoped<ICartAlbumsRepository, CartAlbumsRepository>();
+builder.Services.AddScoped<ICartCheckoutSessionService, CartCheckoutSessionService>();
+builder.Services.AddScoped<ICartPurchaseRepository, CartPurchaseRepository>();
 
 
 builder.Services.Configure<StripeModel>(builder.Configuration.GetSection("Stripe"));

@@ -107,6 +107,9 @@ namespace Harmoniq.DAL.Migrations
                     b.Property<int>("AlbumId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CartCheckoutEntityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
@@ -114,9 +117,40 @@ namespace Harmoniq.DAL.Migrations
 
                     b.HasIndex("AlbumId");
 
+                    b.HasIndex("CartCheckoutEntityId");
+
                     b.HasIndex("CartId");
 
                     b.ToTable("CartAlbums");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartCheckoutEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContentConsumerId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ContentConsumerId");
+
+                    b.ToTable("CartCheckout");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
@@ -364,6 +398,10 @@ namespace Harmoniq.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Harmoniq.Domain.Entities.CartCheckoutEntity", null)
+                        .WithMany("Albums")
+                        .HasForeignKey("CartCheckoutEntityId");
+
                     b.HasOne("Harmoniq.Domain.Entities.CartEntity", "Cart")
                         .WithMany("CartAlbums")
                         .HasForeignKey("CartId")
@@ -373,6 +411,25 @@ namespace Harmoniq.DAL.Migrations
                     b.Navigation("Album");
 
                     b.Navigation("Cart");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartCheckoutEntity", b =>
+                {
+                    b.HasOne("Harmoniq.Domain.Entities.CartEntity", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Harmoniq.Domain.Entities.ContentConsumerEntity", "ContentConsumer")
+                        .WithMany()
+                        .HasForeignKey("ContentConsumerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("ContentConsumer");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
@@ -468,6 +525,11 @@ namespace Harmoniq.DAL.Migrations
                     b.Navigation("PurchasedAlbums");
 
                     b.Navigation("Wishlist");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartCheckoutEntity", b =>
+                {
+                    b.Navigation("Albums");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
