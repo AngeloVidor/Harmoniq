@@ -8,6 +8,6 @@ namespace Harmoniq.BLL.Interfaces.Cart
 {
     public interface IShoppingCartService
     {
-        Task<CartDto> AddAlbumToCartAsync(CartDto cart);
+        Task<CartDto> AddNewShoppingCart(CartDto cart);
     }
 }

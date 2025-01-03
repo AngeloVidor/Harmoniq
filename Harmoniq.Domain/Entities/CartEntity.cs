@@ -11,14 +11,12 @@ namespace Harmoniq.Domain.Entities
     {
         [Key]
         public int CartId { get; set; }
-        public int AlbumId { get; set; }
-        public AlbumEntity Album { get; set; }
         public int ContentConsumerId { get; set; }
 
         [ForeignKey("ContentConsumerId")]
         public ContentConsumerEntity Consumer { get; set; }
-
         public bool IsCheckedOut { get; set; } = false;
+        public ICollection<CartAlbumEntity> CartAlbums { get; set; } = new List<CartAlbumEntity>();
 
     }
 }

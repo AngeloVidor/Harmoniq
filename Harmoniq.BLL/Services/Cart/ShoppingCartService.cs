@@ -21,14 +21,14 @@ namespace Harmoniq.BLL.Services.Cart
             _shoppingCartRepository = shoppingCartRepository;
         }
 
-        public async Task<CartDto> AddAlbumToCartAsync(CartDto cart)
+        public async Task<CartDto> AddNewShoppingCart(CartDto cart)
         {
             if (cart == null)
             {
                 throw new ArgumentNullException(nameof(cart));
             }
             var cartEntity = _mapper.Map<CartEntity>(cart);
-            var newCart = await _shoppingCartRepository.AddAlbumToCartAsync(cartEntity);
+            var newCart = await _shoppingCartRepository.AddNewShoppingCart(cartEntity);
             return _mapper.Map<CartDto>(newCart);
         }
     }

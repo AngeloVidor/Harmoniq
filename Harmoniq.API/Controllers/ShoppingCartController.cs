@@ -22,8 +22,8 @@ namespace Harmoniq.API.Controllers
             _userContextService = userContextService;
         }
 
-        [HttpPost("addAlbumToCart")]
-        public async Task<IActionResult> AddAlbumToCart([FromBody] CartDto cart)
+        [HttpPost("new-shopping-cart")]
+        public async Task<IActionResult> AddNewShoppingCart([FromBody] CartDto cart)
         {
             if (cart == null)
             {
@@ -31,13 +31,12 @@ namespace Harmoniq.API.Controllers
             }
 
             var userId = _userContextService.GetUserIdFromContext();
-            System.Console.WriteLine($"User ID: {userId}");
             cart.ContentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
-            System.Console.WriteLine($"Content Consumer ID: {cart.ContentConsumerId}");
-            
+
+
             try
             {
-                var newCart = await _shoppingCartService.AddAlbumToCartAsync(cart);
+                var newCart = await _shoppingCartService.AddNewShoppingCart(cart);
                 return Ok(newCart);
             }
             catch (ArgumentNullException ex)

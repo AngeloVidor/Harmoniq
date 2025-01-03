@@ -96,6 +96,29 @@ namespace Harmoniq.DAL.Migrations
                     b.ToTable("AlbumSongs");
                 });
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartAlbumEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.HasIndex("CartId");
+
+                    b.ToTable("CartAlbums");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
                 {
                     b.Property<int>("CartId")
@@ -104,9 +127,6 @@ namespace Harmoniq.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
 
-                    b.Property<int>("AlbumId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ContentConsumerId")
                         .HasColumnType("int");
 
@@ -114,8 +134,6 @@ namespace Harmoniq.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("CartId");
-
-                    b.HasIndex("AlbumId");
 
                     b.HasIndex("ContentConsumerId");
 
@@ -338,7 +356,7 @@ namespace Harmoniq.DAL.Migrations
                     b.Navigation("Album");
                 });
 
-            modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartAlbumEntity", b =>
                 {
                     b.HasOne("Harmoniq.Domain.Entities.AlbumEntity", "Album")
                         .WithMany()
@@ -346,13 +364,24 @@ namespace Harmoniq.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Harmoniq.Domain.Entities.CartEntity", "Cart")
+                        .WithMany("CartAlbums")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+
+                    b.Navigation("Cart");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
+                {
                     b.HasOne("Harmoniq.Domain.Entities.ContentConsumerEntity", "Consumer")
                         .WithMany("CartItems")
                         .HasForeignKey("ContentConsumerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Album");
 
                     b.Navigation("Consumer");
                 });
@@ -439,6 +468,11 @@ namespace Harmoniq.DAL.Migrations
                     b.Navigation("PurchasedAlbums");
 
                     b.Navigation("Wishlist");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.CartEntity", b =>
+                {
+                    b.Navigation("CartAlbums");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentConsumerEntity", b =>

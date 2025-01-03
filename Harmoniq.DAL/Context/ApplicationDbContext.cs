@@ -22,6 +22,7 @@ namespace Harmoniq.DAL.Context
         public DbSet<FavoritesAlbumsEntity> FavoriteAlbums { get; set; }
         public DbSet<WishlistEntity> Wishlist { get; set; }
         public DbSet<CartEntity> ShoppingCart { get; set; }
+        public DbSet<CartAlbumEntity> CartAlbums { get; set; }
 
 
 

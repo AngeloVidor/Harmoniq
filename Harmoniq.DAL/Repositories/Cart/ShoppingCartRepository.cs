@@ -17,7 +17,7 @@ namespace Harmoniq.DAL.Repositories.Cart
             _dbContext = dbContext;
         }
 
-        public async Task<CartEntity> AddAlbumToCartAsync(CartEntity cart)
+        public async Task<CartEntity> AddNewShoppingCart(CartEntity cart)
         {
             await _dbContext.ShoppingCart.AddAsync(cart);
             await _dbContext.SaveChangesAsync();

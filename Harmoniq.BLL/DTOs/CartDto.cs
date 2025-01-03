@@ -10,7 +10,6 @@ namespace Harmoniq.BLL.DTOs
     {
         [Key]
         public int CartId { get; set; }
-        public int AlbumId { get; set; }
         public int ContentConsumerId { get; set; }
         public bool IsCheckedOut { get; set; } = false;
     }
