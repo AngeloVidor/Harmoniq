@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.PurchasedAlbums;
-using Harmoniq.BLL.Interfaces.PurchasedAlbums;
 using Harmoniq.BLL.Interfaces.RoleChecker;
 using Harmoniq.BLL.Interfaces.Stripe;
 using Harmoniq.BLL.Interfaces.UserContext;

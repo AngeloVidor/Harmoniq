@@ -14,18 +14,18 @@ namespace Harmoniq.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "ContentConsumer")]
-    public class ContentConsumerAccountController : ControllerBase
+    public class ContentConsumerProfileController : ControllerBase
     {
         private readonly IContentConsumerAccountService _contentConsumerAccount;
         private readonly IUserContextService _userContextService;
 
-        public ContentConsumerAccountController(IContentConsumerAccountService contentConsumerAccount, IUserContextService userContextService)
+        public ContentConsumerProfileController(IContentConsumerAccountService contentConsumerAccount, IUserContextService userContextService)
         {
             _contentConsumerAccount = contentConsumerAccount;
             _userContextService = userContextService;
         }
 
-        [HttpPost("add-contentConsumer-account")]
+        [HttpPost("create-profile")]
         public async Task<IActionResult> AddContentConsumerAccount([FromBody] ContentConsumerDto consumerDto)
         {
             if (!ModelState.IsValid)
