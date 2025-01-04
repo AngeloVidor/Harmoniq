@@ -66,7 +66,13 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<CartCheckoutEntity, CartCheckoutDto>();
             CreateMap<CartCheckoutDto, CartCheckoutEntity>();
 
+            CreateMap<AlbumSongsEntity, EditedAlbumSongsDto>();
+            CreateMap<EditedAlbumSongsDto, AlbumSongsEntity>();
+
+
+
         }
+
 
     }
 }

@@ -24,5 +24,12 @@ namespace Harmoniq.DAL.Repositories.AlbumSongs
             await _dbContext.SaveChangesAsync();
             return albumSongsEntity;
         }
+
+        public async Task<AlbumSongsEntity> EditAlbumSongsAsync(AlbumSongsEntity editedSongs)
+        {
+            _dbContext.AlbumSongs.Update(editedSongs);
+            await _dbContext.SaveChangesAsync();
+            return editedSongs;
+        }
     }
 }

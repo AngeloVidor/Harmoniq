@@ -9,5 +9,6 @@ namespace Harmoniq.DAL.Interfaces.AlbumSongs
     public interface IAlbumSongsRepository
     {
         Task<AlbumSongsEntity> AddSongsToAlbumAsync(AlbumSongsEntity albumSongsEntity);
+        Task<AlbumSongsEntity> EditAlbumSongsAsync(AlbumSongsEntity editedSongs);
     }
 }

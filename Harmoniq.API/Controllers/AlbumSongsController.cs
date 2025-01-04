@@ -54,5 +54,32 @@ namespace Harmoniq.API.Controllers
                 return StatusCode(404, ex.Message);
             }
         }
+
+        [HttpPut("edit-album-songs")]
+        public async Task<IActionResult> EditAlbumSongs([FromForm] EditedAlbumSongsDto editedSongs)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userId = _userContextService.GetUserIdFromContext();
+            editedSongs.ContentCreatorId = await _userContextService.GetContentCreatorIdByUserIdAsync(userId);
+
+            try
+            {
+                var editedAlbumSongs = await _albumSongsService.EditAlbumSongsAsync(editedSongs);
+                return Ok(editedAlbumSongs);
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
     }
 }

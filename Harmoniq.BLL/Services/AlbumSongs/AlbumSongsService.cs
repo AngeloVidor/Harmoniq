@@ -48,11 +48,26 @@ namespace Harmoniq.BLL.Services.AlbumSongs
 
             var trackUrl = await _cloudTrackService.UploadAudioFileAsync(albumSongsDto.TrackFile);
             albumSongsDto.TrackUrl = trackUrl;
-            
+
 
             var albumSongEntity = _mapper.Map<AlbumSongsEntity>(albumSongsDto);
             var addedAlbumSongs = await _albumSongsRepository.AddSongsToAlbumAsync(albumSongEntity);
             return _mapper.Map<AlbumSongsDto>(addedAlbumSongs);
+        }
+
+        public async Task<EditedAlbumSongsDto> EditAlbumSongsAsync(EditedAlbumSongsDto editedSongs)
+        {
+            if (editedSongs == null)
+            {
+                throw new ArgumentNullException(nameof(editedSongs));
+            }
+
+            var trackUrl = await _cloudTrackService.UploadAudioFileAsync(editedSongs.TrackFile);
+            editedSongs.TrackUrl = trackUrl;
+
+            var editedSongsEntity = _mapper.Map<AlbumSongsEntity>(editedSongs);
+            var response = await _albumSongsRepository.EditAlbumSongsAsync(editedSongsEntity);
+            return _mapper.Map<EditedAlbumSongsDto>(response);
         }
     }
 }
