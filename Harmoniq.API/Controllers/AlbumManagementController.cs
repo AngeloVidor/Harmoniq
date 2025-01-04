@@ -108,5 +108,26 @@ namespace Harmoniq.API.Controllers
             }
         }
 
+
+        [HttpPut("edit-album")]
+        public async Task<IActionResult> EditAlbum([FromForm] EditedAlbumDto editedAlbum)
+        {
+
+            var contentCreator = _userContextService.GetUserIdFromContext();
+            var contentCreatorId = await _userContextService.GetContentCreatorIdByUserIdAsync(contentCreator);
+            editedAlbum.ContentCreatorId = contentCreatorId;
+
+            try
+            {
+                var editedAlbumDto = await _albumManagementService.EditAlbumAsync(editedAlbum);
+                return Ok(editedAlbumDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
+
 }

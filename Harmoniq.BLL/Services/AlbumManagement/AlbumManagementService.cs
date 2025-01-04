@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumManagement;
+using Harmoniq.BLL.Interfaces.AWS;
 using Harmoniq.DAL.Interfaces.AlbumManagement;
 using Harmoniq.DAL.Interfaces.PurchasedAlbums;
+using Harmoniq.Domain.Entities;
 
 namespace Harmoniq.BLL.Services.AlbumManagement
 {
@@ -14,11 +16,27 @@ namespace Harmoniq.BLL.Services.AlbumManagement
     {
         private readonly IAlbumManagementRepository _albumManagement;
         private readonly IMapper _mapper;
+        private readonly ICloudImageService _cloudImageService;
 
-        public AlbumManagementService(IAlbumManagementRepository albumManagement, IMapper mapper)
+        public AlbumManagementService(IAlbumManagementRepository albumManagement, IMapper mapper, ICloudImageService cloudImageService)
         {
             _albumManagement = albumManagement;
             _mapper = mapper;
+            _cloudImageService = cloudImageService;
+        }
+
+        public async Task<EditedAlbumDto> EditAlbumAsync(EditedAlbumDto editedAlbum)
+        {
+            if (editedAlbum == null)
+            {
+                throw new ArgumentNullException(nameof(editedAlbum));
+            }
+            var imageUrl = await _cloudImageService.UploadImageFileAsync(editedAlbum.ImageFile);
+            editedAlbum.ImageUrl = imageUrl;
+
+            var editedEntity = _mapper.Map<AlbumEntity>(editedAlbum);
+            var response = await _albumManagement.EditAlbumAsync(editedEntity);
+            return _mapper.Map<EditedAlbumDto>(response);
         }
 
         public async Task<AlbumDto> GetAlbumByIdAsync(int albumId)

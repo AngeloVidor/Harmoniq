@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {}
+    "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
+    "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj",
+        "projectUniqueName": "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj",
         "projectName": "Harmoniq.Domain",
-        "projectPath": "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj",
+        "projectPath": "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "C:\\Harmoniq\\Harmoniq.Domain\\obj\\",
+        "outputPath": "c:\\Harmoniq\\Harmoniq.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",

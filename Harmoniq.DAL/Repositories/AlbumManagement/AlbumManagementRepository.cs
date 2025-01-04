@@ -63,14 +63,20 @@ namespace Harmoniq.DAL.Repositories.AlbumManagement
             {
                 throw new KeyNotFoundException("Album not found");
             }
-            
+
             var deletedAlbum = await _dbContext.PurchasedAlbums.Where(a => a.AlbumId == albumId).ToListAsync();
-            
+
             _dbContext.PurchasedAlbums.UpdateRange(deletedAlbum);
             _dbContext.Albums.Update(album);
             await _dbContext.SaveChangesAsync();
             return album;
+        }
 
+        public async Task<AlbumEntity> EditAlbumAsync(AlbumEntity editedAlbum)
+        {
+            _dbContext.Albums.Update(editedAlbum);
+            await _dbContext.SaveChangesAsync();
+            return editedAlbum;
         }
     }
 }
