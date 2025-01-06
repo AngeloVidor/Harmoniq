@@ -13,6 +13,9 @@ using Harmoniq.BLL.Interfaces.AlbumManagement;
 using AutoMapper;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.UserManagement;
+using Harmoniq.BLL.Interfaces.CartPurchase;
+using Harmoniq.BLL.Interfaces.UserContext;
+using Harmoniq.BLL.Interfaces.CartAlbums;
 
 
 
@@ -26,19 +29,28 @@ namespace Harmoniq.API.Webhooks
         private readonly IAlbumManagementService _albumManagementService;
         private readonly IUserAccountService _userAccountService;
         private readonly IAlbumCheckoutService _albumCheckout;
+        private readonly ICartPurchaseService _cartPurchaseService;
+        private readonly IUserContextService _userContextService;
+        private readonly string _cartWebhookSecret;
+        private readonly ICartAlbumsService _cartAlbumsService;
 
-        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IAlbumCheckoutService albumCheckout)
+
+        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService)
         {
             _webhookSecret = stripeOptions.Value.WebhookSecret;
+            _cartWebhookSecret = stripeOptions.Value.CartWebhookSecret;
             _albumManagementService = albumManagementService;
             _userAccountService = userAccountService;
             _albumCheckout = albumCheckout;
+            _cartPurchaseService = cartPurchaseService;
+            _userContextService = userContextService;
+            _cartAlbumsService = cartAlbumsService;
         }
 
         [HttpPost("hook")]
         public async Task<IActionResult> HandleStripeWebhook()
         {
-            Console.WriteLine("Webook recieved");
+            Console.WriteLine("Webhook recieved");
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
 
             try
@@ -93,6 +105,80 @@ namespace Harmoniq.API.Webhooks
                 return StatusCode(500);
             }
         }
+
+        [HttpPost("cart")]
+        public async Task<IActionResult> HandleStripeCartWebhook()
+        {
+            System.Console.WriteLine("Recieved HandleStripeCartWebhook");
+            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            try
+            {
+
+                var signatureHeader = Request.Headers["Stripe-Signature"];
+                var stripeEvent = EventUtility.ConstructEvent(json, signatureHeader, _cartWebhookSecret);
+
+                var session = stripeEvent.Data.Object as CheckoutSession;
+
+                if (stripeEvent.Type == EventTypes.CheckoutSessionCompleted)
+                {
+                    var albumIdsString = session.Metadata["albumIds"];
+                    var albumIds = albumIdsString.Split(',').Select(int.Parse).ToList();
+
+                    var contentConsumerId = int.Parse(session.Metadata["contentConsumerId"]);
+                    Console.WriteLine($"ConsumerID at Webhook: {contentConsumerId}");
+
+                    int cartId = int.Parse(session.Metadata["CartId"]);
+                    System.Console.WriteLine($"CartID in Hook {cartId}");
+
+                    var albums = new List<CartAlbumDto>();
+                    decimal totalPrice = 0;
+
+                    foreach (var albumId in albumIds)
+                    {
+                        var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
+                        if (album != null)
+                        {
+                            albums.Add(new CartAlbumDto
+                            {
+                                AlbumId = album.Id,
+                                CartId = cartId
+                            });
+
+                            totalPrice += album.Price;
+                        }
+                    }
+
+
+
+
+                    var cartCheckoutDto = new CartCheckoutDto
+                    {
+                        Albums = albums,
+                        ContentConsumerId = contentConsumerId,
+                        CartId = cartId,
+                        Price = totalPrice
+
+                    };
+
+                    await _cartPurchaseService.CreateCartPurchaseAsync(cartCheckoutDto);
+                    Console.WriteLine($"Album purchase recorded: Albums {albums}, ConsumerID {contentConsumerId}");
+                }
+                return Ok();
+
+            }
+            catch (StripeException e)
+            {
+                Console.WriteLine($"Stripe error: {e.Message}");
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error processing webhook: {e.Message}");
+                return StatusCode(500);
+            }
+
+        }
+
 
 
 

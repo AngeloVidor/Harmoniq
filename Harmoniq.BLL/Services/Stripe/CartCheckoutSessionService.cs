@@ -60,13 +60,26 @@ namespace Harmoniq.BLL.Services.Stripe
                 });
             }
 
+            var albumIds = string.Join(",", cart.Albums.Select(a => a.AlbumId));
+            var consumerId = cart.ContentConsumerId.ToString();
+            Console.WriteLine($"ConsumerID at Service: {consumerId}");
+            string cartId = cart.CartId.ToString();
+
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string> { "card" },
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "http://localhost:5029/api/cartcheckousession/success?session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = "http://localhost:5029/api/cartcheckousession/cancel",
+                SuccessUrl = "http://localhost:5029/api/cartcheckoutsession/success?session_id={CHECKOUT_SESSION_ID}",
+                CancelUrl = "http://localhost:5029/api/cartcheckoutsession/cancel",
+                Metadata = new Dictionary<string, string>
+                {
+                    { "albumIds", albumIds },
+                    { "contentConsumerId", consumerId },
+                    { "CartId", cartId}
+                }
+
+
             };
 
             var service = new SessionService();

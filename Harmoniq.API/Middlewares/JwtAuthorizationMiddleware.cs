@@ -27,7 +27,8 @@ namespace Harmoniq.API.Middlewares
                 "/api/UserAccount/login",
                 "/api/checkoutsession/success",
                 "/api/checkoutsession/cancel",
-                "/api/stripewebhook/hook"
+                "/api/stripewebhook/hook",
+                "/api/stripewebhook/cart"
             };
 
 

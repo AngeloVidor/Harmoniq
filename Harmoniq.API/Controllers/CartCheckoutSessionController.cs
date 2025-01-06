@@ -40,6 +40,8 @@ namespace Harmoniq.API.Controllers
             var userId = _userContextService.GetUserIdFromContext();
             var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
             cart.CartId = await _cartAlbumsService.GetCartIdByContentConsumerIdAsync(consumerId);
+            System.Console.WriteLine($"CartID: {cart.CartId}");
+            cart.ContentConsumerId = consumerId;
 
             var albumsInCart = await _cartAlbumsService.GetCartAlbumsByCartIdAsync(cart.CartId);
             cart.Albums = albumsInCart.ToList();

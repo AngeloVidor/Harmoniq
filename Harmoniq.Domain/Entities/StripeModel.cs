@@ -12,5 +12,6 @@ namespace Harmoniq.Domain.Entities
         public string SuccessUrl { get; set; }
         public string CancelUrl { get; set; }
         public string WebhookSecret { get; set; }
+        public string CartWebhookSecret { get; set; }
     }
 }

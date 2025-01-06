@@ -8,6 +8,7 @@ using Harmoniq.BLL.Interfaces.AlbumSongs;
 using Harmoniq.BLL.Interfaces.AWS;
 using Harmoniq.BLL.Interfaces.Cart;
 using Harmoniq.BLL.Interfaces.CartAlbums;
+using Harmoniq.BLL.Interfaces.CartPurchase;
 using Harmoniq.BLL.Interfaces.ContentConsumerAccount;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
 using Harmoniq.BLL.Interfaces.Discography;
@@ -27,6 +28,7 @@ using Harmoniq.BLL.Services.AlbumSongs;
 using Harmoniq.BLL.Services.AWS;
 using Harmoniq.BLL.Services.Cart;
 using Harmoniq.BLL.Services.CartAlbums;
+using Harmoniq.BLL.Services.CartPurchase;
 using Harmoniq.BLL.Services.ContentConsumerAccount;
 using Harmoniq.BLL.Services.ContentCreatorAccount;
 using Harmoniq.BLL.Services.Discography;
@@ -154,6 +156,7 @@ builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<ICartAlbumsService, CartAlbumsService>();
 builder.Services.AddScoped<ICartAlbumsRepository, CartAlbumsRepository>();
 builder.Services.AddScoped<ICartCheckoutSessionService, CartCheckoutSessionService>();
+builder.Services.AddScoped<ICartPurchaseService, CartPurchaseService>();
 builder.Services.AddScoped<ICartPurchaseRepository, CartPurchaseRepository>();
 
 

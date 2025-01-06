@@ -38,7 +38,8 @@ namespace Harmoniq.DAL.Repositories.CartAlbums
                 throw new ArgumentNullException(nameof(cart));
             }
             return cart.CartId;
-
         }
+
+    
     }
 }
