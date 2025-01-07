@@ -148,16 +148,13 @@ namespace Harmoniq.API.Webhooks
                         }
                     }
 
-
-
-
                     var cartCheckoutDto = new CartCheckoutDto
                     {
                         Albums = albums,
                         ContentConsumerId = contentConsumerId,
                         CartId = cartId,
-                        Price = totalPrice
-
+                        Price = totalPrice,
+                        AlbumIds = albumIds
                     };
 
                     await _cartPurchaseService.CreateCartPurchaseAsync(cartCheckoutDto);
