@@ -6,12 +6,14 @@ using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Cart;
 using Harmoniq.BLL.Interfaces.CartAlbums;
 using Harmoniq.BLL.Interfaces.UserContext;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentConsumer")]
     public class ShoppingCartController : ControllerBase
     {
         private readonly IShoppingCartService _shoppingCartService;

@@ -29,6 +29,7 @@ namespace Harmoniq.API.Controllers
         }
 
         [HttpPost("ContentConsumer")]
+        [Authorize(Roles = "ContentConsumer")]
         public async Task<IActionResult> AddContentConsumerProfile([FromBody] ContentConsumerDto consumerDto)
         {
             if (!ModelState.IsValid)
@@ -54,6 +55,7 @@ namespace Harmoniq.API.Controllers
         }
 
         [HttpPost("ContentCreator")]
+        [Authorize(Roles = "ContentCreator")]
         public async Task<IActionResult> AddContentCreatorProfile([FromBody] ContentCreatorDto contentCreatorDto)
         {
             if (!ModelState.IsValid)

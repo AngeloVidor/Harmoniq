@@ -10,12 +10,14 @@ using Harmoniq.BLL.Interfaces.Stripe;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.UserManagement;
 using Harmoniq.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentConsumer")]
     public class SingleAlbumCheckoutSessionController : ControllerBase
     {
 
@@ -52,7 +54,7 @@ namespace Harmoniq.API.Controllers
             }
 
             var user = await _userAccountService.GetUserByIdAsync(userId);
-            if(user.Roles != AccountType.ContentConsumer)
+            if (user.Roles != AccountType.ContentConsumer)
             {
                 return Unauthorized("Only ContentConsumers can make album purchases.");
             }
@@ -60,7 +62,7 @@ namespace Harmoniq.API.Controllers
             try
             {
                 var contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
-                if(contentConsumerId == null)
+                if (contentConsumerId == null)
                 {
                     return NotFound("ContentConsumerID not found.");
                 }

@@ -6,24 +6,24 @@ using Harmoniq.BLL.Interfaces.AlbumManagement;
 using Harmoniq.BLL.Interfaces.Discography;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.UserManagement;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentConsumer")]
     public class PurchasesController : ControllerBase
     {
         private readonly IAlbumManagementService _albumManagementService;
-        private readonly IUserAccountService _userAccountService;
         private readonly IUserContextService _userContextService;
         private readonly IDiscographyService _discographyService;
 
 
-        public PurchasesController(IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IUserContextService userContextService, IDiscographyService discographyService)
+        public PurchasesController(IAlbumManagementService albumManagementService, IUserContextService userContextService, IDiscographyService discographyService)
         {
             _albumManagementService = albumManagementService;
-            _userAccountService = userAccountService;
             _userContextService = userContextService;
             _discographyService = discographyService;
         }
@@ -52,12 +52,12 @@ namespace Harmoniq.API.Controllers
         }
 
         [HttpGet("download-discography/{albumId}")]
-        public async Task<IActionResult> DownloadDiscography(int albumId, int contentConsumerId)
+        public async Task<IActionResult> DownloadDiscography(int albumId)
         {
             try
             {
                 int userId = _userContextService.GetUserIdFromContext();
-                contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
+                var contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
 
                 var album = await _discographyService.DownloadAlbumAsync(albumId, contentConsumerId);
 

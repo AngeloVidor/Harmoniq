@@ -35,6 +35,7 @@ namespace Harmoniq.API.Controllers
         }
 
         [HttpPost("album")]
+        [Authorize(Roles = "ContentCreator")]
         public async Task<IActionResult> AddAlbum([FromForm] AlbumDto albumDto)
         {
             if (!ModelState.IsValid)
@@ -58,6 +59,7 @@ namespace Harmoniq.API.Controllers
         }
 
         [HttpGet("albums")]
+        [Authorize(Roles = "ContentCreator, ContentConsumer")]
         public async Task<IActionResult> GetAlbuns()
         {
             try
@@ -72,6 +74,7 @@ namespace Harmoniq.API.Controllers
         }
 
         [HttpGet("{albumId}")]
+        [Authorize(Roles = "ContentCreator, ContentConsumer")]
         public async Task<IActionResult> GetAlbumById([FromRoute] int albumId)
         {
             try
@@ -90,6 +93,7 @@ namespace Harmoniq.API.Controllers
         }
 
         [HttpPost("delete-album/{albumId}")]
+        [Authorize(Roles = "ContentCreator")]
         public async Task<IActionResult> RemoveAlbum(int albumId)
         {
             try
@@ -110,6 +114,7 @@ namespace Harmoniq.API.Controllers
 
 
         [HttpPut("album")]
+        [Authorize(Roles = "ContentCreator")]
         public async Task<IActionResult> EditAlbum([FromForm] EditedAlbumDto editedAlbum)
         {
 

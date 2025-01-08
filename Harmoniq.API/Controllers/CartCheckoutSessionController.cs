@@ -8,12 +8,15 @@ using Harmoniq.BLL.Interfaces.CartAlbums;
 using Harmoniq.BLL.Interfaces.Stripe;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.DAL.Interfaces.CartAlbums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentConsumer")]
+
     public class CartCheckoutSessionController : ControllerBase
     {
 

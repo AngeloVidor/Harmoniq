@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.BLL.Interfaces.DisplayAlbums;
 using Harmoniq.BLL.Interfaces.UserContext;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,8 @@ namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentConsumer, ContentCreator")]
+
     public class DisplayAlbumsController : ControllerBase
     {
         private readonly IDisplayAlbumsService _displayAlbums;
@@ -24,7 +27,7 @@ namespace Harmoniq.API.Controllers
 
 
         [HttpGet("{contentCreatorId}")]
-        public async Task<IActionResult> GetContentCreatorAlbumsAsync(int contentCreatorId)
+        public async Task<IActionResult> GetContentCreatorAlbumsAsync()
         {
             try
             {
@@ -33,7 +36,7 @@ namespace Harmoniq.API.Controllers
                 var albums = await _displayAlbums.GetContentCreatorAlbumsAsync(creatorId);
                 return Ok(albums);
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }

@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.Wishlist;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentConsumer")]
+
     public class WishlistController : ControllerBase
     {
         private readonly IWishlistService _wishlistService;

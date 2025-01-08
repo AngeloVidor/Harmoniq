@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Favorites;
 using Harmoniq.BLL.Interfaces.UserContext;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentConsumer")]
+
     public class FavoritesAlbumsController : ControllerBase
     {
         private readonly IFavoritesAlbumsService _favoritesAlbums;
