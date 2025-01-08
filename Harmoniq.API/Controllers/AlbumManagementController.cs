@@ -34,7 +34,7 @@ namespace Harmoniq.API.Controllers
             _albumManagementService = albumManagementService;
         }
 
-        [HttpPost("add-album")]
+        [HttpPost("album")]
         public async Task<IActionResult> AddAlbum([FromForm] AlbumDto albumDto)
         {
             if (!ModelState.IsValid)
@@ -57,7 +57,7 @@ namespace Harmoniq.API.Controllers
             }
         }
 
-        [HttpGet("get-albums")]
+        [HttpGet("albums")]
         public async Task<IActionResult> GetAlbuns()
         {
             try
@@ -71,8 +71,8 @@ namespace Harmoniq.API.Controllers
             }
         }
 
-        [HttpGet("get-album-by-id")]
-        public async Task<IActionResult> GetAlbumsById(int albumId)
+        [HttpGet("{albumId}")]
+        public async Task<IActionResult> GetAlbumById([FromRoute] int albumId)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace Harmoniq.API.Controllers
             }
         }
 
-        [HttpPost("remove-album")]
+        [HttpPost("delete-album/{albumId}")]
         public async Task<IActionResult> RemoveAlbum(int albumId)
         {
             try
@@ -109,7 +109,7 @@ namespace Harmoniq.API.Controllers
         }
 
 
-        [HttpPut("edit-album")]
+        [HttpPut("album")]
         public async Task<IActionResult> EditAlbum([FromForm] EditedAlbumDto editedAlbum)
         {
 

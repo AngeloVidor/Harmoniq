@@ -22,7 +22,7 @@ namespace Harmoniq.API.Controllers
             _userContextService = userContextService;
         }
 
-        [HttpPost("new-shopping-cart")]
+        [HttpPost("cart")]
         public async Task<IActionResult> AddNewShoppingCart([FromBody] CartDto cart)
         {
             if (cart == null)

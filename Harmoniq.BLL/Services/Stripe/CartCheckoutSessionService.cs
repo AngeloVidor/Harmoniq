@@ -6,8 +6,6 @@ using AutoMapper;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Stripe;
 using Harmoniq.DAL.Interfaces.AlbumManagement;
-using Harmoniq.DAL.Interfaces.Cart;
-using Harmoniq.DAL.Interfaces.CartAlbums;
 using Harmoniq.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Stripe;
@@ -19,20 +17,15 @@ namespace Harmoniq.BLL.Services.Stripe
     {
         private readonly StripeModel _stripeModel;
         private readonly IAlbumManagementRepository _albumManagementRepository;
-        private readonly ICartAlbumsRepository _cartAlbumsRepository;
-        private readonly IMapper _mapper;
 
         public CartCheckoutSessionService(
             IOptions<StripeModel> stripeModel,
-            IAlbumManagementRepository albumManagementRepository,
-            ICartAlbumsRepository cartAlbumsRepository,
-            IMapper mapper)
+            IAlbumManagementRepository albumManagementRepository
+            )
         {
             _stripeModel = stripeModel.Value;
             StripeConfiguration.ApiKey = _stripeModel.SecretKey;
             _albumManagementRepository = albumManagementRepository;
-            _cartAlbumsRepository = cartAlbumsRepository;
-            _mapper = mapper;
         }
         public async Task<string> CreateCartCheckoutSessionAsync(CartCheckoutDto cart)
         {
@@ -62,7 +55,6 @@ namespace Harmoniq.BLL.Services.Stripe
 
             var albumIds = string.Join(",", cart.Albums.Select(a => a.AlbumId));
             var consumerId = cart.ContentConsumerId.ToString();
-            Console.WriteLine($"ConsumerID at Service: {consumerId}");
             string cartId = cart.CartId.ToString();
 
             var options = new SessionCreateOptions
@@ -78,8 +70,6 @@ namespace Harmoniq.BLL.Services.Stripe
                     { "contentConsumerId", consumerId },
                     { "CartId", cartId}
                 }
-
-
             };
 
             var service = new SessionService();

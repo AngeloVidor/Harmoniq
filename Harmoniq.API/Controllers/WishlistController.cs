@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.UserContext;
@@ -22,7 +23,7 @@ namespace Harmoniq.API.Controllers
             _userContextService = userContextService;
         }
 
-        [HttpPost("add-album-to-wishlist")]
+        [HttpPost("albums")]
         public async Task<IActionResult> AddAlbumToWishlist([FromBody] WishlistDto wishlist)
         {
             if (!ModelState.IsValid)
@@ -44,11 +45,11 @@ namespace Harmoniq.API.Controllers
             }
         }
 
-        [HttpGet("get-wishlist-by-content-consumer-id")]
-        public async Task<IActionResult> GetWishlistByContentConsumerId(int contentConsumerId)
+        [HttpGet("/api/wishlist/{consumerId}")]
+        public async Task<IActionResult> GetWishlistByContentConsumerId()
         {
             var userId = _userContextService.GetUserIdFromContext();
-            contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
+            var contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
 
             try
             {

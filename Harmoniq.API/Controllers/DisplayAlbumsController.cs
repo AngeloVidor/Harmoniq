@@ -23,7 +23,7 @@ namespace Harmoniq.API.Controllers
         }
 
 
-        [HttpGet("contentCreator-all-albums/{contentCreatorId}")]
+        [HttpGet("{contentCreatorId}")]
         public async Task<IActionResult> GetContentCreatorAlbumsAsync(int contentCreatorId)
         {
             try

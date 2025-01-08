@@ -22,7 +22,7 @@ namespace Harmoniq.API.Controllers
             _userContext = userContext;
         }
 
-        [HttpPost("add-album-to-cart")]
+        [HttpPost("album")]
         public async Task<IActionResult> AddAlbumToCart([FromBody] CartAlbumDto cart)
         {
             if (!ModelState.IsValid)
