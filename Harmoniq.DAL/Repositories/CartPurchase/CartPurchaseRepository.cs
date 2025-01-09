@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Harmoniq.DAL.Context;
 using Harmoniq.DAL.Interfaces.CartPurchase;
 using Harmoniq.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Harmoniq.DAL.Repositories.CartPurchase
 {
@@ -23,5 +24,9 @@ namespace Harmoniq.DAL.Repositories.CartPurchase
             await _dbContext.SaveChangesAsync();
             return cart;
         }
+
+     
+
+
     }
 }

@@ -27,9 +27,16 @@ namespace Harmoniq.BLL.Services.Cart
             {
                 throw new ArgumentNullException(nameof(cart));
             }
+
             var cartEntity = _mapper.Map<CartEntity>(cart);
-            var newCart = await _shoppingCartRepository.AddNewShoppingCart(cartEntity);
-            return _mapper.Map<CartDto>(newCart);
+            var addedCart = await _shoppingCartRepository.AddNewShoppingCart(cartEntity);
+            return _mapper.Map<CartDto>(addedCart);
+        }
+
+
+        public async Task<bool> MarkCartAsPaidAsync(int cartId, int consumerId)
+        {
+            return await _shoppingCartRepository.MarkCartAsPaidAsync(cartId, consumerId);
         }
     }
 }

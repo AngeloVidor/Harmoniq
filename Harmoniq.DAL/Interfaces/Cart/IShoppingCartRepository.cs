@@ -9,5 +9,7 @@ namespace Harmoniq.DAL.Interfaces.Cart
     public interface IShoppingCartRepository
     {
         Task<CartEntity> AddNewShoppingCart(CartEntity cart);
+        Task<bool> MarkCartAsPaidAsync(int cartId, int consumerId);
+        Task<CartEntity> GetCheckedOutCartByConsumerId(int consumerId);
     }
 }

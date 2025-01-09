@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.DAL.Context;
 using Harmoniq.DAL.Interfaces;
+using Harmoniq.DAL.Interfaces.CartPurchase;
 using Harmoniq.DAL.Interfaces.ContentConsumerAccount;
 using Harmoniq.DAL.Interfaces.PurchasedAlbums;
 using Harmoniq.DAL.Interfaces.UserManagement;
@@ -16,14 +17,14 @@ namespace Harmoniq.DAL.Repositories.PurchasedAlbums
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IAlbumCreatorRepository _albumRepository;
-        private readonly IContentConsumerAccountRepository _contentConsumerAccountRepository;
+        private readonly ICartPurchaseRepository _cartPurchases;
 
 
-        public AlbumCheckoutRepository(ApplicationDbContext dbContext, IAlbumCreatorRepository albumRepository, IContentConsumerAccountRepository contentConsumerAccountRepository)
+        public AlbumCheckoutRepository(ApplicationDbContext dbContext, IAlbumCreatorRepository albumRepository, ICartPurchaseRepository cartPurchases)
         {
             _dbContext = dbContext;
             _albumRepository = albumRepository;
-            _contentConsumerAccountRepository = contentConsumerAccountRepository;
+            _cartPurchases = cartPurchases;
         }
 
         public async Task<PurchasedAlbumEntity> BuyAlbumAsync(PurchasedAlbumEntity purchasedAlbum)
@@ -45,6 +46,8 @@ namespace Harmoniq.DAL.Repositories.PurchasedAlbums
 
             purchasedAlbum.AlbumTitle = album.Title;
             purchasedAlbum.Username = consumer.Nickname;
+
+           
 
             await _dbContext.PurchasedAlbums.AddAsync(purchasedAlbum);
             await _dbContext.SaveChangesAsync();

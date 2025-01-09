@@ -16,6 +16,7 @@ using Harmoniq.BLL.Interfaces.UserManagement;
 using Harmoniq.BLL.Interfaces.CartPurchase;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.CartAlbums;
+using Harmoniq.BLL.Interfaces.Cart;
 
 
 
@@ -33,9 +34,10 @@ namespace Harmoniq.API.Webhooks
         private readonly IUserContextService _userContextService;
         private readonly string _cartWebhookSecret;
         private readonly ICartAlbumsService _cartAlbumsService;
+        private readonly IShoppingCartService _shoppingCartService;
 
 
-        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService)
+        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService)
         {
             _webhookSecret = stripeOptions.Value.WebhookSecret;
             _cartWebhookSecret = stripeOptions.Value.CartWebhookSecret;
@@ -45,6 +47,7 @@ namespace Harmoniq.API.Webhooks
             _cartPurchaseService = cartPurchaseService;
             _userContextService = userContextService;
             _cartAlbumsService = cartAlbumsService;
+            _shoppingCartService = shoppingCartService;
         }
 
         [HttpPost("hook")]
@@ -113,7 +116,6 @@ namespace Harmoniq.API.Webhooks
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             try
             {
-
                 var signatureHeader = Request.Headers["Stripe-Signature"];
                 var stripeEvent = EventUtility.ConstructEvent(json, signatureHeader, _cartWebhookSecret);
 
@@ -156,6 +158,19 @@ namespace Harmoniq.API.Webhooks
                         Price = totalPrice,
                         AlbumIds = albumIds
                     };
+            
+                    var paidCart = await _shoppingCartService.MarkCartAsPaidAsync(cartId, contentConsumerId); 
+
+                    foreach (var albumId in albumIds)
+                    {
+                        var purchasedAlbum = new PurchasedAlbumDto
+                        {
+                            AlbumId = albumId.ToString(),
+                            ContentConsumerId = contentConsumerId
+                        };
+                        await _albumCheckout.BuyAlbumAsync(purchasedAlbum);
+
+                    }
 
                     await _cartPurchaseService.CreateCartPurchaseAsync(cartCheckoutDto);
                     Console.WriteLine($"Album purchase recorded: Albums {albums}, ConsumerID {contentConsumerId}");
