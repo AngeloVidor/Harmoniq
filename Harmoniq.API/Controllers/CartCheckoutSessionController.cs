@@ -45,6 +45,9 @@ namespace Harmoniq.API.Controllers
             var userId = _userContextService.GetUserIdFromContext();
             var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
 
+
+            // Check if the cart is already marked as checked out
+            // and switch to a new cart if one is available.
             var consumerCart = await _shoppingCartService.GetCartByConsumerIdAsync(consumerId);
             if (consumerCart.IsCheckedOut)
             {
