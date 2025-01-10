@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -31,6 +32,13 @@ namespace Harmoniq.BLL.Services.CartAlbums
             var cartAlbumEntity = _mapper.Map<CartAlbumEntity>(cartAlbumDto);
             var addedToCart = await _cartAlbums.AddAlbumToCartAsync(cartAlbumEntity);
             return _mapper.Map<CartAlbumDto>(addedToCart);
+        }
+
+        public async Task<CartAlbumDto> DeleteAlbumFromCartAsync(CartAlbumDto cartAlbum)
+        {
+            var cartAlbumEntity = _mapper.Map<CartAlbumEntity>(cartAlbum);
+            var deletedAlbum = await _cartAlbums.DeleteAlbumFromCartAsync(cartAlbumEntity);
+            return _mapper.Map<CartAlbumDto>(deletedAlbum);
         }
 
         public async Task<List<CartAlbumDto>> GetCartAlbumsByCartIdAsync(int cartId)

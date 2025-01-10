@@ -145,5 +145,43 @@ namespace Harmoniq.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpDelete("remove-album-from-cart")]
+        public async Task<IActionResult> RemoveAlbumFromCart([FromBody] CartAlbumDto cartAlbum)
+        {
+            var userId = _userContextService.GetUserIdFromContext();
+            var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+
+            var consumerCart = await _shoppingCartService.GetCartByConsumerIdAsync(consumerId);
+            Console.WriteLine($"Current CartId: {consumerCart.CartId}, IsCheckedOut: {consumerCart.IsCheckedOut}");
+
+            if (consumerCart.IsCheckedOut)
+            {
+                var activeCart = await _shoppingCartService.GetActiveCartIdByConsumerIdAsync(consumerId);
+
+                if (activeCart == null)
+                {
+                    System.Console.WriteLine("No active cart found for consumer");
+                    return BadRequest("No active cart found for consumer.");
+                }
+
+                Console.WriteLine($"Using Active CartId: {activeCart.CartId}");
+                cartAlbum.CartId = activeCart.CartId;
+            }
+            else
+            {
+                cartAlbum.CartId = consumerCart.CartId;
+            }
+
+            try
+            {
+                var deletedAlbum = await _cartAlbums.DeleteAlbumFromCartAsync(cartAlbum);
+                return Ok(deletedAlbum);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

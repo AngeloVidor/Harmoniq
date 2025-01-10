@@ -34,6 +34,7 @@ namespace Harmoniq.DAL.Repositories.Cart
         {
             return await _dbContext.ShoppingCart.FirstOrDefaultAsync(c => c.ContentConsumerId == consumerId);
         }
+        
 
         public async Task<CartEntity> GetCheckedOutCartByConsumerId(int consumerId)
         {

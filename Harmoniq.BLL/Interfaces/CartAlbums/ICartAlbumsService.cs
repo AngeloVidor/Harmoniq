@@ -12,5 +12,6 @@ namespace Harmoniq.BLL.Interfaces.CartAlbums
         Task<int> GetCartIdByContentConsumerIdAsync(int contentConsumerId);
         Task<List<CartAlbumDto>> GetCartAlbumsByCartIdAsync(int cartId);
         Task<EditCartAlbumDto> UpdateCartAlbumAsync(EditCartAlbumDto cartAlbum);
+        Task<CartAlbumDto> DeleteAlbumFromCartAsync(CartAlbumDto cartAlbum);
     }
 }
