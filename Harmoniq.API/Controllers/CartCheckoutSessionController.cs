@@ -44,7 +44,6 @@ namespace Harmoniq.API.Controllers
 
             var userId = _userContextService.GetUserIdFromContext();
             var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
-            //cart.CartId = await _cartAlbumsService.GetCartIdByContentConsumerIdAsync(consumerId);
 
             var consumerCart = await _shoppingCartService.GetCartByConsumerIdAsync(consumerId);
             if (consumerCart.IsCheckedOut)
@@ -52,6 +51,11 @@ namespace Harmoniq.API.Controllers
                 var activeCart = await _shoppingCartService.GetActiveCartIdByConsumerIdAsync(consumerId);
                 cart.CartId = activeCart.CartId;
             }
+            else
+            {
+                cart.CartId = consumerCart.CartId;
+            }
+
 
             System.Console.WriteLine($"CartID: {cart.CartId}");
             cart.ContentConsumerId = consumerId;

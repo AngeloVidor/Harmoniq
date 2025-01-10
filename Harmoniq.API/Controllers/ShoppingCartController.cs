@@ -79,12 +79,25 @@ namespace Harmoniq.API.Controllers
             var userId = _userContextService.GetUserIdFromContext();
             var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
 
-
             var consumerCart = await _shoppingCartService.GetCartByConsumerIdAsync(consumerId);
+            Console.WriteLine($"Current CartId: {consumerCart.CartId}, IsCheckedOut: {consumerCart.IsCheckedOut}");
+
             if (consumerCart.IsCheckedOut)
             {
                 var activeCart = await _shoppingCartService.GetActiveCartIdByConsumerIdAsync(consumerId);
+
+                if (activeCart == null)
+                {
+                    System.Console.WriteLine("No active cart found for consumer");
+                    return BadRequest("No active cart found for consumer.");
+                }
+
+                Console.WriteLine($"Using Active CartId: {activeCart.CartId}");
                 cart.CartId = activeCart.CartId;
+            }
+            else
+            {
+                cart.CartId = consumerCart.CartId;
             }
 
             try
