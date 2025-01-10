@@ -40,6 +40,11 @@ namespace Harmoniq.DAL.Repositories.CartAlbums
             return cart.CartId;
         }
 
-    
+        public async Task<CartAlbumEntity> UpdateCartAlbumAsync(CartAlbumEntity cartAlbum)
+        {
+            _dbContext.CartAlbums.Update(cartAlbum);
+            await _dbContext.SaveChangesAsync();
+            return cartAlbum;
+        }
     }
 }

@@ -110,5 +110,40 @@ namespace Harmoniq.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPut("albums-in-cart")]
+        public async Task<IActionResult> EditCartAlbums([FromRoute] EditCartAlbumDto editCartAlbumDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userId = _userContextService.GetUserIdFromContext();
+            var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+            var consumerCart = await _shoppingCartService.GetCartByConsumerIdAsync(consumerId);
+
+            var activeConsumerCart = await _shoppingCartService.GetActiveCartIdByConsumerIdAsync(consumerId);
+            if (consumerCart.IsCheckedOut)
+            {
+                editCartAlbumDto.CartId = activeConsumerCart.CartId;
+            }
+
+            //"cartId": 3013,
+            //"albumId": 7007
+            else
+            {
+                editCartAlbumDto.CartId = consumerCart.CartId;
+            }
+
+            try
+            {
+                var editedCartAlbum = await _cartAlbums.UpdateCartAlbumAsync(editCartAlbumDto);
+                return Ok(editedCartAlbum);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

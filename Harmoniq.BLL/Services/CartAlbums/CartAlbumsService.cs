@@ -43,5 +43,12 @@ namespace Harmoniq.BLL.Services.CartAlbums
         {
             return await _cartAlbums.GetCartIdByContentConsumerIdAsync(contentConsumerId);
         }
+
+        public async Task<EditCartAlbumDto> UpdateCartAlbumAsync(EditCartAlbumDto cartAlbum)
+        {
+            var cartAlbumEntity = _mapper.Map<CartAlbumEntity>(cartAlbum);
+            var result = await _cartAlbums.UpdateCartAlbumAsync(cartAlbumEntity);
+            return _mapper.Map<EditCartAlbumDto>(result);
+        }
     }
 }

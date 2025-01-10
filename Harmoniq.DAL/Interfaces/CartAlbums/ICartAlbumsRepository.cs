@@ -12,5 +12,6 @@ namespace Harmoniq.DAL.Interfaces.CartAlbums
 
         Task<int> GetCartIdByContentConsumerIdAsync(int contentConsumerId);
         Task<List<CartAlbumEntity>> GetCartAlbumsByCartIdAsync(int cartId);
+        Task<CartAlbumEntity> UpdateCartAlbumAsync(CartAlbumEntity cartAlbum);
     }
 }
