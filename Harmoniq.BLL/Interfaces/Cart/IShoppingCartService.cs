@@ -10,5 +10,7 @@ namespace Harmoniq.BLL.Interfaces.Cart
     {
         Task<CartDto> AddNewShoppingCart(CartDto cart);
         Task<bool> MarkCartAsPaidAsync(int cartId, int consumerId);
+        Task<CartDto> GetCartByConsumerIdAsync(int consumerId);
+        Task<CartDto> GetActiveCartIdByConsumerIdAsync(int consumerId);
     }
 }

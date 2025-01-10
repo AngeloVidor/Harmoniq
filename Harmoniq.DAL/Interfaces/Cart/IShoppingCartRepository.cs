@@ -11,5 +11,8 @@ namespace Harmoniq.DAL.Interfaces.Cart
         Task<CartEntity> AddNewShoppingCart(CartEntity cart);
         Task<bool> MarkCartAsPaidAsync(int cartId, int consumerId);
         Task<CartEntity> GetCheckedOutCartByConsumerId(int consumerId);
+        Task<CartEntity> GetCartByConsumerIdAsync(int consumerId);
+        Task<CartEntity> GetActiveCartIdByConsumerIdAsync(int consumerId);
+
     }
 }

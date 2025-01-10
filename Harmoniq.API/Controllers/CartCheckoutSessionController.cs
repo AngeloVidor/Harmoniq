@@ -23,12 +23,14 @@ namespace Harmoniq.API.Controllers
         private readonly ICartCheckoutSessionService _cartCheckoutSessionService;
         private readonly IUserContextService _userContextService;
         private readonly ICartAlbumsService _cartAlbumsService;
+        private readonly IShoppingCartService _shoppingCartService;
 
-        public CartCheckoutSessionController(ICartCheckoutSessionService cartCheckoutSessionService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService)
+        public CartCheckoutSessionController(ICartCheckoutSessionService cartCheckoutSessionService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService)
         {
             _cartCheckoutSessionService = cartCheckoutSessionService;
             _userContextService = userContextService;
             _cartAlbumsService = cartAlbumsService;
+            _shoppingCartService = shoppingCartService;
         }
 
 
@@ -42,7 +44,15 @@ namespace Harmoniq.API.Controllers
 
             var userId = _userContextService.GetUserIdFromContext();
             var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
-            cart.CartId = await _cartAlbumsService.GetCartIdByContentConsumerIdAsync(consumerId);
+            //cart.CartId = await _cartAlbumsService.GetCartIdByContentConsumerIdAsync(consumerId);
+
+            var consumerCart = await _shoppingCartService.GetCartByConsumerIdAsync(consumerId);
+            if (consumerCart.IsCheckedOut)
+            {
+                var activeCart = await _shoppingCartService.GetActiveCartIdByConsumerIdAsync(consumerId);
+                cart.CartId = activeCart.CartId;
+            }
+
             System.Console.WriteLine($"CartID: {cart.CartId}");
             cart.ContentConsumerId = consumerId;
 

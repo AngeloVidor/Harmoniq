@@ -25,6 +25,16 @@ namespace Harmoniq.DAL.Repositories.Cart
             return cart;
         }
 
+        public async Task<CartEntity> GetActiveCartIdByConsumerIdAsync(int consumerId)
+        {
+            return await _dbContext.ShoppingCart.FirstOrDefaultAsync(c => c.ContentConsumerId == consumerId && c.IsCheckedOut == false);
+        }
+
+        public async Task<CartEntity> GetCartByConsumerIdAsync(int consumerId)
+        {
+            return await _dbContext.ShoppingCart.FirstOrDefaultAsync(c => c.ContentConsumerId == consumerId);
+        }
+
         public async Task<CartEntity> GetCheckedOutCartByConsumerId(int consumerId)
         {
             return await _dbContext.ShoppingCart.

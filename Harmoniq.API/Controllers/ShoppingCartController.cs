@@ -37,8 +37,21 @@ namespace Harmoniq.API.Controllers
             }
 
             var userId = _userContextService.GetUserIdFromContext();
-            cart.ContentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
+            var consumerId = cart.ContentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userId) ?? -1;
 
+            var consumerCart = await _shoppingCartService.GetCartByConsumerIdAsync(consumerId);
+            if (consumerCart != null && consumerCart.IsCheckedOut == true)
+            {
+                var newCart = new CartDto
+                {
+                    ContentConsumerId = consumerId,
+                    IsCheckedOut = false
+                };
+
+                var createdCart = await _shoppingCartService.AddNewShoppingCart(newCart);
+                return Ok(createdCart);
+
+            }
 
             try
             {
@@ -64,8 +77,15 @@ namespace Harmoniq.API.Controllers
             }
 
             var userId = _userContextService.GetUserIdFromContext();
-            var consumer = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
-            cart.CartId = await _cartAlbums.GetCartIdByContentConsumerIdAsync(consumer);
+            var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+
+
+            var consumerCart = await _shoppingCartService.GetCartByConsumerIdAsync(consumerId);
+            if (consumerCart.IsCheckedOut)
+            {
+                var activeCart = await _shoppingCartService.GetActiveCartIdByConsumerIdAsync(consumerId);
+                cart.CartId = activeCart.CartId;
+            }
 
             try
             {
