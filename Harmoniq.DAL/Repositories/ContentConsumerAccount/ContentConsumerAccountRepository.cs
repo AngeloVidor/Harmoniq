@@ -25,6 +25,25 @@ namespace Harmoniq.DAL.Repositories.ContentConsumerAccount
             return contentConsumer;
         }
 
+        public async Task<ContentConsumerEntity> UpdateContentConsumerProfileAsync(ContentConsumerEntity consumer)
+        {
+            var existingConsumer = await _dbContext.ContentConsumers.FirstOrDefaultAsync(c => c.Id == consumer.Id);
+
+            if (existingConsumer == null)
+            {
+                throw new Exception("Registro não encontrado para atualização.");
+            }
+
+            existingConsumer.Nickname = consumer.Nickname;
+            existingConsumer.Biography = consumer.Biography;
+            existingConsumer.Country = consumer.Country;
+
+            await _dbContext.SaveChangesAsync();
+
+            return existingConsumer;
+        }
+
+
         public async Task<ContentConsumerEntity> GetContentConsumerByIdAsync(int contentConsumerId)
         {
             return await _dbContext.ContentConsumers.Where(cc => cc.UserId == contentConsumerId).FirstOrDefaultAsync();

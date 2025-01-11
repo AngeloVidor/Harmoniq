@@ -75,6 +75,9 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<CartAlbumEntity, EditCartAlbumDto>();
             CreateMap<EditCartAlbumDto, CartAlbumEntity>();
 
+            CreateMap<ContentConsumerEntity, EditContentConsumerDto>();
+            CreateMap<EditContentConsumerDto, ContentConsumerEntity>();
+
 
 
         }

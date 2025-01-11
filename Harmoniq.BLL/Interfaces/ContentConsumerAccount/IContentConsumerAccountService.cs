@@ -9,5 +9,6 @@ namespace Harmoniq.BLL.Interfaces.ContentConsumerAccount
     public interface IContentConsumerAccountService
     {
         Task<ContentConsumerDto> AddContetConsumerAccountAsync(ContentConsumerDto contentConsumer);
+        Task<EditContentConsumerDto> UpdateContentConsumerProfileAsync(EditContentConsumerDto consumer);
     }
 }

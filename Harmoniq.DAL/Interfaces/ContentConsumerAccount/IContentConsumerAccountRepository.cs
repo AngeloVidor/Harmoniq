@@ -10,6 +10,7 @@ namespace Harmoniq.DAL.Interfaces.ContentConsumerAccount
     {
         Task<ContentConsumerEntity> AddContentConsumerAccountAsync(ContentConsumerEntity contentConsumer);
         Task<ContentConsumerEntity> GetContentConsumerByIdAsync(int contentConsumerId);
+        Task<ContentConsumerEntity> UpdateContentConsumerProfileAsync(ContentConsumerEntity consumer);
 
     }
 }

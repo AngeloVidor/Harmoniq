@@ -80,5 +80,29 @@ namespace Harmoniq.API.Controllers
             }
         }
 
+        [HttpPut("contentConsumer")]
+        public async Task<IActionResult> UpdateConsumerProfile([FromBody] EditContentConsumerDto consumer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = _userContextService.GetUserIdFromContext();
+            consumer.UserId = userId;
+            var consumerId = _userContextService.GetUserIdFromContext();
+            consumer.Id = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+
+            try
+            {
+                var editedProfile = await _contentConsumerAccount.UpdateContentConsumerProfileAsync(consumer);
+                return Ok(editedProfile);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 }
