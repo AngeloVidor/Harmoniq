@@ -14,14 +14,14 @@ namespace Harmoniq.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "ContentConsumer")]
-    public class ShoppingCartController : ControllerBase
+    public class CartController : ControllerBase
     {
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IUserContextService _userContextService;
         private readonly ICartAlbumsService _cartAlbums;
 
 
-        public ShoppingCartController(IShoppingCartService shoppingCartService, IUserContextService userContextService, ICartAlbumsService cartAlbums)
+        public CartController(IShoppingCartService shoppingCartService, IUserContextService userContextService, ICartAlbumsService cartAlbums)
         {
             _shoppingCartService = shoppingCartService;
             _userContextService = userContextService;
@@ -182,6 +182,23 @@ namespace Harmoniq.API.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        [HttpGet("ConsumerCart/{consumerId}")]
+        public async Task<IActionResult> ActiveConsumerCart([FromRoute] int consumerId)
+        {
+            try
+            {
+                var userId = _userContextService.GetUserIdFromContext();
+                consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+                var cart = await _shoppingCartService.GetActiveCartIdByConsumerIdAsync(consumerId);
+                return Ok(cart);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
     }
 }

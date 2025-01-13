@@ -23,8 +23,8 @@ namespace Harmoniq.API.Middlewares
         {
             List<string> PublicRoutes = new List<string>
             {
-                "/api/UserAccount/register",
-                "/api/UserAccount/login",
+                "/api/Auth/register",
+                "/api/Auth/login",
                 "/api/checkoutsession/success",
                 "/api/checkoutsession/cancel",
                 "/api/stripewebhook/hook",

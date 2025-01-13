@@ -14,12 +14,12 @@ namespace Harmoniq.API.Controllers
     [Route("api/[controller]")]
     [Authorize(Roles = "ContentConsumer")]
 
-    public class FavoritesAlbumsController : ControllerBase
+    public class FavoritesController : ControllerBase
     {
         private readonly IFavoritesAlbumsService _favoritesAlbums;
         private readonly IUserContextService _userContext;
 
-        public FavoritesAlbumsController(IFavoritesAlbumsService favoritesAlbums, IUserContextService userContext)
+        public FavoritesController(IFavoritesAlbumsService favoritesAlbums, IUserContextService userContext)
         {
             _favoritesAlbums = favoritesAlbums;
             _userContext = userContext;

@@ -18,7 +18,7 @@ namespace Harmoniq.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "ContentConsumer")]
-    public class SingleAlbumCheckoutSessionController : ControllerBase
+    public class CheckoutController : ControllerBase
     {
 
         private readonly ICheckoutSessionService _checkoutSessionService;
@@ -26,7 +26,7 @@ namespace Harmoniq.API.Controllers
         private readonly IUserAccountService _userAccountService;
         private readonly IUserContextService _userContextService;
 
-        public SingleAlbumCheckoutSessionController(ICheckoutSessionService checkoutSessionService, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IUserContextService userContextService)
+        public CheckoutController(ICheckoutSessionService checkoutSessionService, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IUserContextService userContextService)
         {
             _checkoutSessionService = checkoutSessionService;
             _albumManagementService = albumManagementService;

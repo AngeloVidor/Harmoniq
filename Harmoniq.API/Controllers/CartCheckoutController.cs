@@ -17,7 +17,7 @@ namespace Harmoniq.API.Controllers
     [Route("api/[controller]")]
     [Authorize(Roles = "ContentConsumer")]
 
-    public class CartCheckoutSessionController : ControllerBase
+    public class CartCheckoutController : ControllerBase
     {
 
         private readonly ICartCheckoutSessionService _cartCheckoutSessionService;
@@ -25,7 +25,7 @@ namespace Harmoniq.API.Controllers
         private readonly ICartAlbumsService _cartAlbumsService;
         private readonly IShoppingCartService _shoppingCartService;
 
-        public CartCheckoutSessionController(ICartCheckoutSessionService cartCheckoutSessionService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService)
+        public CartCheckoutController(ICartCheckoutSessionService cartCheckoutSessionService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService)
         {
             _cartCheckoutSessionService = cartCheckoutSessionService;
             _userContextService = userContextService;

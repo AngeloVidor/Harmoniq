@@ -6,6 +6,7 @@ using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.AlbumManagement;
 using Harmoniq.BLL.Interfaces.Albums;
+using Harmoniq.BLL.Interfaces.DisplayAlbums;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.UserManagement;
 using Microsoft.AspNetCore.Authorization;
@@ -15,23 +16,25 @@ namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "ContentCreator")]
-    public class AlbumManagementController : ControllerBase
+    public class AlbumsController : ControllerBase
     {
         private readonly IAlbumCreatorService _albumCreatorService;
         private readonly IUserContextService _userContextService;
         public readonly IAlbumManagementService _albumManagementService;
+        private readonly IDisplayAlbumsService _displayAlbums;
 
-        public AlbumManagementController(
+        public AlbumsController(
         IAlbumCreatorService albumCreatorService,
         IUserContextService userContextService,
         IAlbumManagementService albumManagementService
-
+,
+        IDisplayAlbumsService displayAlbums
         )
         {
             _albumCreatorService = albumCreatorService;
             _userContextService = userContextService;
             _albumManagementService = albumManagementService;
+            _displayAlbums = displayAlbums;
         }
 
         [HttpPost("album")]
@@ -126,6 +129,27 @@ namespace Harmoniq.API.Controllers
             {
                 var editedAlbumDto = await _albumManagementService.EditAlbumAsync(editedAlbum);
                 return Ok(editedAlbumDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("albums/{contentCreatorId}")]
+        [Authorize(Roles = "ContentCreator, ContentConsumer")]
+        public async Task<IActionResult> GetContentCreatorAlbumsAsync()
+        {
+            try
+            {
+                var userId = _userContextService.GetUserIdFromContext();
+                var creatorId = await _userContextService.GetContentCreatorIdByUserIdAsync(userId);
+                var albums = await _displayAlbums.GetContentCreatorAlbumsAsync(creatorId);
+                return Ok(albums);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {

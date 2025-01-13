@@ -12,13 +12,13 @@ namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserAccountController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IUserAccountService _userAccountService;
         private readonly IMapper _mapper;
         private readonly IBearerTokenManagement _bearerTokenManagement;
 
-        public UserAccountController(IBearerTokenManagement bearerTokenManagement, IMapper mapper, IUserAccountService userAccountService)
+        public AuthController(IBearerTokenManagement bearerTokenManagement, IMapper mapper, IUserAccountService userAccountService)
         {
             _userAccountService = userAccountService;
             _mapper = mapper;

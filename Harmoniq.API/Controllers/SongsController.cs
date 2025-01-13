@@ -15,12 +15,12 @@ namespace Harmoniq.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "ContentCreator")]
-    public class AlbumSongsController : ControllerBase
+    public class SongsController : ControllerBase
     {
         private readonly IAlbumSongsService _albumSongsService;
         private readonly IUserContextService _userContextService;
 
-        public AlbumSongsController
+        public SongsController
         (IAlbumSongsService albumSongsService,
         IUserContextService userContextService)
         {
