@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nETy5yyezpg=",
+  "dgSpecHash": "PKCrlN58tFA=",
   "success": true,
-  "projectFilePath": "C:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj",
+  "projectFilePath": "c:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\angel\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\awssdk.core\\4.0.0-preview.4\\awssdk.core.4.0.0-preview.4.nupkg.sha512",
