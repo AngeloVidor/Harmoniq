@@ -5076,11 +5076,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
+      "projectUniqueName": "C:\\Harmoniq\\harmoniq.api\\Harmoniq.API.csproj",
       "projectName": "Harmoniq.API",
-      "projectPath": "c:\\Harmoniq\\Harmoniq.API\\Harmoniq.API.csproj",
+      "projectPath": "C:\\Harmoniq\\harmoniq.api\\Harmoniq.API.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "c:\\Harmoniq\\Harmoniq.API\\obj\\",
+      "outputPath": "C:\\Harmoniq\\harmoniq.api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5098,8 +5098,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "c:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj": {
-              "projectPath": "c:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj"
+            "C:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj": {
+              "projectPath": "C:\\Harmoniq\\Harmoniq.BLL\\Harmoniq.BLL.csproj"
             }
           }
         }
