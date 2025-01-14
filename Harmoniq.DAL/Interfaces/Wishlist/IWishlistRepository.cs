@@ -11,5 +11,7 @@ namespace Harmoniq.DAL.Interfaces.Wishlist
     {
         Task<WishlistEntity> AddAlbumToWishlist(WishlistEntity wishlist);
         Task<List<WishlistEntity>> GetWishlistByContentConsumerId(int contentConsumerId);
+        Task<WishlistEntity> DeleteAlbumFromWishlist(int wishlistId, int albumId);
+        Task<int> GetWishlistIdByConsumerIdAsync(int consumerId);
     }
 }

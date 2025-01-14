@@ -68,5 +68,22 @@ namespace Harmoniq.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpDelete("wishlist/{wishlistId}/album/{albumId}")]
+        public async Task<IActionResult> DeleteAlbumFromWishlist(int albumId)
+        {
+            var userId = _userContextService.GetUserIdFromContext();
+            var consumerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+            var wishlistId = await _userContextService.GetWishlistIdByConsumerIdAsync(consumerId);
+            try
+            {
+                var response = await _wishlistService.DeleteAlbumFromWishlist(wishlistId, albumId, consumerId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

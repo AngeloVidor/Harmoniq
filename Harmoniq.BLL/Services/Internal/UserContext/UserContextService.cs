@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.DAL.Interfaces.UserManagement;
+using Harmoniq.DAL.Interfaces.Wishlist;
 using Microsoft.AspNetCore.Http;
 
 namespace Harmoniq.BLL.Services.UserContext
@@ -12,11 +13,13 @@ namespace Harmoniq.BLL.Services.UserContext
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IWishlistRepository _wishlistRepository;
 
-        public UserContextService(IHttpContextAccessor httpContextAccessor, IUserAccountRepository userAccountRepository)
+        public UserContextService(IHttpContextAccessor httpContextAccessor, IUserAccountRepository userAccountRepository, IWishlistRepository wishlistRepository)
         {
             _httpContextAccessor = httpContextAccessor;
             _userAccountRepository = userAccountRepository;
+            _wishlistRepository = wishlistRepository;
         }
 
         public int GetUserIdFromContext()
@@ -29,6 +32,11 @@ namespace Harmoniq.BLL.Services.UserContext
             }
 
             return id;
+        }
+
+        public async Task<int> GetWishlistIdByConsumerIdAsync(int consumerId)
+        {
+            return await _wishlistRepository.GetWishlistIdByConsumerIdAsync(consumerId);
         }
 
 

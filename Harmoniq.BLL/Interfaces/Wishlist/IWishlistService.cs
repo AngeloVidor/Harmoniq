@@ -10,5 +10,6 @@ namespace Harmoniq.BLL.Interfaces.Wishlist
     {
         Task<WishlistDto> AddAlbumToWishlist(WishlistDto wishlist);
         Task<List<GetWishlistDto>> GetWishlistByContentConsumerId(int contentConsumerId);
+        Task<WishlistDto> DeleteAlbumFromWishlist(int wishlistId, int albumId, int consumerId);
     }
 }

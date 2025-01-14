@@ -37,9 +37,27 @@ namespace Harmoniq.DAL.Repositories.Wishlist
             return wishlist;
         }
 
+        public async Task<WishlistEntity> DeleteAlbumFromWishlist(int wishlistId, int albumId)
+        {
+            var toDelete = await _dbContext.Wishlist.FirstOrDefaultAsync(w => w.Id == wishlistId && w.AlbumId == albumId);
+            if (toDelete == null)
+            {
+                throw new KeyNotFoundException("Wisthlist or album not found");
+            }
+            _dbContext.Wishlist.Remove(toDelete);
+            await _dbContext.SaveChangesAsync();
+            return toDelete;
+        }
+
         public async Task<List<WishlistEntity>> GetWishlistByContentConsumerId(int contentConsumerId)
         {
             return await _dbContext.Wishlist.Where(w => w.ContentConsumerId == contentConsumerId).ToListAsync();
+        }
+
+        public async Task<int> GetWishlistIdByConsumerIdAsync(int consumerId)
+        {
+            var wishlistId = await _dbContext.Wishlist.FirstOrDefaultAsync(c => c.ContentConsumerId == consumerId);
+            return wishlistId.Id;
         }
     }
 }

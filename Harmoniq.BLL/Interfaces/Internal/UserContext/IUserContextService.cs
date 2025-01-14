@@ -9,6 +9,7 @@ namespace Harmoniq.BLL.Interfaces.UserContext
     {
         int GetUserIdFromContext();
         Task<int?> GetContentConsumerIdByUserIdAsync(int userId);
+        Task<int> GetWishlistIdByConsumerIdAsync(int consumerId);
         Task<int> GetContentCreatorIdByUserIdAsync(int userId);
     }
 }
