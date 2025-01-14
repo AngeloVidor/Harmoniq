@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Tokens;
+using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.UserManagement;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +18,14 @@ namespace Harmoniq.API.Controllers
         private readonly IUserAccountService _userAccountService;
         private readonly IMapper _mapper;
         private readonly IBearerTokenManagement _bearerTokenManagement;
+        private readonly IUserContextService _userContextService;
 
-        public AuthController(IBearerTokenManagement bearerTokenManagement, IMapper mapper, IUserAccountService userAccountService)
+        public AuthController(IUserContextService userContextService, IBearerTokenManagement bearerTokenManagement, IMapper mapper, IUserAccountService userAccountService)
         {
             _userAccountService = userAccountService;
             _mapper = mapper;
             _bearerTokenManagement = bearerTokenManagement;
+            _userContextService = userContextService;
         }
 
         [HttpPost("register")]
@@ -60,6 +63,21 @@ namespace Harmoniq.API.Controllers
 
             var token = await _bearerTokenManagement.GenerateTokenAsync(user);
             return Ok(new { Token = token, User = user });
+        }
+
+        [HttpGet("me")]
+        public async Task<IActionResult> GetActiveUser()
+        {
+            var userId = _userContextService.GetUserIdFromContext();
+            try
+            {
+                var activeUser = await _userAccountService.GetActiveUserAsync(userId);
+                return Ok(activeUser);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
