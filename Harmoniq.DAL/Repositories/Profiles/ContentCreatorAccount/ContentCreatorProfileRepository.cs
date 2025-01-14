@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Harmoniq.DAL.Context;
 using Harmoniq.DAL.Interfaces.ContentCreatorAccount;
 using Harmoniq.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Harmoniq.DAL.Repositories.ContentCreatorAccount
 {
@@ -23,5 +24,20 @@ namespace Harmoniq.DAL.Repositories.ContentCreatorAccount
             await _dbContext.SaveChangesAsync();
             return contentCreatorEntity;
         }
+
+        public async Task<ContentCreatorEntity> EditContentCreatorProfileAsync(ContentCreatorEntity contentCreatorEntity)
+        {
+            var existingCreator = await _dbContext.ContentCreators
+                                                  .FirstOrDefaultAsync(cc => cc.UserId == contentCreatorEntity.UserId);
+
+            if (existingCreator == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+            _dbContext.ContentCreators.Update(existingCreator);
+            await _dbContext.SaveChangesAsync();
+            return contentCreatorEntity;
+        }
+
     }
 }

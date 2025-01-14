@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Harmoniq.BLL.DTOs
+{
+    public class EditContentCreatorProfileDto
+    {
+        [Key]
+        public int Id { get; set; }
+        public string ContentCreatorName { get; set; }
+        public string ContentCreatorDescription { get; set; }
+        public string ContentCreatorCountry { get; set; }
+        public DateTime DateAdded { get; set; } = DateTime.UtcNow;
+        public int UserId { get; set; }
+    }
+}

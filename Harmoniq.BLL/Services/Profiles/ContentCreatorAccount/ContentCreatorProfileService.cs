@@ -44,5 +44,16 @@ namespace Harmoniq.BLL.Services.ContentCreatorAccount
             return _mapper.Map<ContentCreatorDto>(addedContentCreator);
 
         }
+
+        public async Task<EditContentCreatorProfileDto> EditContentCreatorProfileAsync(EditContentCreatorProfileDto editContentCreatorDto)
+        {
+            if(editContentCreatorDto == null)
+            {
+                throw new ArgumentNullException("DTO cannot be null here");
+            }
+            var contentCreatorEntity = _mapper.Map<ContentCreatorEntity>(editContentCreatorDto);
+            var editedProfile = await _contentCreatorProfile.EditContentCreatorProfileAsync(contentCreatorEntity);
+            return _mapper.Map<EditContentCreatorProfileDto>(editedProfile);
+        }
     }
 }

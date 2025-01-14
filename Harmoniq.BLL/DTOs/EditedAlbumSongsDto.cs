@@ -16,11 +16,8 @@ namespace Harmoniq.BLL.DTOs
         public int Id { get; set; }
         public string SongTitle { get; set; }
         public string? SongDescription { get; set; }
-
         public int AlbumId { get; set; }
-
         public int ContentCreatorId { get; set; }
-
         public IFormFile TrackFile { get; set; }
 
         [NotMapped]

@@ -9,5 +9,6 @@ namespace Harmoniq.DAL.Interfaces.ContentCreatorAccount
     public interface IContentCreatorProfileRepository 
     {
         Task<ContentCreatorEntity> AddContentCreatorProfile(ContentCreatorEntity contentCreatorEntity);
+        Task<ContentCreatorEntity> EditContentCreatorProfileAsync(ContentCreatorEntity contentCreatorEntity);
     }
 }

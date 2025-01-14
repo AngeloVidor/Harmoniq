@@ -9,5 +9,7 @@ namespace Harmoniq.BLL.Interfaces.ContentCreatorAccount
     public interface IContentCreatorProfileService
     {
         Task<ContentCreatorDto> AddContentCreatorProfile(ContentCreatorDto contentCreatorDto);
+        Task<EditContentCreatorProfileDto> EditContentCreatorProfileAsync(EditContentCreatorProfileDto editContentCreatorDto);
+
     }
 }
