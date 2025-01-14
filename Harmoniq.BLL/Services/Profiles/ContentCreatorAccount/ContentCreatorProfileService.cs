@@ -19,13 +19,15 @@ namespace Harmoniq.BLL.Services.ContentCreatorAccount
         private readonly IUserRoleCheckerService _userRoleChecker;
         private readonly IMapper _mapper;
         private readonly IValidator<ContentCreatorDto> _validator;
+        private readonly IValidator<EditContentCreatorProfileDto> _creatorProfileValidator;
 
-        public ContentCreatorProfileService(IContentCreatorProfileRepository contentCreatorProfile, IMapper mapper, IValidator<ContentCreatorDto> validator, IUserRoleCheckerService userRoleChecker)
+        public ContentCreatorProfileService(IContentCreatorProfileRepository contentCreatorProfile, IMapper mapper, IValidator<ContentCreatorDto> validator, IUserRoleCheckerService userRoleChecker, IValidator<EditContentCreatorProfileDto> creatorProfileValidator)
         {
             _contentCreatorProfile = contentCreatorProfile;
             _mapper = mapper;
             _validator = validator;
             _userRoleChecker = userRoleChecker;
+            _creatorProfileValidator = creatorProfileValidator;
         }
 
         public async Task<ContentCreatorDto> AddContentCreatorProfile(ContentCreatorDto contentCreatorDto)
@@ -36,8 +38,8 @@ namespace Harmoniq.BLL.Services.ContentCreatorAccount
                 throw new ValidationException(string.Join("; ", validator.Errors.Select(x => x.ErrorMessage)));
             }
 
-            var userDto = new UserDto { Id = contentCreatorDto.UserId};
-            await _userRoleChecker.IsContentCreator(userDto);  
+            var userDto = new UserDto { Id = contentCreatorDto.UserId };
+            await _userRoleChecker.IsContentCreator(userDto);
 
             var contentCreator = _mapper.Map<ContentCreatorEntity>(contentCreatorDto);
             var addedContentCreator = await _contentCreatorProfile.AddContentCreatorProfile(contentCreator);
@@ -47,7 +49,14 @@ namespace Harmoniq.BLL.Services.ContentCreatorAccount
 
         public async Task<EditContentCreatorProfileDto> EditContentCreatorProfileAsync(EditContentCreatorProfileDto editContentCreatorDto)
         {
-            if(editContentCreatorDto == null)
+
+            var validator = await _creatorProfileValidator.ValidateAsync(editContentCreatorDto);
+            if (!validator.IsValid)
+            {
+                throw new ValidationException(string.Join("; ", validator.Errors.Select(e => e.ErrorMessage)));
+            }
+
+            if (editContentCreatorDto == null)
             {
                 throw new ArgumentNullException("DTO cannot be null here");
             }

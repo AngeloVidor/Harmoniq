@@ -159,7 +159,6 @@ builder.Services.AddScoped<ICartCheckoutSessionService, CartCheckoutSessionServi
 builder.Services.AddScoped<ICartPurchaseService, CartPurchaseService>();
 builder.Services.AddScoped<ICartPurchaseRepository, CartPurchaseRepository>();
 
-
 builder.Services.Configure<StripeModel>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<CustomerService>();
@@ -171,6 +170,8 @@ builder.Services.AddScoped<IValidator<AlbumSongsDto>, AlbumSongsValidator>();
 builder.Services.AddScoped<IValidator<AlbumDto>, AlbumValidator>();
 builder.Services.AddScoped<IValidator<ContentCreatorDto>, ContentCreatorValidator>();
 builder.Services.AddScoped<IValidator<ContentConsumerDto>, ContentConsumerValidator>();
+builder.Services.AddScoped<IValidator<EditContentCreatorProfileDto>, EditContentCreatorProfileValidator>();
+
 
 
 
