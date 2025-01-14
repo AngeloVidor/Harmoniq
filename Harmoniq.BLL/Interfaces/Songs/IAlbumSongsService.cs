@@ -10,6 +10,8 @@ namespace Harmoniq.BLL.Interfaces.AlbumSongs
     {
         Task<AlbumSongsDto> AddSongsToAlbumAsync(AlbumSongsDto albumSongsDto);
         Task<EditedAlbumSongsDto> EditAlbumSongsAsync(EditedAlbumSongsDto editedSongs);
+        Task<AlbumSongsDto> DeleteSongAsync(int songId, int albumId, int contentCreatorId);
+
 
     }
 }

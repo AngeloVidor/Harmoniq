@@ -55,6 +55,25 @@ namespace Harmoniq.BLL.Services.AlbumSongs
             return _mapper.Map<AlbumSongsDto>(addedAlbumSongs);
         }
 
+        public async Task<AlbumSongsDto> DeleteSongAsync(int songId, int albumId, int contentCreatorId)
+        {
+            if (songId <= 0 && albumId <= 0)
+            {
+                throw new InvalidOperationException("songId & albumId must be a positive integer");
+            }
+            var creatorSongs = await _albumSongsRepository.GetContentCreatorSongsAsync(contentCreatorId);
+            foreach (var song in creatorSongs)
+            {
+                if (song.ContentCreatorId != contentCreatorId && song.Id != songId && song.AlbumId != albumId)
+                {
+                    throw new InvalidOperationException("You cannot delete another artist song");
+                }
+            }
+
+            var deletedSong = await _albumSongsRepository.DeleteSongAsync(songId, albumId, contentCreatorId);
+            return _mapper.Map<AlbumSongsDto>(deletedSong);
+        }
+
         public async Task<EditedAlbumSongsDto> EditAlbumSongsAsync(EditedAlbumSongsDto editedSongs)
         {
             if (editedSongs == null)

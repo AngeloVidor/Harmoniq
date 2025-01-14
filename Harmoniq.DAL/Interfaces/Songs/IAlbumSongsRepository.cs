@@ -10,5 +10,7 @@ namespace Harmoniq.DAL.Interfaces.AlbumSongs
     {
         Task<AlbumSongsEntity> AddSongsToAlbumAsync(AlbumSongsEntity albumSongsEntity);
         Task<AlbumSongsEntity> EditAlbumSongsAsync(AlbumSongsEntity editedSongs);
+        Task<AlbumSongsEntity> DeleteSongAsync(int songId, int albumId, int contentCreatorId);
+        Task<List<AlbumSongsEntity>> GetContentCreatorSongsAsync(int contentCreatorId);
     }
 }

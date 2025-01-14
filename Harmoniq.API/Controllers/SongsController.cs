@@ -80,6 +80,23 @@ namespace Harmoniq.API.Controllers
             }
         }
 
+        [HttpDelete("albums/{albumId}/songs/{songId}")]
+        public async Task<IActionResult> DeleteSongAsync(int songId, int albumId)
+        {
+            var userId = _userContextService.GetUserIdFromContext();
+            var creatorId = await _userContextService.GetContentCreatorIdByUserIdAsync(userId);
+            try
+            {
+                var deletedSong = await _albumSongsService.DeleteSongAsync(songId, albumId, creatorId);
+                return Ok(deletedSong);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
 
     }
 }
