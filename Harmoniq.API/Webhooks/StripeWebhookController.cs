@@ -17,6 +17,7 @@ using Harmoniq.BLL.Interfaces.CartPurchase;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.CartAlbums;
 using Harmoniq.BLL.Interfaces.Cart;
+using Harmoniq.BLL.Interfaces.Stats;
 
 
 
@@ -35,9 +36,10 @@ namespace Harmoniq.API.Webhooks
         private readonly string _cartWebhookSecret;
         private readonly ICartAlbumsService _cartAlbumsService;
         private readonly IShoppingCartService _shoppingCartService;
+        private readonly IStatisticsService _statistics;
 
 
-        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService)
+        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService, IStatisticsService statistics)
         {
             _webhookSecret = stripeOptions.Value.WebhookSecret;
             _cartWebhookSecret = stripeOptions.Value.CartWebhookSecret;
@@ -48,6 +50,7 @@ namespace Harmoniq.API.Webhooks
             _userContextService = userContextService;
             _cartAlbumsService = cartAlbumsService;
             _shoppingCartService = shoppingCartService;
+            _statistics = statistics;
         }
 
         [HttpPost("hook")]
@@ -135,6 +138,10 @@ namespace Harmoniq.API.Webhooks
                     var albums = new List<CartAlbumDto>();
                     decimal totalPrice = 0;
 
+                    DateTime currentDate = DateTime.Now;
+                    int month = currentDate.Month;
+                    int year = currentDate.Year;
+
                     foreach (var albumId in albumIds)
                     {
                         var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
@@ -147,6 +154,20 @@ namespace Harmoniq.API.Webhooks
                             });
 
                             totalPrice += album.Price;
+
+                            var contentCreatorId = await _albumManagementService.GetContentCreatorIdByAlbumIdAsync(albumId);
+
+                            var stats = new StatisticsDto
+                            {
+                                UnitSold = albumIds.Count,
+                                TotalValue = totalPrice,
+                                ContentCreatorId = contentCreatorId,
+                                AlbumId = albumId,
+                                Year = year,
+                                Month = month
+                            };
+                            await _statistics.AddStatisticsAsync(stats);
+
                         }
                     }
 
@@ -158,8 +179,10 @@ namespace Harmoniq.API.Webhooks
                         Price = totalPrice,
                         AlbumIds = albumIds
                     };
-            
-                    var paidCart = await _shoppingCartService.MarkCartAsPaidAsync(cartId, contentConsumerId); 
+
+
+
+                    var paidCart = await _shoppingCartService.MarkCartAsPaidAsync(cartId, contentConsumerId);
 
                     foreach (var albumId in albumIds)
                     {

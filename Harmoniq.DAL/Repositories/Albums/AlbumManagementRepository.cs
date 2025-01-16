@@ -19,6 +19,16 @@ namespace Harmoniq.DAL.Repositories.AlbumManagement
             _dbContext = dbContext;
         }
 
+        public async Task<int> GetContentCreatorIdByAlbumIdAsync(int albumId)
+        {
+            var album = await _dbContext.Albums.FirstOrDefaultAsync(a => a.Id == albumId);
+            if (album == null)
+            {
+                throw new KeyNotFoundException("Album not found");
+            }
+            return album.ContentCreatorId;
+        }
+
         public async Task<AlbumEntity> GetAlbumByIdAsync(int albumId)
         {
             return await _dbContext.Albums.Where(ai => ai.Id == albumId).FirstOrDefaultAsync();

@@ -57,6 +57,8 @@ namespace Harmoniq.BLL.Services.Stripe
             var consumerId = cart.ContentConsumerId.ToString();
             string cartId = cart.CartId.ToString();
 
+            
+
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string> { "card" },

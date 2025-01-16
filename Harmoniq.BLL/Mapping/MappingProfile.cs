@@ -80,6 +80,10 @@ namespace Harmoniq.BLL.Mapping
 
             CreateMap<ContentCreatorEntity, EditContentCreatorProfileDto>();
             CreateMap<EditContentCreatorProfileDto, ContentCreatorEntity>();
+
+            CreateMap<StatisticsEntity, StatisticsDto>();
+            CreateMap<StatisticsDto, StatisticsEntity>();
+
         }
 
 

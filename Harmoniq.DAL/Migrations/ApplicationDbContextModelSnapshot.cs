@@ -306,6 +306,41 @@ namespace Harmoniq.DAL.Migrations
                     b.ToTable("PurchasedAlbums");
                 });
 
+            modelBuilder.Entity("Harmoniq.Domain.Entities.StatisticsEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContentCreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UnitSold")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.HasIndex("ContentCreatorId");
+
+                    b.ToTable("Stats");
+                });
+
             modelBuilder.Entity("Harmoniq.Domain.Entities.UserEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -504,6 +539,25 @@ namespace Harmoniq.DAL.Migrations
                     b.Navigation("Album");
 
                     b.Navigation("ContentConsumer");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.StatisticsEntity", b =>
+                {
+                    b.HasOne("Harmoniq.Domain.Entities.AlbumEntity", "Album")
+                        .WithMany()
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Harmoniq.Domain.Entities.ContentCreatorEntity", "ContentCreator")
+                        .WithMany()
+                        .HasForeignKey("ContentCreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+
+                    b.Navigation("ContentCreator");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.WishlistEntity", b =>

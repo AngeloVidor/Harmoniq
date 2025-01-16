@@ -24,9 +24,10 @@ namespace Harmoniq.DAL.Context
         public DbSet<CartEntity> ShoppingCart { get; set; }
         public DbSet<CartAlbumEntity> CartAlbums { get; set; }
         public DbSet<CartCheckoutEntity> CartCheckout { get; set; }
+        public DbSet<StatisticsEntity> Stats { get; set; }
 
 
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AlbumEntity>()
@@ -36,7 +37,11 @@ namespace Harmoniq.DAL.Context
             modelBuilder.Entity<CartCheckoutEntity>()
                 .Property(c => c.Price)
                 .HasColumnType("decimal(18,2)");
-            
+
+            modelBuilder.Entity<StatisticsEntity>()
+            .Property(c => c.TotalValue)
+            .HasColumnType("decimal(18,2)");
+
         }
 
     }
