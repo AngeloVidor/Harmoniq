@@ -23,25 +23,25 @@ namespace Harmoniq.API.Controllers
             _userContextService = userContextService;
         }
 
-        [HttpGet("stats")]
-        public async Task<IActionResult> GetStatisticsAsync(int year, int month)
-        {
-            var userId = _userContextService.GetUserIdFromContext();
-            var creatorId = await _userContextService.GetContentCreatorIdByUserIdAsync(userId);
+        // [HttpGet("stats")]
+        // public async Task<IActionResult> GetStatisticsAsync(int year, int month)
+        // {
+        //     var userId = _userContextService.GetUserIdFromContext();
+        //     var creatorId = await _userContextService.GetContentCreatorIdByUserIdAsync(userId);
 
-            try
-            {
-                var result = await _statisticsService.GetStatisticsAsync(year, month, creatorId);
-                return Ok(result);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+        //     try
+        //     {
+        //         var result = await _statisticsService.GetStatisticsAsync(year, month, creatorId);
+        //         return Ok(result);
+        //     }
+        //     catch (KeyNotFoundException ex)
+        //     {
+        //         return StatusCode(400, ex.Message);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, ex.Message);
+        //     }
+        // }
     }
 }

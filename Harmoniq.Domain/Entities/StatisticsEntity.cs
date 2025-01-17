@@ -12,10 +12,8 @@ namespace Harmoniq.Domain.Entities
         public decimal TotalValue { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
-        public ContentCreatorEntity ContentCreator { get; set; }
-        public int ContentCreatorId { get; set; }
-        public AlbumEntity Album { get; set; }
-        public int AlbumId { get; set; }
+        public virtual ICollection<StatisticsAlbumsEntity> Albums { get; set; } = new List<StatisticsAlbumsEntity>();
+
 
     }
 }

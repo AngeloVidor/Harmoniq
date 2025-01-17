@@ -25,10 +25,18 @@ namespace Harmoniq.DAL.Repositories.Stats
             return statistics;
         }
 
-        public async Task<StatisticsEntity> GetStatisticsAsync(int year, int month, int contentCreatorId)
+        // public async Task<StatisticsEntity> GetStatisticsAsync(int year, int month, int contentCreatorId)
+        // {
+        //     return await _dbContext.Stats
+        //         .FirstOrDefaultAsync(s => s.ContentCreatorId == contentCreatorId && s.Year == year && s.Month == month);
+        // }
+
+        public async Task<StatisticsAlbumsEntity> AddAlbumsStatisticsAsync(StatisticsAlbumsEntity albumStats)
         {
-            return await _dbContext.Stats
-                .FirstOrDefaultAsync(s => s.ContentCreatorId == contentCreatorId && s.Year == year && s.Month == month);
+            await _dbContext.StatisticsAlbums.AddAsync(albumStats);
+            await _dbContext.SaveChangesAsync();
+            return albumStats;
         }
+
     }
 }

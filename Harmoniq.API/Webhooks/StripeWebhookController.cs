@@ -142,6 +142,21 @@ namespace Harmoniq.API.Webhooks
                     int month = currentDate.Month;
                     int year = currentDate.Year;
 
+                    foreach (var albumPrice in albumIds)
+                    {
+                        var albumId = await _albumManagementService.GetAlbumByIdAsync(albumPrice);
+                        totalPrice += albumId.Price;
+                    }
+                    var stats = new StatisticsDto
+                    {
+                        UnitSold = albumIds.Count,
+                        TotalValue = totalPrice,
+                        Year = year,
+                        Month = month
+
+                    };
+                    var createdStats = await _statistics.AddStatisticsAsync(stats);
+
                     foreach (var albumId in albumIds)
                     {
                         var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
@@ -152,21 +167,16 @@ namespace Harmoniq.API.Webhooks
                                 AlbumId = album.Id,
                                 CartId = cartId
                             });
-
-                            totalPrice += album.Price;
-
                             var contentCreatorId = await _albumManagementService.GetContentCreatorIdByAlbumIdAsync(albumId);
 
-                            var stats = new StatisticsDto
+                            var albumStats = new StatisticsAlbumsDto
                             {
-                                UnitSold = albumIds.Count,
-                                TotalValue = totalPrice,
                                 ContentCreatorId = contentCreatorId,
                                 AlbumId = albumId,
-                                Year = year,
-                                Month = month
+                                StatisticsId = createdStats.Id
                             };
-                            await _statistics.AddStatisticsAsync(stats);
+                            await _statistics.AddAlbumsStatisticsAsync(albumStats);
+
 
                         }
                     }

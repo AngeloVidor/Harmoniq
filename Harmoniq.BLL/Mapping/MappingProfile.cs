@@ -84,6 +84,11 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<StatisticsEntity, StatisticsDto>();
             CreateMap<StatisticsDto, StatisticsEntity>();
 
+            CreateMap<StatisticsAlbumsEntity, StatisticsAlbumsDto>();
+            CreateMap<StatisticsAlbumsDto, StatisticsAlbumsEntity>();
+
+
+
         }
 
 

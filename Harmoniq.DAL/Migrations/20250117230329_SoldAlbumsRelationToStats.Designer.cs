@@ -4,6 +4,7 @@ using Harmoniq.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Harmoniq.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250117230329_SoldAlbumsRelationToStats")]
+    partial class SoldAlbumsRelationToStats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,16 +326,11 @@ namespace Harmoniq.DAL.Migrations
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StatisticsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
 
                     b.HasIndex("ContentCreatorId");
-
-                    b.HasIndex("StatisticsId");
 
                     b.ToTable("StatisticsAlbums");
                 });
@@ -344,6 +342,12 @@ namespace Harmoniq.DAL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContentCreatorId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Month")
                         .HasColumnType("int");
@@ -358,6 +362,10 @@ namespace Harmoniq.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.HasIndex("ContentCreatorId");
 
                     b.ToTable("Stats");
                 });
@@ -576,17 +584,28 @@ namespace Harmoniq.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Harmoniq.Domain.Entities.StatisticsEntity", "Statistics")
-                        .WithMany("Albums")
-                        .HasForeignKey("StatisticsId")
+                    b.Navigation("Album");
+
+                    b.Navigation("ContentCreator");
+                });
+
+            modelBuilder.Entity("Harmoniq.Domain.Entities.StatisticsEntity", b =>
+                {
+                    b.HasOne("Harmoniq.Domain.Entities.AlbumEntity", "Album")
+                        .WithMany()
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Harmoniq.Domain.Entities.ContentCreatorEntity", "ContentCreator")
+                        .WithMany()
+                        .HasForeignKey("ContentCreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Album");
 
                     b.Navigation("ContentCreator");
-
-                    b.Navigation("Statistics");
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.WishlistEntity", b =>
@@ -635,11 +654,6 @@ namespace Harmoniq.DAL.Migrations
                 });
 
             modelBuilder.Entity("Harmoniq.Domain.Entities.ContentCreatorEntity", b =>
-                {
-                    b.Navigation("Albums");
-                });
-
-            modelBuilder.Entity("Harmoniq.Domain.Entities.StatisticsEntity", b =>
                 {
                     b.Navigation("Albums");
                 });
