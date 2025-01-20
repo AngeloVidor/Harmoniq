@@ -28,21 +28,43 @@ namespace Harmoniq.BLL.Services.Stats
             return _mapper.Map<StatisticsDto>(response);
         }
 
-        public async Task<StatisticsAlbumsDto> AddAlbumsStatisticsAsync(StatisticsAlbumsDto albumStats)
+
+
+        public async Task<AllPurchasedAlbumsDto> SavePaidAlbumsForStatsAsync(AllPurchasedAlbumsDto albumStats)
         {
-            var albumStatsEntity = _mapper.Map<StatisticsAlbumsEntity>(albumStats);
-            var response = await _statisticsRepository.AddAlbumsStatisticsAsync(albumStatsEntity);
-            return _mapper.Map<StatisticsAlbumsDto>(response);
+            albumStats.Month = DateTime.Now.Month;
+            albumStats.Year = DateTime.Now.Year;
+
+            var allPurchases = _mapper.Map<AllPurchasedAlbumsEntity>(albumStats);
+            var response = await _statisticsRepository.SavePaidAlbumsForStatsAsync(allPurchases);
+            return _mapper.Map<AllPurchasedAlbumsDto>(response);
         }
 
-        // public async Task<StatisticsDto> GetStatisticsAsync(int year, int month, int contentCreatorId)
-        // {
-        //     var stats = await _statisticsRepository.GetStatisticsAsync(year, month, contentCreatorId);
-        //     if (year != stats.Year && month != stats.Month && contentCreatorId != stats.ContentCreatorId)
-        //     {
-        //         throw new KeyNotFoundException("Not found");
-        //     }
-        //     return _mapper.Map<StatisticsDto>(stats);
-        // }
+        public async Task<FinalStatsDto> GetMonthlyStatisticsAsync(int year, int month, int contentCreatorId)
+        {
+            var allAlbums = await _statisticsRepository.GetMonthlyStatisticsAsync(year, month, contentCreatorId);
+            var finalStats = new FinalStatsDto
+            {
+                Year = year,
+                Month = month,
+                ContentCreatorId = contentCreatorId,
+                TotalPrice = 0,
+                Quantity = allAlbums.Count(),
+                AlbumIds = new List<int>()
+            };
+
+            foreach (var album in allAlbums)
+            {
+                finalStats.TotalPrice += album.Price;
+
+                if (!finalStats.AlbumIds.Contains(album.AlbumId))
+                {
+                    finalStats.AlbumIds.Add(album.AlbumId);
+                }
+            }
+            return finalStats;
+
+
+        }
     }
 }

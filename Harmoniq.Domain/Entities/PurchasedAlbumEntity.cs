@@ -16,6 +16,7 @@ namespace Harmoniq.Domain.Entities
         public ContentConsumerEntity ContentConsumer { get; set; }
         public string Username { get; set; }
         public int ContentConsumerId { get; set; }
-
+        public DateTime PurchasedDate { get; set; } = DateTime.UtcNow;
+        public decimal Price { get; set; }
     }
 }

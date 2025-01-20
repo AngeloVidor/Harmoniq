@@ -13,5 +13,8 @@ namespace Harmoniq.BLL.DTOs
         public int Id { get; set; }
         public string AlbumId { get; set; }
         public int ContentConsumerId { get; set; }
+        public DateTime PurchasedDate { get; set; } = DateTime.UtcNow;
+        public decimal Price { get; set; }
+
     }
 }

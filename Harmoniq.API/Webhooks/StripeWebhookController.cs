@@ -169,15 +169,13 @@ namespace Harmoniq.API.Webhooks
                             });
                             var contentCreatorId = await _albumManagementService.GetContentCreatorIdByAlbumIdAsync(albumId);
 
-                            var albumStats = new StatisticsAlbumsDto
+                            var allPurchases = new AllPurchasedAlbumsDto
                             {
                                 ContentCreatorId = contentCreatorId,
                                 AlbumId = albumId,
-                                StatisticsId = createdStats.Id
+                                Price = album.Price
                             };
-                            await _statistics.AddAlbumsStatisticsAsync(albumStats);
-
-
+                            await _statistics.SavePaidAlbumsForStatsAsync(allPurchases);
                         }
                     }
 
@@ -196,10 +194,14 @@ namespace Harmoniq.API.Webhooks
 
                     foreach (var albumId in albumIds)
                     {
+                        var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
+
+
                         var purchasedAlbum = new PurchasedAlbumDto
                         {
                             AlbumId = albumId.ToString(),
-                            ContentConsumerId = contentConsumerId
+                            ContentConsumerId = contentConsumerId,
+                            Price = album.Price
                         };
                         await _albumCheckout.BuyAlbumAsync(purchasedAlbum);
 
