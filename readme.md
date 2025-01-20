@@ -37,7 +37,11 @@ Para rodar a API localmente, você precisará criar um arquivo `appsettings.json
 Após configurar seu `appsettings.json`, você pode executar os seguintes comandos:
 
 ```bash
-dotnet ef migrations add MyMigration --project Harmoniq.DAL --startup-project Harmoniq.API
+dotnet ef migrations add MyMigration --project Harmoniq.DAL --startup-
+
+##IMPORTANTE Após adicionar a nova migration, vá até o arquivo de design da migration gerada e altere todas as propriedades de onDelete de Cascade para NoAction. Isso evitará problemas de exclusão em cascata indesejados nas relações entre as entidades.
+
+Harmoniq.API
 dotnet ef database update --project Harmoniq.DAL --startup-project Harmoniq.API
 ```
 
@@ -66,6 +70,7 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 ### Auth
 - **POST** `/api/Auth/register` - Registra um novo usuário no sistema.
 - **POST** `/api/Auth/login` - Autenticação do usuário.
+- **GET** `/api/Auth/me` - Retorna o usuário logado.
 
 ### Cart
 - **POST** `/api/Cart/cart` - Cadastra um novo carrinho.
@@ -92,6 +97,7 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 - **POST** `/api/Profiles/ContentConsumer` - A conta do usuário passa a ser consumidor de conteúdo.
 - **POST** `/api/Profiles/ContentCreator` - A conta do usuário passa a ser criador de conteúdo.
 - **PUT** `/api/Profiles/contentConsumer` - Edita o perfil do consumidor de conteúdo.
+- **PUT** `/api/Profiles/ContentCreator` - Edita o perfil do Criador de conteúdo.
 
 ### Purchases
 - **GET** `/api/Purchases/{consumerId}` - Retorna uma lista de todos os álbuns comprados pelo usuário.
@@ -100,6 +106,11 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 ### Songs
 - **POST** `/api/Songs/song` - Adiciona faixas de áudio aos álbuns.
 - **PUT** `/api/Songs/song` - Edita detalhes e a faixa de áudio do álbum.
+- **DELETE** `/api/Songs/albums/{albumId}/songs/{songId}` - Deleta uma música do álbum.
+
+### Statistics
+- **GET** `/api/Statistics/stats` - Retorna às estátísticas mensais de venda do criador de conteúdo.
+
 
 ### StripeWebhook
 - **POST** `/api/StripeWebhook/hook` - Processa uma compra singular do usuário na Stripe.
@@ -108,4 +119,6 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 ### Wishlist
 - **POST** `/api/Wishlist/albums` - Adiciona um álbum à lista de desejos.
 - **GET** `/api/Wishlist/{consumerId}` - Retorna uma lista de lista de desejos do usuário.
+- **DELETE** `/api/Wishlist/wishlist/{wishlistId/album/{albumId}` - Adiciona um álbum à lista de desejos.
+
 

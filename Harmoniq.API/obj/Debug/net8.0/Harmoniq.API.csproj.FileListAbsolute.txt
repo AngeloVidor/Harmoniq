@@ -1,5 +1,4 @@
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\appsettings.Development.json
-c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\appsettings.json
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Harmoniq.API.exe
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Harmoniq.API.deps.json
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\Harmoniq.API.runtimeconfig.json

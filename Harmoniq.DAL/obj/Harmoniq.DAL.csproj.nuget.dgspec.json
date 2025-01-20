@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj": {}
+    "C:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj": {}
   },
   "projects": {
-    "c:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj": {
+    "C:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj",
+        "projectUniqueName": "C:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj",
         "projectName": "Harmoniq.DAL",
-        "projectPath": "c:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj",
+        "projectPath": "C:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "c:\\Harmoniq\\Harmoniq.DAL\\obj\\",
+        "outputPath": "C:\\Harmoniq\\Harmoniq.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
