@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.BLL.DTOs;
 
-namespace Harmoniq.BLL.Interfaces.Albums
+namespace Harmoniq.BLL.Interfaces.Albums.NewAlbum
 {
-    public interface IAlbumCreatorService
+    public interface INewAlbumService
     {
         Task<AlbumDto> AddAlbumAsync(AlbumDto album);
     }

@@ -14,20 +14,20 @@ namespace Harmoniq.DAL.Repositories.Favorites
     public class FavoritesAlbumsRepository : IFavoritesAlbumsRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserAccountRepository _userAccount;
+        private readonly IUserAuthRepository _userAuthRepository;
         private readonly IAlbumManagementRepository _albumManagement;
-        public FavoritesAlbumsRepository(ApplicationDbContext dbContext, IUserAccountRepository userAccount, IAlbumManagementRepository albumManagement)
+        public FavoritesAlbumsRepository(ApplicationDbContext dbContext, IUserAuthRepository userAuthRepository, IAlbumManagementRepository albumManagement)
         {
             _dbContext = dbContext;
-            _userAccount = userAccount;
+            _userAuthRepository = userAuthRepository;
             _albumManagement = albumManagement;
         }
 
         public async Task<FavoritesAlbumsEntity> AddFavoriteAlbumAsync(FavoritesAlbumsEntity favorite)
         {
-            var contentConsumer = await _userAccount.GetContentConsumerByIdAsync(favorite.ContentConsumerId);
+            var contentConsumer = await _userAuthRepository.GetContentConsumerByIdAsync(favorite.ContentConsumerId);
             favorite.ConsumerUsername = contentConsumer.Nickname;
-            
+
             var album = await _albumManagement.GetAlbumByIdAsync(favorite.AlbumId);
             favorite.AlbumTitle = album.Title;
 

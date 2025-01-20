@@ -6,7 +6,7 @@ using Harmoniq.BLL.DTOs;
 
 namespace Harmoniq.BLL.Interfaces.UserManagement
 {
-    public interface IUserAccountService
+    public interface IUserAuthService
     {
         Task<UserRegisterDto> RegisterUserAccountAsync(UserRegisterDto userRegisterDto);
         Task<UserRegisterDto> ValidateUserAccountAsync(UserRegisterDto userRegisterDto);

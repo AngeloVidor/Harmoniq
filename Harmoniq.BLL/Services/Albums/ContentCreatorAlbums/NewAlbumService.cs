@@ -6,6 +6,7 @@ using AutoMapper;
 using FluentValidation;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Albums;
+using Harmoniq.BLL.Interfaces.Albums.NewAlbum;
 using Harmoniq.BLL.Interfaces.AWS;
 using Harmoniq.BLL.Interfaces.Stripe;
 using Harmoniq.DAL.Interfaces;
@@ -13,15 +14,15 @@ using Harmoniq.Domain.Entities;
 
 namespace Harmoniq.BLL.Services.Albums
 {
-    public class AlbumCreatorService : IAlbumCreatorService
+    public class NewAlbumService : INewAlbumService
     {
-        private readonly IAlbumCreatorRepository _albumCreatorRepository;
+        private readonly INewAlbumRepository _albumCreatorRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<AlbumDto> _validator;
         private readonly ICreateStripeProductService _createStripeProduct;
         private readonly ICloudImageService _cloudImageService;
 
-        public AlbumCreatorService(IAlbumCreatorRepository albumCreatorRepository, IMapper mapper, IValidator<AlbumDto> validator, ICreateStripeProductService createStripeProduct, ICloudImageService cloudImageService)
+        public NewAlbumService(INewAlbumRepository albumCreatorRepository, IMapper mapper, IValidator<AlbumDto> validator, ICreateStripeProductService createStripeProduct, ICloudImageService cloudImageService)
         {
             _albumCreatorRepository = albumCreatorRepository;
             _mapper = mapper;

@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Harmoniq.DAL.Repositories.UserManagement
 {
-    public class UserAccountRepository : IUserAccountRepository
+    public class UserAuthRepository : IUserAuthRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        public UserAccountRepository(ApplicationDbContext dbContext)
+        public UserAuthRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

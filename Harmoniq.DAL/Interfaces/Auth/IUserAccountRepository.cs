@@ -6,7 +6,7 @@ using Harmoniq.Domain.Entities;
 
 namespace Harmoniq.DAL.Interfaces.UserManagement
 {
-    public interface IUserAccountRepository
+    public interface IUserAuthRepository
     {
         Task<UserEntity> RegisterUserAccountAsync(UserEntity userEntity);
         Task<UserEntity> GetUserAccountByEmailAsync(string email);

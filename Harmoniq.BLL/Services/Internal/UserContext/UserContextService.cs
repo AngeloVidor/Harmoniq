@@ -12,13 +12,13 @@ namespace Harmoniq.BLL.Services.UserContext
     public class UserContextService : IUserContextService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IUserAuthRepository _userAuthRepository;
         private readonly IWishlistRepository _wishlistRepository;
 
-        public UserContextService(IHttpContextAccessor httpContextAccessor, IUserAccountRepository userAccountRepository, IWishlistRepository wishlistRepository)
+        public UserContextService(IHttpContextAccessor httpContextAccessor, IUserAuthRepository userAuthRepository, IWishlistRepository wishlistRepository)
         {
             _httpContextAccessor = httpContextAccessor;
-            _userAccountRepository = userAccountRepository;
+            _userAuthRepository = userAuthRepository;
             _wishlistRepository = wishlistRepository;
         }
 
@@ -42,12 +42,12 @@ namespace Harmoniq.BLL.Services.UserContext
 
         public async Task<int?> GetContentConsumerIdByUserIdAsync(int userId)
         {
-            return await _userAccountRepository.GetContentConsumerIdByUserIdAsync(userId);
+            return await _userAuthRepository.GetContentConsumerIdByUserIdAsync(userId);
         }
 
         public async Task<int> GetContentCreatorIdByUserIdAsync(int userId)
         {
-            int contentCreator = await _userAccountRepository.GetContentCreatorIdByUserIdAsync(userId);
+            int contentCreator = await _userAuthRepository.GetContentCreatorIdByUserIdAsync(userId);
             return contentCreator;
         }
     }

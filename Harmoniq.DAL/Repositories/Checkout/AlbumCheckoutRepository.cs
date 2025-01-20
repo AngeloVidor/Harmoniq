@@ -16,20 +16,20 @@ namespace Harmoniq.DAL.Repositories.PurchasedAlbums
     public class AlbumCheckoutRepository : IAlbumCheckoutRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IAlbumCreatorRepository _albumRepository;
+        private readonly INewAlbumRepository _newAlbumRepository;
         private readonly ICartPurchaseRepository _cartPurchases;
 
 
-        public AlbumCheckoutRepository(ApplicationDbContext dbContext, IAlbumCreatorRepository albumRepository, ICartPurchaseRepository cartPurchases)
+        public AlbumCheckoutRepository(ApplicationDbContext dbContext, INewAlbumRepository newAlbumRepository, ICartPurchaseRepository cartPurchases)
         {
             _dbContext = dbContext;
-            _albumRepository = albumRepository;
+            _newAlbumRepository = newAlbumRepository;
             _cartPurchases = cartPurchases;
         }
 
         public async Task<PurchasedAlbumEntity> BuyAlbumAsync(PurchasedAlbumEntity purchasedAlbum)
         {
-            var album = await _albumRepository.GetAlbumByIdAsync(purchasedAlbum.AlbumId);
+            var album = await _newAlbumRepository.GetAlbumByIdAsync(purchasedAlbum.AlbumId);
             if (album == null)
             {
                 throw new InvalidOperationException("Album not found.");

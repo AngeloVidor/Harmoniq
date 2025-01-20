@@ -94,5 +94,20 @@ namespace Harmoniq.BLL.Services.AlbumManagement
             }
             return _mapper.Map<AlbumDto>(await _albumManagement.RemoveAlbumAsync(albumId));
         }
+
+        public async Task<List<AlbumDto>> GetContentCreatorAlbumsAsync(int contentCreatorId)
+        {
+            if (contentCreatorId <= 0)
+            {
+                throw new KeyNotFoundException("Content creator ID must be greater than 0.");
+            }
+
+            var albums = await _albumManagement.GetContentCreatorAlbumsAsync(contentCreatorId);
+            if (albums == null || albums.Count == 0)
+            {
+                throw new KeyNotFoundException("No albums found for the specified content creator.");
+            }
+            return _mapper.Map<List<AlbumDto>>(albums);
+        }
     }
 }

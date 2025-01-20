@@ -11,16 +11,16 @@ namespace Harmoniq.BLL.Services.RoleChecker
 {
     public class UserRoleCheckerService : IUserRoleCheckerService
     {
-        private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IUserAuthRepository _userAuthRepository;
 
-        public UserRoleCheckerService(IUserAccountRepository userAccountRepository)
+        public UserRoleCheckerService(IUserAuthRepository userAuthRepository)
         {
-            _userAccountRepository = userAccountRepository;
+            _userAuthRepository = userAuthRepository;
         }
 
         public async Task<bool> IsContentConsumer(UserDto userDto)
         {
-            var user = await _userAccountRepository.GetUserAccountByIdAsync(userDto.Id);
+            var user = await _userAuthRepository.GetUserAccountByIdAsync(userDto.Id);
             if (user.Roles != AccountType.ContentConsumer)
             {
                 throw new UnauthorizedAccessException("The user does not have permission to create a Content Consumer profile.");
@@ -30,7 +30,7 @@ namespace Harmoniq.BLL.Services.RoleChecker
 
         public async Task<bool> IsContentCreator(UserDto userDto)
         {
-            var user = await _userAccountRepository.GetUserAccountByIdAsync(userDto.Id);
+            var user = await _userAuthRepository.GetUserAccountByIdAsync(userDto.Id);
             if (user.Roles != AccountType.ContentCreator)
             {
                 throw new UnauthorizedAccessException("The user does not have permission to create a Content Creator profile.");

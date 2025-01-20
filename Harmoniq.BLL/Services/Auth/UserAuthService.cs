@@ -11,13 +11,13 @@ using Harmoniq.Domain.Entities;
 
 namespace Harmoniq.BLL.Services.UserManagement
 {
-    public class UserAccountService : IUserAccountService
+    public class UserAuthService : IUserAuthService
     {
-        private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IUserAuthRepository _userAuthRepository;
         private readonly IMapper _mapper;
-        public UserAccountService(IMapper mapper, IUserAccountRepository userAccountRepository)
+        public UserAuthService(IMapper mapper, IUserAuthRepository userAuthRepository)
         {
-            _userAccountRepository = userAccountRepository;
+            _userAuthRepository = userAuthRepository;
             _mapper = mapper;
         }
         public async Task<UserRegisterDto> RegisterUserAccountAsync(UserRegisterDto userRegisterDto)
@@ -26,7 +26,7 @@ namespace Harmoniq.BLL.Services.UserManagement
             {
                 throw new ArgumentNullException("userRegisterDto cannot be null");
             }
-            var userEmail = await _userAccountRepository.GetUserAccountByEmailAsync(userRegisterDto.Email);
+            var userEmail = await _userAuthRepository.GetUserAccountByEmailAsync(userRegisterDto.Email);
             if (userEmail != null)
             {
                 throw new InvalidOperationException($"Email {userEmail} is already in use");
@@ -34,13 +34,13 @@ namespace Harmoniq.BLL.Services.UserManagement
             userRegisterDto.Password = BCrypt.Net.BCrypt.HashPassword(userRegisterDto.Password);
 
             var userEntity = _mapper.Map<UserEntity>(userRegisterDto);
-            var addedUser = await _userAccountRepository.RegisterUserAccountAsync(userEntity);
+            var addedUser = await _userAuthRepository.RegisterUserAccountAsync(userEntity);
             return _mapper.Map<UserRegisterDto>(addedUser);
         }
 
         public async Task<UserRegisterDto> ValidateUserAccountAsync(UserRegisterDto userRegisterDto)
         {
-            var userEntity = await _userAccountRepository.GetUserAccountByEmailAsync(userRegisterDto.Email);
+            var userEntity = await _userAuthRepository.GetUserAccountByEmailAsync(userRegisterDto.Email);
             if (userEntity == null || !BCrypt.Net.BCrypt.Verify(userRegisterDto.Password, userEntity.Password))
             {
                 return null;
@@ -52,7 +52,7 @@ namespace Harmoniq.BLL.Services.UserManagement
         //centralizar esse método em um serviço privado
         public async Task<int?> GetContentCreatorIdIfExists(int userId)
         {
-            var user = await _userAccountRepository.GetUserAccountByIdAsync(userId);
+            var user = await _userAuthRepository.GetUserAccountByIdAsync(userId);
             if (user != null && user.Roles == AccountType.ContentCreator)
             {
                 return user.Id;
@@ -62,13 +62,13 @@ namespace Harmoniq.BLL.Services.UserManagement
 
         public async Task<UserDto> GetUserByIdAsync(int userId)
         {
-            var user = await _userAccountRepository.GetUserAccountByIdAsync(userId);
+            var user = await _userAuthRepository.GetUserAccountByIdAsync(userId);
             return _mapper.Map<UserDto>(user);
         }
 
         public async Task<UserDto> GetActiveUserAsync(int userId)
         {
-            var user = await _userAccountRepository.GetActiveUserAsync(userId);
+            var user = await _userAuthRepository.GetActiveUserAsync(userId);
             var userEntity = _mapper.Map<UserEntity>(user);
             return _mapper.Map<UserDto>(userEntity);
         }

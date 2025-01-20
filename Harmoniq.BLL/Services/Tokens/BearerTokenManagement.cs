@@ -20,19 +20,19 @@ namespace Harmoniq.BLL.Services.Tokens
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         private readonly IUserContextService _userContextService;
-        private readonly IUserAccountService _userAccountService;
+        private readonly IUserAuthService _userAuthService;
 
-        public BearerTokenManagement(IConfiguration configuration, IMapper mapper, IUserContextService userContextService, IUserAccountService userAccountService)
+        public BearerTokenManagement(IConfiguration configuration, IMapper mapper, IUserContextService userContextService, IUserAuthService userAuthService)
         {
             _configuration = configuration;
             _mapper = mapper;
             _userContextService = userContextService;
-            _userAccountService = userAccountService;
+            _userAuthService = userAuthService;
         }
 
         public async Task<string> GenerateTokenAsync(UserRegisterDto userRegisterDto)
         {
-            var contentCreatorId = await _userAccountService.GetContentCreatorIdIfExists(userRegisterDto.Id);
+            var contentCreatorId = await _userAuthService.GetContentCreatorIdIfExists(userRegisterDto.Id);
             var contentConsumerId = await _userContextService.GetContentConsumerIdByUserIdAsync(userRegisterDto.Id);
 
             var claims = new List<Claim>

@@ -17,6 +17,8 @@ namespace Harmoniq.DAL.Interfaces.AlbumManagement
         Task<AlbumEntity> RemoveAlbumAsync(int albumId);
         Task<AlbumEntity> EditAlbumAsync(AlbumEntity editedAlbum);
         Task<int> GetContentCreatorIdByAlbumIdAsync(int albumId);
+        Task<List<AlbumEntity>> GetContentCreatorAlbumsAsync(int contentCreatorId);
+
 
 
     }

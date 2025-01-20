@@ -14,13 +14,13 @@ namespace Harmoniq.DAL.Repositories.Wishlist
     public class WishlistRepository : IWishlistRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserAccountRepository _userAccount;
+        private readonly IUserAuthRepository _userAuthRepository;
         private readonly IAlbumManagementRepository _albumManagement;
 
-        public WishlistRepository(ApplicationDbContext dbContext, IUserAccountRepository userAccount, IAlbumManagementRepository albumManagement)
+        public WishlistRepository(ApplicationDbContext dbContext, IUserAuthRepository userAuthRepository, IAlbumManagementRepository albumManagement)
         {
             _dbContext = dbContext;
-            _userAccount = userAccount;
+            _userAuthRepository = userAuthRepository;
             _albumManagement = albumManagement;
         }
 
@@ -29,7 +29,7 @@ namespace Harmoniq.DAL.Repositories.Wishlist
             var album = await _albumManagement.GetAlbumByIdAsync(wishlist.AlbumId);
             wishlist.AlbumTitle = album.Title;
 
-            var consumer = await _userAccount.GetContentConsumerByIdAsync(wishlist.ContentConsumerId);
+            var consumer = await _userAuthRepository.GetContentConsumerByIdAsync(wishlist.ContentConsumerId);
             wishlist.ConsumerUsername = consumer.Nickname;
 
             await _dbContext.Wishlist.AddAsync(wishlist);

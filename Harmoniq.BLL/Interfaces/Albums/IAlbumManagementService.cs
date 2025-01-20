@@ -14,6 +14,8 @@ namespace Harmoniq.BLL.Interfaces.AlbumManagement
         Task<AlbumDto> RemoveAlbumAsync(int albumId);
         Task<EditedAlbumDto> EditAlbumAsync(EditedAlbumDto editedAlbum);
         Task<int> GetContentCreatorIdByAlbumIdAsync(int albumId);
+        Task<List<AlbumDto>> GetContentCreatorAlbumsAsync(int contentConsumerId);
+
 
     }
 }

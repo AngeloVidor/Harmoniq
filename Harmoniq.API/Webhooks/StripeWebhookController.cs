@@ -29,7 +29,7 @@ namespace Harmoniq.API.Webhooks
     {
         private readonly string _webhookSecret;
         private readonly IAlbumManagementService _albumManagementService;
-        private readonly IUserAccountService _userAccountService;
+        private readonly IUserAuthService _userAuthService;
         private readonly IAlbumCheckoutService _albumCheckout;
         private readonly ICartPurchaseService _cartPurchaseService;
         private readonly IUserContextService _userContextService;
@@ -39,12 +39,12 @@ namespace Harmoniq.API.Webhooks
         private readonly IStatisticsService _statistics;
 
 
-        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService, IStatisticsService statistics)
+        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAuthService userAuthService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService, IStatisticsService statistics)
         {
             _webhookSecret = stripeOptions.Value.WebhookSecret;
             _cartWebhookSecret = stripeOptions.Value.CartWebhookSecret;
             _albumManagementService = albumManagementService;
-            _userAccountService = userAccountService;
+            _userAuthService = userAuthService;
             _albumCheckout = albumCheckout;
             _cartPurchaseService = cartPurchaseService;
             _userContextService = userContextService;

@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Harmoniq.DAL.Repositories.Albums
 {
-    public class AlbumCreatorRepository : IAlbumCreatorRepository
+    public class NewAlbumRepository : INewAlbumRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public AlbumCreatorRepository(ApplicationDbContext dbContext)
+        public NewAlbumRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

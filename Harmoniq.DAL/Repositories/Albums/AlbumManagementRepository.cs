@@ -88,5 +88,10 @@ namespace Harmoniq.DAL.Repositories.AlbumManagement
             await _dbContext.SaveChangesAsync();
             return editedAlbum;
         }
+
+        public async Task<List<AlbumEntity>> GetContentCreatorAlbumsAsync(int contentCreatorId)
+        {
+            return await _dbContext.Albums.Where(a => a.ContentCreatorId == contentCreatorId).ToListAsync();
+        }
     }
 }

@@ -23,14 +23,17 @@ namespace Harmoniq.API.Controllers
 
         private readonly ICheckoutSessionService _checkoutSessionService;
         private readonly IAlbumManagementService _albumManagementService;
-        private readonly IUserAccountService _userAccountService;
+        private readonly IUserAuthService _userAuthService;
         private readonly IUserContextService _userContextService;
 
-        public CheckoutController(ICheckoutSessionService checkoutSessionService, IAlbumManagementService albumManagementService, IUserAccountService userAccountService, IUserContextService userContextService)
+        public CheckoutController(ICheckoutSessionService checkoutSessionService, 
+        IAlbumManagementService albumManagementService, 
+        IUserAuthService userAuthService, 
+        IUserContextService userContextService)
         {
             _checkoutSessionService = checkoutSessionService;
             _albumManagementService = albumManagementService;
-            _userAccountService = userAccountService;
+            _userAuthService = userAuthService;
             _userContextService = userContextService;
         }
 
@@ -53,7 +56,7 @@ namespace Harmoniq.API.Controllers
                 return BadRequest("Invalid user ID.");
             }
 
-            var user = await _userAccountService.GetUserByIdAsync(userId);
+            var user = await _userAuthService.GetUserByIdAsync(userId);
             if (user.Roles != AccountType.ContentConsumer)
             {
                 return Unauthorized("Only ContentConsumers can make album purchases.");
