@@ -18,14 +18,7 @@ namespace Harmoniq.DAL.Repositories.Stats
             _dbContext = dbContext;
         }
 
-        public async Task<StatisticsEntity> AddStatisticsAsync(StatisticsEntity statistics)
-        {
-            await _dbContext.Stats.AddAsync(statistics);
-            await _dbContext.SaveChangesAsync();
-            return statistics;
-        }
-
-
+        
         public async Task<List<AllPurchasedAlbumsEntity>> GetMonthlyStatisticsAsync(int year, int month, int contentCreatorId)
         {
             return await _dbContext.AllPurchasedAlbums

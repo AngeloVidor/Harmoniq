@@ -21,13 +21,6 @@ namespace Harmoniq.BLL.Services.Stats
             _mapper = mapper;
         }
 
-        public async Task<StatisticsDto> AddStatisticsAsync(StatisticsDto statistics)
-        {
-            var statsEntity = _mapper.Map<StatisticsEntity>(statistics);
-            var response = await _statisticsRepository.AddStatisticsAsync(statsEntity);
-            return _mapper.Map<StatisticsDto>(response);
-        }
-
 
 
         public async Task<AllPurchasedAlbumsDto> SavePaidAlbumsForStatsAsync(AllPurchasedAlbumsDto albumStats)

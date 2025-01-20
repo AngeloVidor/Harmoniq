@@ -8,10 +8,6 @@ namespace Harmoniq.DAL.Interfaces.Stats
 {
     public interface IStatisticsRepository
     {
-        Task<StatisticsEntity> AddStatisticsAsync(StatisticsEntity statistics);
-
-
-
 
 
         Task<List<AllPurchasedAlbumsEntity>> GetMonthlyStatisticsAsync(int year, int month, int contentCreatorId);

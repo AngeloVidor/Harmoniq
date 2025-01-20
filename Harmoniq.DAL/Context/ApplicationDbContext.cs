@@ -24,8 +24,6 @@ namespace Harmoniq.DAL.Context
         public DbSet<CartEntity> ShoppingCart { get; set; }
         public DbSet<CartAlbumEntity> CartAlbums { get; set; }
         public DbSet<CartCheckoutEntity> CartCheckout { get; set; }
-        public DbSet<StatisticsEntity> Stats { get; set; }
-        public DbSet<StatisticsAlbumsEntity> StatisticsAlbums { get; set; }
         public DbSet<AllPurchasedAlbumsEntity> AllPurchasedAlbums { get; set; }
 
 

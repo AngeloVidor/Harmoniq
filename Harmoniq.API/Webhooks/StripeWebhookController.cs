@@ -147,16 +147,7 @@ namespace Harmoniq.API.Webhooks
                         var albumId = await _albumManagementService.GetAlbumByIdAsync(albumPrice);
                         totalPrice += albumId.Price;
                     }
-                    var stats = new StatisticsDto
-                    {
-                        UnitSold = albumIds.Count,
-                        TotalValue = totalPrice,
-                        Year = year,
-                        Month = month
-
-                    };
-                    var createdStats = await _statistics.AddStatisticsAsync(stats);
-
+               
                     foreach (var albumId in albumIds)
                     {
                         var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
@@ -187,9 +178,7 @@ namespace Harmoniq.API.Webhooks
                         Price = totalPrice,
                         AlbumIds = albumIds
                     };
-
-
-
+                    
                     var paidCart = await _shoppingCartService.MarkCartAsPaidAsync(cartId, contentConsumerId);
 
                     foreach (var albumId in albumIds)

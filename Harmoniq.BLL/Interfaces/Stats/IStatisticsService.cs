@@ -8,7 +8,6 @@ namespace Harmoniq.BLL.Interfaces.Stats
 {
     public interface IStatisticsService
     {
-        Task<StatisticsDto> AddStatisticsAsync(StatisticsDto statistics);
         Task<FinalStatsDto> GetMonthlyStatisticsAsync(int year, int month, int contentCreatorId);
         Task<AllPurchasedAlbumsDto> SavePaidAlbumsForStatsAsync(AllPurchasedAlbumsDto albumStats);
 
