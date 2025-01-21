@@ -10,5 +10,6 @@ namespace Harmoniq.DAL.Interfaces.Follows
     {
         Task<FollowersEntity> FollowAsync(FollowersEntity follow);
         Task<int> CountFollowersAsync(int contentCreatorId);
+        Task<bool> IsAlreadyFollowingAsync(int followerId, int followedCreatorId);
     }
 }

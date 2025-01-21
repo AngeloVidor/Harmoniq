@@ -33,5 +33,10 @@ namespace Harmoniq.DAL.Repositories.Follows
             await _dbContext.SaveChangesAsync();
             return follow;
         }
+
+        public async Task<bool> IsAlreadyFollowingAsync(int followerId, int followedCreatorId)
+        {
+            return await _dbContext.Follows.AnyAsync(f => f.FollowerConsumerId == followerId && f.FollowedCreatorId == followedCreatorId);
+        }
     }
 }
