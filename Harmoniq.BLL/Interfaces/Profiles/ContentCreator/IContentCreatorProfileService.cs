@@ -10,6 +10,6 @@ namespace Harmoniq.BLL.Interfaces.ContentCreatorAccount
     {
         Task<ContentCreatorDto> AddContentCreatorProfile(ContentCreatorDto contentCreatorDto);
         Task<EditContentCreatorProfileDto> EditContentCreatorProfileAsync(EditContentCreatorProfileDto editContentCreatorDto);
-        Task<ContentCreatorDto> GetContentCreatorProfileAsync(int contentCreatorId);
+        Task<ContentCreatorProfileDto> GetContentCreatorProfileAsync(int contentCreatorId);
     }
 }

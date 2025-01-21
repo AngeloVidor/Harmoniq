@@ -8,6 +8,7 @@ using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
 using Harmoniq.BLL.Interfaces.RoleChecker;
 using Harmoniq.DAL.Interfaces.ContentCreatorAccount;
+using Harmoniq.DAL.Interfaces.Follows;
 using Harmoniq.DAL.Interfaces.UserManagement;
 using Harmoniq.Domain.Entities;
 
@@ -20,14 +21,16 @@ namespace Harmoniq.BLL.Services.ContentCreatorAccount
         private readonly IMapper _mapper;
         private readonly IValidator<ContentCreatorDto> _validator;
         private readonly IValidator<EditContentCreatorProfileDto> _creatorProfileValidator;
+        private readonly IFollowsRepository _followsRepository;
 
-        public ContentCreatorProfileService(IContentCreatorProfileRepository contentCreatorProfile, IMapper mapper, IValidator<ContentCreatorDto> validator, IUserRoleCheckerService userRoleChecker, IValidator<EditContentCreatorProfileDto> creatorProfileValidator)
+        public ContentCreatorProfileService(IContentCreatorProfileRepository contentCreatorProfile, IMapper mapper, IValidator<ContentCreatorDto> validator, IUserRoleCheckerService userRoleChecker, IValidator<EditContentCreatorProfileDto> creatorProfileValidator, IFollowsRepository followsRepository)
         {
             _contentCreatorProfile = contentCreatorProfile;
             _mapper = mapper;
             _validator = validator;
             _userRoleChecker = userRoleChecker;
             _creatorProfileValidator = creatorProfileValidator;
+            _followsRepository = followsRepository;
         }
 
         public async Task<ContentCreatorDto> AddContentCreatorProfile(ContentCreatorDto contentCreatorDto)
@@ -65,10 +68,15 @@ namespace Harmoniq.BLL.Services.ContentCreatorAccount
             return _mapper.Map<EditContentCreatorProfileDto>(editedProfile);
         }
 
-        public async Task<ContentCreatorDto> GetContentCreatorProfileAsync(int contentCreatorId)
+        public async Task<ContentCreatorProfileDto> GetContentCreatorProfileAsync(int contentCreatorId)
         {
             var profile = await _contentCreatorProfile.GetContentCreatorProfileAsync(contentCreatorId);
-            return _mapper.Map<ContentCreatorDto>(profile);
+            if(profile == null)
+            {
+                throw new ArgumentNullException("Profile not found");
+            }
+            profile.TotalFollowers = await _followsRepository.CountFollowersAsync(contentCreatorId);
+            return _mapper.Map<ContentCreatorProfileDto>(profile);
         }
     }
 }

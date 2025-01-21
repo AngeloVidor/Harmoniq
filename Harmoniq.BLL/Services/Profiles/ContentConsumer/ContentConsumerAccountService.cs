@@ -42,10 +42,10 @@ namespace Harmoniq.BLL.Services.ContentConsumerAccount
             return _mapper.Map<ContentConsumerDto>(addedContentConsumer);
         }
 
-        public async Task<ContentConsumerDto> GetContentConsumerProfileAsync(int contentConsumerId)
+        public async Task<ContentConsumerProfileDto> GetContentConsumerProfileAsync(int contentConsumerId)
         {
             var profile = await _contentConsumerAccount.GetContentConsumerProfileAsync(contentConsumerId);
-            return _mapper.Map<ContentConsumerDto>(profile);
+            return _mapper.Map<ContentConsumerProfileDto>(profile);
         }
 
         public async Task<EditContentConsumerDto> UpdateContentConsumerProfileAsync(EditContentConsumerDto consumer)

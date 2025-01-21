@@ -9,5 +9,6 @@ namespace Harmoniq.DAL.Interfaces.Follows
     public interface IFollowsRepository
     {
         Task<FollowersEntity> FollowAsync(FollowersEntity follow);
+        Task<int> CountFollowersAsync(int contentCreatorId);
     }
 }

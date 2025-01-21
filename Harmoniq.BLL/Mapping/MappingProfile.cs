@@ -95,7 +95,13 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<FollowersEntity, FollowersDto>();
             CreateMap<FollowersDto, FollowersEntity>();
 
+            CreateMap<ContentCreatorEntity, ContentCreatorProfileDto>();
+            CreateMap<ContentCreatorProfileDto, ContentCreatorEntity>();
 
+            CreateMap<ContentConsumerEntity, ContentConsumerProfileDto>();
+            CreateMap<ContentConsumerProfileDto, ContentConsumerEntity>();
+
+            
         }
 
 
