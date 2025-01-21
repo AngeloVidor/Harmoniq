@@ -128,7 +128,7 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 
 ### Follows
 - **POST** `/api/Follows/follow` - Segue um criador de conteúdo.
-- **GET** `/api/Follows/stop-following/{contentCreatorId}` - Deixa de seguir um criador de conteúdo.
+- **DELETE** `/api/Follows/stop-following/{contentCreatorId}` - Deixa de seguir um criador de conteúdo.
 
 ### Purchases
 - **GET** `/api/Purchases/{consumerId}` - Retorna uma lista de todos os álbuns comprados pelo usuário.
