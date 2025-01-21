@@ -24,7 +24,7 @@ namespace Harmoniq.BLL.Services.Follows
         public async Task<FollowersDto> FollowAsync(FollowersDto follow)
         {
             var alreadyFollowed = await _followsRepository.IsAlreadyFollowingAsync(follow.FollowerConsumerId, follow.FollowedCreatorId);
-            if(alreadyFollowed)
+            if (alreadyFollowed)
             {
                 throw new Exception("Already following this creator");
             }
@@ -32,6 +32,16 @@ namespace Harmoniq.BLL.Services.Follows
             var followersEntity = _mapper.Map<FollowersEntity>(follow);
             var result = await _followsRepository.FollowAsync(followersEntity);
             return _mapper.Map<FollowersDto>(result);
+        }
+
+        public async Task<FollowersDto> StopFollowingAsync(int followerId, int followedCreatorId)
+        {
+            var unfollow = await _followsRepository.StopFollowingAsync(followerId, followedCreatorId);
+            if(unfollow == null)
+            {
+                throw new Exception("Not following this creator");
+            }
+            return _mapper.Map<FollowersDto>(unfollow);
         }
     }
 }

@@ -9,5 +9,7 @@ namespace Harmoniq.BLL.Interfaces.Follows
     public interface IFollowsService
     {
         Task<FollowersDto> FollowAsync(FollowersDto follow);
+        Task<FollowersDto> StopFollowingAsync(int followerId, int followedCreatorId);
+
     }
 }

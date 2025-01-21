@@ -40,5 +40,23 @@ namespace Harmoniq.API.Controllers.Follows
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpDelete("stop-following/{contentCreatorId}")]
+        public async Task<IActionResult> StopFollowingAsync(int contentCreatorId)
+        {
+            var userId = _userContextService.GetUserIdFromContext();
+            var followerId = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
+
+            try
+            {
+                var unfollow = await _followsService.StopFollowingAsync(followerId, contentCreatorId);
+                return Ok(unfollow);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }
