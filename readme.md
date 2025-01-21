@@ -3,7 +3,7 @@
 ## Sumário
 - [Introdução](#introdução)
 - [Features](#features)
-- [Pré Requisitos](#pre-requisitos)
+- [Pré Requisitos](#pré-requisitos)
 - [Instalação](#instalação)
 - [Uso](#uso)
 - [API Endpoints](#api-endpoints)
@@ -15,16 +15,19 @@ Bem-vindo à Harmoniq API! Essa API foi projetada para oferecer uma experiência
 ---------------------------------------------------------------------------
 ## Features
 - Autenticação e autorização de usuários
-- Administrar um perfil de Consumidor de Conteúdo (Autorizado para ContentConsumer)
-- Administrar um perfil de Criador de Conteúdo (Autorizado para ContentCreator)
-- Cadastro e adminisitração de álbuns (Autorizado para ContentCreator)
-- Cadastro e adminisitração de músicas (Autorizado para ContentCreator)
-- Personalização de Álbuns favoritos (Autorizado para ContentConsumer)
-- Personalização de Lista de desejos (Autorizado para ContentConsumer)
-- Cadastro e administração de carrinho de compras e pagamento (Autorizado para ContentConsumer)
-- Compra de álbuns individuais (Autorizado para ContentConsumer)
-- Download da discrogafia adquiriada pelo usuário (Autorizado para ContentConsumer)
-- Visualização de estatísticas de vendas do Criador de Conteúdo (Autorizado para ContentCreator)
+- Gerenciar um perfil de Consumidor de Conteúdo 
+- Gerenciar um perfil de Criador de Conteúdo
+- Cadastro e adminisitração de álbuns 
+- Cadastro e adminisitração de músicas 
+- Personalização de Álbuns favoritos 
+- Personalização de Lista de desejos
+- Cadastro e administração de carrinho de compras 
+- Compra de carrinhos de compras
+- Compra de álbuns individuais
+- Download da discrogafia adquiriada pelo usuário
+- Visualização de estatísticas de vendas mensais
+- Sistema de seguidores
+- Personalização e gerenciamento de Rewiews
 ---------------------------------------------------------------------------
 ## Pré-requisitos
 Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
@@ -60,6 +63,8 @@ dotnet ef migrations add MyMigration --project Harmoniq.DAL --startup-project Ha
 dotnet ef database update --project Harmoniq.DAL --startup-project Harmoniq.API
 
 ##Nota: Após adicionar uma nova migração, edite o arquivo de design da migração para definir todas as propriedades de onDelete para NoAction, evitando exclusões em cascata indesejadas.
+
+##Você pode facilmente alterar todas as propriedades pressionando CTRL + H na sua migration e alterando de {onDelete: ReferentialAction.Cascade} para {onDelete: ReferentialAction.NoAction}
 ```
 ---------------------------------------------------------------------------
 
@@ -76,8 +81,9 @@ dotnet run
 
 O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 
-## API Endpoints
 ---------------------------------------------------------------------------
+## API Endpoints
+
 ### Albums
 - **POST** `/api/Albums/album` - Cadastra um novo álbum no sistema.
 - **PUT** `/api/Albums/album` - Edita o álbum especificado.
@@ -113,14 +119,26 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 - **GET** `/api/Favorites/favorite-albums` - Retorna uma lista de álbuns favoritados pelo usuário.
 
 ### Profiles
-- **POST** `/api/Profiles/ContentConsumer` - A conta do usuário passa a ser consumidor de conteúdo.
-- **POST** `/api/Profiles/ContentCreator` - A conta do usuário passa a ser criador de conteúdo.
-- **PUT** `/api/Profiles/contentConsumer` - Edita o perfil do consumidor de conteúdo.
-- **PUT** `/api/Profiles/ContentCreator` - Edita o perfil do Criador de conteúdo.
+- **POST** `/api/Profiles/contentConsumer` - A conta do usuário passa a ser consumidor de conteúdo.
+- **POST** `/api/Profiles/contentCreator` - A conta do usuário passa a ser Criador de conteúdo.
+- **PUT** `/api/Profiles/contentConsumer` - Edita o perfil do Consumidor de conteúdo.
+- **PUT** `/api/Profiles/contentCreator` - Edita o perfil do Criador de conteúdo.
+- **GET** `/api/Profiles/contentCreator/{contentCreatorId}` - Retorna o perfil do Criador de conteúdo.
+- **GET** `/api/Profiles/contentConsumer/{contentConsumerId}` - Retorna o perfil do Consumidor de conteúdo.
+
+### Follows
+- **POST** `/api/Follows/follow` - Segue um criador de conteúdo.
+- **GET** `/api/Follows/stop-following/{contentCreatorId}` - Deixa de seguir um criador de conteúdo.
 
 ### Purchases
 - **GET** `/api/Purchases/{consumerId}` - Retorna uma lista de todos os álbuns comprados pelo usuário.
 - **GET** `/api/Purchases/download-discography/{albumId}` - Baixa na máquina do cliente o álbum específico.
+
+### Reviews
+- **POST** `/api/Reviews/album/{albumId}` - Adiciona um review a um álbum.
+- **GET** `/api/Reviews/my-reviews/{contentConsumerId}` - Retorna os reviews do usuário.
+- **DELETE** `/api/Reviews/{reviewId}` - Remove um review de um álbum.
+- **PUT** `/api/Reviews/{reviewId}` - Edita o review de um álbum.
 
 ### Songs
 - **POST** `/api/Songs/song` - Adiciona faixas de áudio aos álbuns.
@@ -129,7 +147,6 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 
 ### Statistics
 - **GET** `/api/Statistics/stats` - Retorna às estátísticas mensais de venda do criador de conteúdo.
-
 
 ### StripeWebhook
 - **POST** `/api/StripeWebhook/hook` - Processa uma compra singular do usuário na Stripe.
