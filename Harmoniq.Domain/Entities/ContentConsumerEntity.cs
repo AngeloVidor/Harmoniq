@@ -21,6 +21,7 @@ namespace Harmoniq.Domain.Entities
         public ICollection<FavoritesAlbumsEntity> FavoriteAlbums { get; set; } = new List<FavoritesAlbumsEntity>();
         public ICollection<PurchasedAlbumEntity> PurchasedAlbums { get; set; } = new List<PurchasedAlbumEntity>();
         public ICollection<WishlistEntity> Wishlist { get; set; } = new List<WishlistEntity>();
+        public ICollection<FollowersEntity> FollowingCreators { get; set; } = new List<FollowersEntity>();
 
     }
 

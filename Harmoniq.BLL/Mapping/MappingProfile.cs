@@ -92,6 +92,9 @@ namespace Harmoniq.BLL.Mapping
 
             CreateMap<FinalStatsDto, AllPurchasedAlbumsDto>();
 
+            CreateMap<FollowersEntity, FollowersDto>();
+            CreateMap<FollowersDto, FollowersEntity>();
+
 
         }
 
