@@ -3,47 +3,66 @@
 ## Sumário
 - [Introdução](#introdução)
 - [Features](#features)
+- [Pré Requisitos](#pre-requisitos)
 - [Instalação](#instalação)
 - [Uso](#uso)
 - [API Endpoints](#api-endpoints)
-
+- [Recursos Adicionais](#recursos-adicionais)
+---------------------------------------------------------------------------
 ## Introdução
-Bem vindo à API da Harmoniq! Esta aplicação oferece diversos endpoints para gerenciar usuários, produtos e futuramente Merchandise. Desenvolvida com simplicidade, segurança e eficiência em mente, esta API convida você a explorar suas funcionalidades principais que proporcionam uma experiência de e-commerce fluida e sem interrupções!
+Bem-vindo à Harmoniq API! Essa API foi projetada para oferecer uma experiência de e-commerce robusta e intuitiva, permitindo que você gerencie usuários, produtos, e em breve, Merchandise de forma eficiente. Focada em simplicidade, segurança e alto desempenho, a Harmoniq API proporciona uma integração fluida para desenvolvedores, ajudando a criar soluções escaláveis que garantem uma navegação sem interrupções para os usuários finais. Explore nossas funcionalidades e descubra como facilitar a gestão de conteúdo digital com facilidade e confiança!
 
+---------------------------------------------------------------------------
 ## Features
 - Autenticação e autorização de usuários
-- Cadastro de álbuns (Autorizado para ContentCreator)
-- Cadastro de músicas (Autorizado para ContentCreator)
+- Administrar um perfil de Consumidor de Conteúdo (Autorizado para ContentConsumer)
+- Administrar um perfil de Criador de Conteúdo (Autorizado para ContentCreator)
+- Cadastro e adminisitração de álbuns (Autorizado para ContentCreator)
+- Cadastro e adminisitração de músicas (Autorizado para ContentCreator)
 - Personalização de Álbuns favoritos (Autorizado para ContentConsumer)
 - Personalização de Lista de desejos (Autorizado para ContentConsumer)
-- Cadastro de carrinho de compras e pagamento (Autorizado para ContentConsumer)
+- Cadastro e administração de carrinho de compras e pagamento (Autorizado para ContentConsumer)
 - Compra de álbuns individuais (Autorizado para ContentConsumer)
-- Registrar um perfil de Consumidor de Conteúdo (Autorizado para ContentConsumer)
-- Registrar um perfil de Criador de Conteúdo (Autorizado para ContentCreator)
+- Download da discrogafia adquiriada pelo usuário (Autorizado para ContentConsumer)
+- Visualização de estatísticas de vendas do Criador de Conteúdo (Autorizado para ContentCreator)
+---------------------------------------------------------------------------
+## Pré-requisitos
+Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
+- [.NET SDK 8.0+](https://dotnet.microsoft.com/download/dotnet)
+- [SQL Server](https://www.microsoft.com/sql-server)
+- [Stripe Account](https://stripe.com) para configurações de pagamento
+- [AWS CLI](https://aws.amazon.com/pt/cli/) configurado para gerenciamento de buckets
+---------------------------------------------------------------------------
 
 ## Instalação
 
-Clone o repositório:
+1. Clone o repositório:
 ```bash
 git clone https://github.com/AngeloVidor/Harmoniq
 ```
 
-Para rodar a API localmente, você precisará criar um arquivo `appsettings.json` em `Harmoniq/Harmoniq.API` e nele incluir:
-- `ConnectionString` para conexão com SQL Server.
-- Configurar a seção do JWT token fornecendo uma `secret key`, `issuer`, e duração do token.
-- Uma seção para a Stripe com `SecretKey`, `PublishableKey`, `SuccessUrl`, `CancelUrl`, e chaves secretas para os webhooks que interagem com o Checkout.
-- Também é necessário adicionar informações do Bucket na AWS como `bucketname`, `accesskey`, `secretkey`, `region`.
-
-Após configurar seu `appsettings.json`, você pode executar os seguintes comandos:
-
+2. Navegue até o diretório do projeto
 ```bash
-dotnet ef migrations add MyMigration --project Harmoniq.DAL --startup-
-
-##IMPORTANTE Após adicionar a nova migration, vá até o arquivo de design da migration gerada e altere todas as propriedades de onDelete de Cascade para NoAction. Isso evitará problemas de exclusão em cascata indesejados nas relações entre as entidades.
-
-Harmoniq.API
-dotnet ef database update --project Harmoniq.DAL --startup-project Harmoniq.API
+cd Harmoniq/Harmoniq.API
 ```
+3. Crie o arquivo `appsettings.json` com as seguintes seções:
+
+   - `ConnectionString`: Configuração para conectar ao SQL Server.
+    - `JWT Token`: Configuração para autenticação de usuários.
+    - `Stripe`: Chaves para integração com o Stripe para processar pagamentos.
+    - `AWS`: Informações para armazenamento de mídia.
+
+
+4. Após configurar seu `appsettings.json`, você pode executar os seguintes comandos:
+```bash
+dotnet ef migrations add MyMigration --project Harmoniq.DAL --startup-project Harmoniq.API
+
+dotnet ef database update --project Harmoniq.DAL --startup-project Harmoniq.API
+
+##Nota: Após adicionar uma nova migração, edite o arquivo de design da migração para definir todas as propriedades de onDelete para NoAction, evitando exclusões em cascata indesejadas.
+```
+---------------------------------------------------------------------------
+
 
 ## Uso
 
@@ -58,7 +77,7 @@ dotnet run
 O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 
 ## API Endpoints
-
+---------------------------------------------------------------------------
 ### Albums
 - **POST** `/api/Albums/album` - Cadastra um novo álbum no sistema.
 - **PUT** `/api/Albums/album` - Edita o álbum especificado.
@@ -120,5 +139,10 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 - **POST** `/api/Wishlist/albums` - Adiciona um álbum à lista de desejos.
 - **GET** `/api/Wishlist/{consumerId}` - Retorna uma lista de lista de desejos do usuário.
 - **DELETE** `/api/Wishlist/wishlist/{wishlistId/album/{albumId}` - Adiciona um álbum à lista de desejos.
+---------------------------------------------------------------------------
+## Recursos Adicionais
+- [Documentação .NET](https://docs.microsoft.com/dotnet/)
+- [Documentação Stripe](https://stripe.com/docs)
+- [Documentação AWS S3](https://docs.aws.amazon.com/s3/)
 
 
