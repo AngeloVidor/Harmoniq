@@ -6,9 +6,11 @@ using Harmoniq.Domain.Entities;
 
 namespace Harmoniq.DAL.Interfaces.ContentCreatorAccount
 {
-    public interface IContentCreatorProfileRepository 
+    public interface IContentCreatorProfileRepository
     {
         Task<ContentCreatorEntity> AddContentCreatorProfile(ContentCreatorEntity contentCreatorEntity);
         Task<ContentCreatorEntity> EditContentCreatorProfileAsync(ContentCreatorEntity contentCreatorEntity);
+        Task<ContentCreatorEntity> GetContentCreatorProfileAsync(int contentCreatorId);
+
     }
 }

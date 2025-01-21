@@ -39,5 +39,9 @@ namespace Harmoniq.DAL.Repositories.ContentCreatorAccount
             return contentCreatorEntity;
         }
 
+        public async Task<ContentCreatorEntity> GetContentCreatorProfileAsync(int contentCreatorId)
+        {
+            return await _dbContext.ContentCreators.FirstOrDefaultAsync(cc => cc.Id == contentCreatorId);
+        }
     }
 }

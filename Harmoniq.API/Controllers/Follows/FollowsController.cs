@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.Follows;
 using Harmoniq.BLL.Interfaces.UserContext;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Harmoniq.API.Controllers.Follows
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "ContentConsumer")]
     public class FollowsController : ControllerBase
     {
         private readonly IFollowsService _followsService;

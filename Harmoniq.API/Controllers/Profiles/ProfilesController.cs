@@ -108,11 +108,39 @@ namespace Harmoniq.API.Controllers
         public async Task<IActionResult> UpdateContentCreatorProfileAsync([FromBody] EditContentCreatorProfileDto editContentCreator)
         {
             editContentCreator.UserId = _userContextService.GetUserIdFromContext();
-            
+
             try
             {
                 var editedProfile = await _contentCreatorProfile.EditContentCreatorProfileAsync(editContentCreator);
                 return Ok(editedProfile);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("contentCreator/{contentCreatorId}")]
+        public async Task<IActionResult> GetContentCreatorProfileAsync(int contentCreatorId)
+        {
+            try
+            {
+                var profile = await _contentCreatorProfile.GetContentCreatorProfileAsync(contentCreatorId);
+                return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("contentConsumer/{contentConsumerId}")]
+        public async Task<IActionResult> GetContentConsumerProfileAsync(int contentConsumerId)
+        {
+            try
+            {
+                var profile = await _contentConsumerAccount.GetContentConsumerProfileAsync(contentConsumerId);
+                return Ok(profile);
             }
             catch (Exception ex)
             {

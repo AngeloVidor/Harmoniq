@@ -64,5 +64,11 @@ namespace Harmoniq.BLL.Services.ContentCreatorAccount
             var editedProfile = await _contentCreatorProfile.EditContentCreatorProfileAsync(contentCreatorEntity);
             return _mapper.Map<EditContentCreatorProfileDto>(editedProfile);
         }
+
+        public async Task<ContentCreatorDto> GetContentCreatorProfileAsync(int contentCreatorId)
+        {
+            var profile = await _contentCreatorProfile.GetContentCreatorProfileAsync(contentCreatorId);
+            return _mapper.Map<ContentCreatorDto>(profile);
+        }
     }
 }
