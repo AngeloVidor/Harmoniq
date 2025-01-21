@@ -20,7 +20,7 @@ namespace Harmoniq.Domain.Entities
         public string ImageUrl { get; set; }
         public bool? IsDeleted { get; set; }
 
-
+        public ICollection<ReviewEntity> Reviews { get; set; } = new List<ReviewEntity>();
         public ICollection<WishlistEntity> Wishlist { get; set; } = new List<WishlistEntity>();
         public ICollection<AlbumSongsEntity> AlbumSongs { get; set; } = new List<AlbumSongsEntity>();
         public ICollection<PurchasedAlbumEntity> PurchasedAlbums { get; set; } = new List<PurchasedAlbumEntity>();

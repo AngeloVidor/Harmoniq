@@ -101,7 +101,14 @@ namespace Harmoniq.BLL.Mapping
             CreateMap<ContentConsumerEntity, ContentConsumerProfileDto>();
             CreateMap<ContentConsumerProfileDto, ContentConsumerEntity>();
 
-            
+            CreateMap<ReviewEntity, ReviewDto>();
+            CreateMap<ReviewDto, ReviewEntity>();
+
+            CreateMap<ReviewEntity, EditReviewDto>();
+            CreateMap<EditReviewDto, ReviewEntity>();
+
+
+
         }
 
 

@@ -4778,8 +4778,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
-              "projectPath": "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj"
+            "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
+              "projectPath": "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj"
             }
           }
         }

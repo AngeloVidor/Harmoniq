@@ -26,6 +26,7 @@ namespace Harmoniq.DAL.Context
         public DbSet<CartCheckoutEntity> CartCheckout { get; set; }
         public DbSet<AllPurchasedAlbumsEntity> AllPurchasedAlbums { get; set; }
         public DbSet<FollowersEntity> Follows { get; set; }
+        public DbSet<ReviewEntity> Reviews { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

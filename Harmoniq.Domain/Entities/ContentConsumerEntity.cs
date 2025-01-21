@@ -16,6 +16,9 @@ namespace Harmoniq.Domain.Entities
         public DateTime DateAdded = DateTime.UtcNow;
         public UserEntity User { get; set; }
         public int UserId { get; set; }
+        
+
+
 
         public ICollection<CartEntity> CartItems { get; set; } = new List<CartEntity>();
         public ICollection<FavoritesAlbumsEntity> FavoriteAlbums { get; set; } = new List<FavoritesAlbumsEntity>();
