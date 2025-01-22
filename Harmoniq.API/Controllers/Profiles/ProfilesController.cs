@@ -80,73 +80,7 @@ namespace Harmoniq.API.Controllers
             }
         }
 
-        [HttpPut("contentConsumer")]
-        public async Task<IActionResult> UpdateConsumerProfile([FromBody] EditContentConsumerDto consumer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var userId = _userContextService.GetUserIdFromContext();
-            consumer.UserId = userId;
-            var consumerId = _userContextService.GetUserIdFromContext();
-            consumer.Id = (int)await _userContextService.GetContentConsumerIdByUserIdAsync(userId);
-
-            try
-            {
-                var editedProfile = await _contentConsumerAccount.UpdateContentConsumerProfileAsync(consumer);
-                return Ok(editedProfile);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        [HttpPut("contentCreator")]
-        public async Task<IActionResult> UpdateContentCreatorProfileAsync([FromBody] EditContentCreatorProfileDto editContentCreator)
-        {
-            editContentCreator.UserId = _userContextService.GetUserIdFromContext();
-
-            try
-            {
-                var editedProfile = await _contentCreatorProfile.EditContentCreatorProfileAsync(editContentCreator);
-                return Ok(editedProfile);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        [HttpGet("contentCreator/{contentCreatorId}")]
-        public async Task<IActionResult> GetContentCreatorProfileAsync(int contentCreatorId)
-        {
-            try
-            {
-                var profile = await _contentCreatorProfile.GetContentCreatorProfileAsync(contentCreatorId);
-                return Ok(profile);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        [HttpGet("contentConsumer/{contentConsumerId}")]
-        public async Task<IActionResult> GetContentConsumerProfileAsync(int contentConsumerId)
-        {
-            try
-            {
-                var profile = await _contentConsumerAccount.GetContentConsumerProfileAsync(contentConsumerId);
-                return Ok(profile);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+     
 
     }
 }
