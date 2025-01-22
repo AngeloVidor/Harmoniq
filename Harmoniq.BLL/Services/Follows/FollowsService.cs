@@ -34,7 +34,6 @@ namespace Harmoniq.BLL.Services.Follows
             return _mapper.Map<FollowersDto>(result);
         }
 
-
         public async Task<FollowersDto> StopFollowingAsync(int followerId, int followedCreatorId)
         {
             var unfollow = await _followsRepository.StopFollowingAsync(followerId, followedCreatorId);
@@ -44,6 +43,8 @@ namespace Harmoniq.BLL.Services.Follows
             }
             return _mapper.Map<FollowersDto>(unfollow);
         }
+
+        
 
 
     }

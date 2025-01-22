@@ -9,11 +9,11 @@ namespace Harmoniq.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SmtpTeste : ControllerBase
+    public class SendEmailController : ControllerBase
     {
         private readonly IEmailSender _emailSender;
 
-        public SmtpTeste(IEmailSender emailSender)
+        public SendEmailController(IEmailSender emailSender)
         {
             _emailSender = emailSender;
         }

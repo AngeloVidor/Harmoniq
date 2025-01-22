@@ -93,5 +93,20 @@ namespace Harmoniq.DAL.Repositories.AlbumManagement
         {
             return await _dbContext.Albums.Where(a => a.ContentCreatorId == contentCreatorId).ToListAsync();
         }
+
+        public async Task<ContentCreatorEntity> GetContentCreatorByAlbumIdAsync(int albumId)
+        {
+            var album = await _dbContext.Albums.FirstOrDefaultAsync(a => a.Id == albumId);
+            if(album == null)
+            {
+                throw new Exception("Album not found");
+            }
+            var creator = await _dbContext.ContentCreators.FirstOrDefaultAsync(cc => cc.Id == album.ContentCreatorId);
+            if(creator == null)
+            {
+                throw new Exception("Content creator not found");
+            }
+            return creator;
+        }
     }
 }

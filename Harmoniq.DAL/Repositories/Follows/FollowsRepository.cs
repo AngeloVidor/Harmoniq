@@ -54,6 +54,38 @@ namespace Harmoniq.DAL.Repositories.Follows
             return follow;
         }
 
-  
+        public async Task<List<string>> GetAllFollowersEmailAsync(int creatorId)
+        {
+            var followers = await _dbContext.Follows
+                .Where(f => f.FollowedCreatorId == creatorId)
+                .ToListAsync();
+
+            var emails = new List<string>();
+
+            foreach (var follower in followers)
+            {
+                var consumer = await _dbContext.ContentConsumers
+                    .FirstOrDefaultAsync(c => c.Id == follower.FollowerConsumerId);
+
+                if (consumer == null)
+                {
+                    throw new Exception("Consumer not found");
+                }
+
+                var user = await _dbContext.Users
+                    .FirstOrDefaultAsync(u => u.Id == consumer.UserId);
+
+                if (user == null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                emails.Add(user.Email);
+            }
+
+            return emails;
+        }
+
+
     }
 }

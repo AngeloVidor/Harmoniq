@@ -12,5 +12,6 @@ namespace Harmoniq.DAL.Interfaces.Follows
         Task<int> CountFollowersAsync(int contentCreatorId);
         Task<bool> IsAlreadyFollowingAsync(int followerId, int followedCreatorId);
         Task<FollowersEntity> StopFollowingAsync(int followerId, int followedCreatorId);
+        Task<List<string>> GetAllFollowersEmailAsync(int creatorId);
     }
 }
