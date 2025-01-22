@@ -172,7 +172,6 @@ c:\Harmoniq\Harmoniq.API\obj\Debug\net8.0\refint\Harmoniq.API.dll
 c:\Harmoniq\Harmoniq.API\obj\Debug\net8.0\Harmoniq.API.pdb
 c:\Harmoniq\Harmoniq.API\obj\Debug\net8.0\Harmoniq.API.genruntimeconfig.cache
 c:\Harmoniq\Harmoniq.API\obj\Debug\net8.0\ref\Harmoniq.API.dll
-c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\appsettings.json
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\MailKit.dll
 c:\Harmoniq\Harmoniq.API\bin\Debug\net8.0\MimeKit.dll

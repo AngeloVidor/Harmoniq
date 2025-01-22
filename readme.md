@@ -14,20 +14,22 @@ Bem-vindo à Harmoniq API! Essa API foi projetada para oferecer uma experiência
 
 ---------------------------------------------------------------------------
 ## Features
-- Autenticação e autorização de usuários
-- Gerenciar um perfil de Consumidor de Conteúdo 
-- Gerenciar um perfil de Criador de Conteúdo
-- Cadastro e adminisitração de álbuns 
-- Cadastro e adminisitração de músicas 
-- Personalização de Álbuns favoritos 
-- Personalização de Lista de desejos
-- Cadastro e administração de carrinho de compras 
-- Compra de carrinhos de compras
-- Compra de álbuns individuais
-- Download da discrogafia adquiriada pelo usuário
-- Visualização de estatísticas de vendas mensais
-- Sistema de seguidores
-- Personalização e gerenciamento de Rewiews
+
+- Autenticação e Gerenciamento de Usuários.
+- Criação e administração de perfis.
+- Cadastro e administração de álbuns e músicas.
+- Listagem e personalização de álbuns favoritos.
+- Criação de listas de desejos personalizadas.
+- Criação e gerenciamento de carrinhos de compras.
+- Compra de carrinhos completos ou álbuns individuais.
+- Download de discografias adquiridas.
+- Integração com Stripe para pagamentos seguros.
+- Integração com AWS S3 para armazenamento seguro de mídia.
+- Sistema de seguidores para criadores de conteúdo.
+- Criação e gerenciamento de avaliações (reviews).
+- Envio de notificações e e-mails automáticos.
+- Acompanhamento de estatísticas mensais de vendas.
+- Suporte a webhooks para processamento de compras.
 ---------------------------------------------------------------------------
 ## Pré-requisitos
 Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
@@ -54,6 +56,7 @@ cd Harmoniq/Harmoniq.API
     - `JWT Token`: Configuração para autenticação de usuários.
     - `Stripe`: Chaves para integração com o Stripe para processar pagamentos.
     - `AWS`: Informações para armazenamento de mídia.
+    - `SmtpSettings`: Configuração para envio de e-mails.
 
 
 4. Após configurar seu `appsettings.json`, você pode executar os seguintes comandos:
@@ -62,7 +65,7 @@ dotnet ef migrations add MyMigration --project Harmoniq.DAL --startup-project Ha
 
 dotnet ef database update --project Harmoniq.DAL --startup-project Harmoniq.API
 
-##Nota: Após adicionar uma nova migração, edite o arquivo de design da migração para definir todas as propriedades de onDelete para NoAction, evitando exclusões em cascata indesejadas.
+##Nota: Após adicionar uma nova migração, edite o arquivo de design da migration para definir todas as propriedades de onDelete para NoAction, evitando exclusões em cascata indesejadas.
 
 ##Você pode facilmente alterar todas as propriedades pressionando CTRL + H na sua migration e alterando de {onDelete: ReferentialAction.Cascade} para {onDelete: ReferentialAction.NoAction}
 ```
@@ -89,8 +92,8 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 - **PUT** `/api/Albums/album` - Edita o álbum especificado.
 - **GET** `/api/Albums/albums` - Lista todos os álbuns cadastrados.
 - **GET** `/api/Albums/{albumId}` - Lista o álbum específico.
-- **POST** `/api/Albums/delete-album/{albumId}` - Inativa a visualização de um álbum.
-- **GET** `/api/Albums/albums/{contentCreatorId}` - Lista todos os álbuns do criador específico.
+- **POST** `/api/Albums/delete-album/{albumId}` - Inativa a visualização e distribuição do álbum.
+- **GET** `/api/Albums/albums/{contentCreatorId}` - Lista todos os álbuns do criador de conteúdo.
 
 ### Auth
 - **POST** `/api/Auth/register` - Registra um novo usuário no sistema.
@@ -100,7 +103,7 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 ### Cart
 - **POST** `/api/Cart/cart` - Cadastra um novo carrinho.
 - **POST** `/api/Cart/album` - Adiciona álbuns ao carrinho.
-- **PUT** `/api/Cart/albums-in-cart` - Edita os álbuns no carrinho.
+- **PUT** `/api/Cart/albums-in-cart` - Edita os álbuns do carrinho.
 - **DELETE** `/api/Cart/remove-album-from-cart` - Remove um álbum do carrinho.
 - **GET** `/api/Cart/ConsumerCart/{consumerId}` - Retorna o carrinho do usuário.
 
@@ -119,12 +122,16 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 - **GET** `/api/Favorites/favorite-albums` - Retorna uma lista de álbuns favoritados pelo usuário.
 
 ### Profiles
-- **POST** `/api/Profiles/contentConsumer` - A conta do usuário passa a ser consumidor de conteúdo.
-- **POST** `/api/Profiles/contentCreator` - A conta do usuário passa a ser Criador de conteúdo.
-- **PUT** `/api/Profiles/contentConsumer` - Edita o perfil do Consumidor de conteúdo.
-- **PUT** `/api/Profiles/contentCreator` - Edita o perfil do Criador de conteúdo.
-- **GET** `/api/Profiles/contentCreator/{contentCreatorId}` - Retorna o perfil do Criador de conteúdo.
-- **GET** `/api/Profiles/contentConsumer/{contentConsumerId}` - Retorna o perfil do Consumidor de conteúdo.
+- **POST** `/api/Profiles/contentConsumer` - A conta do usuário passa a ser do tipo Consumidor de conteúdo.
+- **POST** `/api/Profiles/contentCreator` - A conta do usuário passa a ser do tipo Criador de conteúdo.
+
+### ContentConsumerProfile
+- **GET** `/api/ContentConsumerProfile/contentConsumer/{contentConsumerId}` - Retorna o perfil do Consumidor de conteúdo.
+- **PUT** `/api/ContentConsumerProfile/contentConsumer` - Edita o perfil do Consumidor de conteúdo.
+
+### ContentCreatorProfile
+- **PUT** `/api/ContentCreatorProfile/contentCreator` - Edita o perfil do Criador de conteúdo.
+- **GET** `/api/ContentCreatorProfile/contentCreator/{contentCreatorId}` - Retorna o perfil do Criador de conteúdo.
 
 ### Follows
 - **POST** `/api/Follows/follow` - Segue um criador de conteúdo.
@@ -132,7 +139,7 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 
 ### Purchases
 - **GET** `/api/Purchases/{consumerId}` - Retorna uma lista de todos os álbuns comprados pelo usuário.
-- **GET** `/api/Purchases/download-discography/{albumId}` - Baixa na máquina do cliente o álbum específico.
+- **GET** `/api/Purchases/download-discography/{albumId}` - Baixa na máquina do cliente o álbum.
 
 ### Reviews
 - **POST** `/api/Reviews/album/{albumId}` - Adiciona um review a um álbum.
@@ -151,6 +158,9 @@ O servidor irá iniciar na porta padrão: `http://localhost:5029/`
 ### StripeWebhook
 - **POST** `/api/StripeWebhook/hook` - Processa uma compra singular do usuário na Stripe.
 - **POST** `/api/StripeWebhook/cart` - Processa a compra de um carrinho na Stripe.
+
+### SendEmail
+- **POST** `/api/SendEmail/send-email` - Admins enviam e-mails. 
 
 ### Wishlist
 - **POST** `/api/Wishlist/albums` - Adiciona um álbum à lista de desejos.
