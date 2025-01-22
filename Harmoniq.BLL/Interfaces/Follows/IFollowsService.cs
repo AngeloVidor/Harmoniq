@@ -10,6 +10,5 @@ namespace Harmoniq.BLL.Interfaces.Follows
     {
         Task<FollowersDto> FollowAsync(FollowersDto follow);
         Task<FollowersDto> StopFollowingAsync(int followerId, int followedCreatorId);
-
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Harmoniq.BLL.DTOs;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
+using Harmoniq.BLL.Interfaces.Follows;
 using Harmoniq.BLL.Interfaces.UserContext;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,11 +17,12 @@ namespace Harmoniq.API.Controllers.Profiles
 
         private readonly IContentCreatorProfileService _contentCreatorProfile;
         private readonly IUserContextService _userContextService;
-
-        public ContentCreatorProfileController(IContentCreatorProfileService contentCreatorProfile, IUserContextService userContextService)
+        private readonly IFollowsService _followsService;
+        public ContentCreatorProfileController(IContentCreatorProfileService contentCreatorProfile, IUserContextService userContextService, IFollowsService followsService)
         {
             _contentCreatorProfile = contentCreatorProfile;
             _userContextService = userContextService;
+            _followsService = followsService;
         }
 
         [HttpPut("contentCreator")]

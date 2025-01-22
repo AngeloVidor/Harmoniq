@@ -13,6 +13,7 @@ using Harmoniq.BLL.Interfaces.CartPurchase;
 using Harmoniq.BLL.Interfaces.ContentConsumerAccount;
 using Harmoniq.BLL.Interfaces.ContentCreatorAccount;
 using Harmoniq.BLL.Interfaces.Discography;
+using Harmoniq.BLL.Interfaces.Emails;
 using Harmoniq.BLL.Interfaces.Favorites;
 using Harmoniq.BLL.Interfaces.Follows;
 using Harmoniq.BLL.Interfaces.PurchasedAlbums;
@@ -35,6 +36,7 @@ using Harmoniq.BLL.Services.CartPurchase;
 using Harmoniq.BLL.Services.ContentConsumerAccount;
 using Harmoniq.BLL.Services.ContentCreatorAccount;
 using Harmoniq.BLL.Services.Discography;
+using Harmoniq.BLL.Services.Emails;
 using Harmoniq.BLL.Services.Favorites;
 using Harmoniq.BLL.Services.Follows;
 using Harmoniq.BLL.Services.PurchasedAlbums;
@@ -171,6 +173,7 @@ builder.Services.AddScoped<IFollowsService, FollowsService>();
 builder.Services.AddScoped<IFollowsRepository, FollowsRepository>();
 builder.Services.AddScoped<IReviewsRepository, ReviewsRepository>();
 builder.Services.AddScoped<IReviewsService, ReviewsService>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 
 

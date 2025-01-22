@@ -14,6 +14,7 @@
           "FluentValidation": "11.11.0",
           "Harmoniq.DAL": "1.0.0",
           "Harmoniq.Domain": "1.0.0",
+          "MailKit": "4.9.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.10",
           "Stripe.net": "47.1.0"
         },
@@ -94,11 +95,31 @@
           }
         }
       },
+      "BouncyCastle.Cryptography/2.5.0": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.5.0.6119"
+          }
+        }
+      },
       "FluentValidation/11.11.0": {
         "runtime": {
           "lib/net8.0/FluentValidation.dll": {
             "assemblyVersion": "11.0.0.0",
             "fileVersion": "11.11.0.0"
+          }
+        }
+      },
+      "MailKit/4.9.0": {
+        "dependencies": {
+          "MimeKit": "4.9.0",
+          "System.Formats.Asn1": "9.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/MailKit.dll": {
+            "assemblyVersion": "4.9.0.0",
+            "fileVersion": "4.9.0.0"
           }
         }
       },
@@ -434,6 +455,19 @@
           }
         }
       },
+      "MimeKit/4.9.0": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.5.0",
+          "System.Formats.Asn1": "9.0.0",
+          "System.Security.Cryptography.Pkcs": "8.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/MimeKit.dll": {
+            "assemblyVersion": "4.9.0.0",
+            "fileVersion": "4.9.0.0"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -554,6 +588,22 @@
           "System.Formats.Asn1": "9.0.0"
         }
       },
+      "System.Security.Cryptography.Pkcs/8.0.1": {
+        "runtime": {
+          "lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1024.46610"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1024.46610"
+          }
+        }
+      },
       "System.Security.Cryptography.ProtectedData/8.0.0": {
         "runtime": {
           "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
@@ -668,12 +718,26 @@
       "path": "bcrypt.net-next/4.0.3",
       "hashPath": "bcrypt.net-next.4.0.3.nupkg.sha512"
     },
+    "BouncyCastle.Cryptography/2.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rc7vRCq/KD3GtIwSgRtjanGaBwTb9nLenFDZnEcauWlssuuEoxcbMfWA3QWWho6QDMSOSkWjs657McdHzEtEcw==",
+      "path": "bouncycastle.cryptography/2.5.0",
+      "hashPath": "bouncycastle.cryptography.2.5.0.nupkg.sha512"
+    },
     "FluentValidation/11.11.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-cyIVdQBwSipxWG8MA3Rqox7iNbUNUTK5bfJi9tIdm4CAfH71Oo5ABLP4/QyrUwuakqpUEPGtE43BDddvEehuYw==",
       "path": "fluentvalidation/11.11.0",
       "hashPath": "fluentvalidation.11.11.0.nupkg.sha512"
+    },
+    "MailKit/4.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wRUVzYXRWbjdUixwtSp7ivVHPhWw17h+BvwIVaouBike68B56Xk9b5+QRT39EK/QN8XF7MtOgt9caHvUaCvhIQ==",
+      "path": "mailkit/4.9.0",
+      "hashPath": "mailkit.4.9.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.10": {
       "type": "package",
@@ -864,6 +928,13 @@
       "path": "microsoft.sqlserver.server/1.0.0",
       "hashPath": "microsoft.sqlserver.server.1.0.0.nupkg.sha512"
     },
+    "MimeKit/4.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DZXXMZzmAABDxFhOSMb6SE8KKxcRd/sk1E6aJTUE5ys2FWOQhznYV2Gl3klaaSfqKn27hQ32haqquH1J8Z6kJw==",
+      "path": "mimekit/4.9.0",
+      "hashPath": "mimekit.4.9.0.nupkg.sha512"
+    },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,
@@ -968,6 +1039,13 @@
       "sha512": "sha512-jIMXsKn94T9JY7PvPq/tMfqa6GAaHpElRDpmG+SuL+D3+sTw2M8VhnibKnN8Tq+4JqbPJ/f+BwtLeDMEnzAvRg==",
       "path": "system.security.cryptography.cng/5.0.0",
       "hashPath": "system.security.cryptography.cng.5.0.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.Pkcs/8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CoCRHFym33aUSf/NtWSVSZa99dkd0Hm7OCZUxORBjRB16LNhIEOf8THPqzIYlvKM0nNDAPTRBa1FxEECrgaxxA==",
+      "path": "system.security.cryptography.pkcs/8.0.1",
+      "hashPath": "system.security.cryptography.pkcs.8.0.1.nupkg.sha512"
     },
     "System.Security.Cryptography.ProtectedData/8.0.0": {
       "type": "package",

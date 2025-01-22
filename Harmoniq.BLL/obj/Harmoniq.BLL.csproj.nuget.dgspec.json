@@ -32,8 +32,8 @@
               "c:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj": {
                 "projectPath": "c:\\Harmoniq\\Harmoniq.DAL\\Harmoniq.DAL.csproj"
               },
-              "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
-                "projectPath": "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj"
+              "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
+                "projectPath": "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj"
               }
             }
           }
@@ -68,6 +68,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[11.11.0, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.9.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -123,8 +127,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
-                "projectPath": "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj"
+              "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
+                "projectPath": "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj"
               }
             }
           }
@@ -185,14 +189,14 @@
         }
       }
     },
-    "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
+    "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj",
+        "projectUniqueName": "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj",
         "projectName": "Harmoniq.Domain",
-        "projectPath": "C:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj",
+        "projectPath": "c:\\Harmoniq\\Harmoniq.Domain\\Harmoniq.Domain.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "C:\\Harmoniq\\Harmoniq.Domain\\obj\\",
+        "outputPath": "c:\\Harmoniq\\Harmoniq.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
