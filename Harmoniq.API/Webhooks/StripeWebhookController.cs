@@ -18,6 +18,7 @@ using Harmoniq.BLL.Interfaces.UserContext;
 using Harmoniq.BLL.Interfaces.CartAlbums;
 using Harmoniq.BLL.Interfaces.Cart;
 using Harmoniq.BLL.Interfaces.Stats;
+using Harmoniq.BLL.Interfaces.Emails;
 
 
 
@@ -37,9 +38,10 @@ namespace Harmoniq.API.Webhooks
         private readonly ICartAlbumsService _cartAlbumsService;
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IStatisticsService _statistics;
+        private readonly IEmailSender _emailSender;
 
 
-        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAuthService userAuthService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService, IStatisticsService statistics)
+        public StripeWebhookController(IOptions<StripeModel> stripeOptions, IAlbumManagementService albumManagementService, IUserAuthService userAuthService, IAlbumCheckoutService albumCheckout, ICartPurchaseService cartPurchaseService, IUserContextService userContextService, ICartAlbumsService cartAlbumsService, IShoppingCartService shoppingCartService, IStatisticsService statistics, IEmailSender emailSender)
         {
             _webhookSecret = stripeOptions.Value.WebhookSecret;
             _cartWebhookSecret = stripeOptions.Value.CartWebhookSecret;
@@ -51,6 +53,7 @@ namespace Harmoniq.API.Webhooks
             _cartAlbumsService = cartAlbumsService;
             _shoppingCartService = shoppingCartService;
             _statistics = statistics;
+            _emailSender = emailSender;
         }
 
         [HttpPost("hook")]
@@ -115,7 +118,6 @@ namespace Harmoniq.API.Webhooks
         [HttpPost("cart")]
         public async Task<IActionResult> HandleStripeCartWebhook()
         {
-            System.Console.WriteLine("Recieved HandleStripeCartWebhook");
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             try
             {
@@ -130,10 +132,8 @@ namespace Harmoniq.API.Webhooks
                     var albumIds = albumIdsString.Split(',').Select(int.Parse).ToList();
 
                     var contentConsumerId = int.Parse(session.Metadata["contentConsumerId"]);
-                    Console.WriteLine($"ConsumerID at Webhook: {contentConsumerId}");
 
                     int cartId = int.Parse(session.Metadata["CartId"]);
-                    System.Console.WriteLine($"CartID in Hook {cartId}");
 
                     var albums = new List<CartAlbumDto>();
                     decimal totalPrice = 0;
@@ -147,7 +147,7 @@ namespace Harmoniq.API.Webhooks
                         var albumId = await _albumManagementService.GetAlbumByIdAsync(albumPrice);
                         totalPrice += albumId.Price;
                     }
-               
+
                     foreach (var albumId in albumIds)
                     {
                         var album = await _albumManagementService.GetAlbumByIdAsync(albumId);
@@ -178,7 +178,7 @@ namespace Harmoniq.API.Webhooks
                         Price = totalPrice,
                         AlbumIds = albumIds
                     };
-                    
+
                     var paidCart = await _shoppingCartService.MarkCartAsPaidAsync(cartId, contentConsumerId);
 
                     foreach (var albumId in albumIds)
@@ -198,6 +198,9 @@ namespace Harmoniq.API.Webhooks
 
                     await _cartPurchaseService.CreateCartPurchaseAsync(cartCheckoutDto);
                     Console.WriteLine($"Album purchase recorded: Albums {albums}, ConsumerID {contentConsumerId}");
+
+                    var userEmail = await _userAuthService.GetUserEmailByConsumerIdAsync(contentConsumerId);
+                    await _emailSender.SendEmail(userEmail.Email, "Albums Purchased", "You have successfully purchased albums from Harmoniq");
                 }
                 return Ok();
 

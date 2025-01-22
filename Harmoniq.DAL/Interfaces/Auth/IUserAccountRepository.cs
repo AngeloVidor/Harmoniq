@@ -15,6 +15,7 @@ namespace Harmoniq.DAL.Interfaces.UserManagement
         Task<int> GetContentCreatorIdByUserIdAsync(int userId);
         Task<UserEntity> GetActiveUserAsync(int userId);
         Task<ContentConsumerEntity> GetContentConsumerByIdAsync(int contentConsumerId);
+        Task<UserEntity> GetUserEmailByConsumerIdAsync(int consumerId);
 
 
 

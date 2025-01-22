@@ -72,5 +72,11 @@ namespace Harmoniq.BLL.Services.UserManagement
             var userEntity = _mapper.Map<UserEntity>(user);
             return _mapper.Map<UserDto>(userEntity);
         }
+
+        public async Task<UserDto> GetUserEmailByConsumerIdAsync(int consumerId)
+        {
+            var userEmail = await _userAuthRepository.GetUserEmailByConsumerIdAsync(consumerId);
+            return _mapper.Map<UserDto>(userEmail);
+        }
     }
 }

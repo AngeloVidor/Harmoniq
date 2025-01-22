@@ -63,5 +63,19 @@ namespace Harmoniq.DAL.Repositories.UserManagement
         {
             return await _dbContext.Users.FindAsync(userId);
         }
+
+        public async Task<UserEntity> GetUserEmailByConsumerIdAsync(int consumerId)
+        {
+            var user = await _dbContext.ContentConsumers
+                .FirstOrDefaultAsync(cc => cc.Id == consumerId);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            return await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.Id == user.UserId);
+        }
     }
 }
